@@ -1,0 +1,5 @@
+WebContent/node_modules
+/node_modules
+/target
+.project
+.settings
