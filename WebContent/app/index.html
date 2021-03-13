@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="dev_share" lang="pt_BR">
+	<head>
+		<title>Dev share</title>
+		
+		<meta charset="UTF-8">
+		<meta name="description" content="Fórum de Tecnologia">
+		<meta name="keywords" content="fórum, dev, tecnologia">
+		
+		<link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+	    <link href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" rel="stylesheet" />
+	    <link href="node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet" />
+	    <link href="node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet" />
+    
+    	<!-- CSS -->	
+	</head>
+	
+	<body ng-cloak>
+		<!-- LIBS -->
+	    <script type="text/javascript" src="node_modules/lodash/lodash.min.js"></script>
+	    <script type="text/javascript" src="node_modules/moment/min/moment.min.js"></script>
+	    <script type="text/javascript" src="node_modules/moment/locale/pt-br.js"></script>
+	    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+		<script type="text/javascript" src="node_modules/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	    <script type="text/javascript" src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+	    <script type="text/javascript" src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+	    <script type="text/javascript" src="node_modules/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
+	    <script type="text/javascript" src="node_modules/restangular/dist/restangular.min.js"></script>
+	    <script type="text/javascript" src="node_modules/angular-breadcrumb/dist/angular-breadcrumb.min.js"></script>
+	    <script type="text/javascript" src="node_modules/angular-md5/angular-md5.min.js"></script>
+	    <script type="text/javascript" src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+	    <script type="text/javascript" src="node_modules/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+	    <script type="text/javascript" src="node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+	    <script type="text/javascript" src="node_modules/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+	    <script type="text/javascript" src="node_modules/angular-scroll/angular-scroll.min.js"></script>
+	    <script type="text/javascript" src="node_modules/angulartics-google-analytics/dist/angulartics-google-analytics.min.js"></script>
+	    
+		
+		<script type="text/javascript" src="app/app.module.js"></script>
+		<script type="text/javascript" src="app/app.route.js"></script>
+		<script type="text/javascript" src="app/Login/login.component.js"></script>
+		
+		<a class="btn btn-primary pull-right" analytics-on="click" ui-sref="home">teste</a>
+		<div ng-controller="LoginController as loginCtrl">
+			<h1>teste</h1>
+			<h2>{{loginCtrl.teste()}}</h2>
+		</div>
+	</body>
+</html>

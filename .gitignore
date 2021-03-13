@@ -3,3 +3,5 @@ WebContent/node_modules
 /target
 .project
 .settings
+/bin/
+.classpath
