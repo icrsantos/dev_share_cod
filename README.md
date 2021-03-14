@@ -6,9 +6,8 @@
   <h2>Tecnologias utilizadas</h2>
   <ul>
     <li>JDK 8</li>
-    <li>Node LTS</li>
-    <li>AngularJS 1.5.8</li>
-    <li>Tomcat 8.5</li>
-    <li>Driver JDBC Oracle 7-12.1.0.1</li>
+    <li>AngularJS 1.8.2</li>
+    <li>Tomcat 9</li>
+    <li>Driver JDBC Oracle </li>
   </ul>
 </html>
