@@ -1,11 +1,12 @@
 app.config(['$stateProvider', function($stateProvider) {
 	$stateProvider.state('home', {
-        url : 'teste',
-        views : {
+        url : '',
+    	views : {
             'uiViewContent' : {
-                templateUrl : 'app/Login/login.component.html'
+                templateUrl : 'app/home/Home.html'
             }
-        }, ncyBreadcrumb: {
+        },
+        ncyBreadcrumb: {
             skip: true
         }
     });
