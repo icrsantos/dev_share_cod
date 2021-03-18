@@ -24,7 +24,7 @@
 		"angular-scroll": "^1.0.2",
 		"angular-ui-bootstrap": "^2.5.6",
 		"angular-ui-mask": "^1.8.7",
-		"bootstrap": "^4.6.0",
+		"bootstrap": "3.3.6",
 		"bootstrap-datepicker": "^1.9.0",
 		"bootstrap-switch": "^3.4.0",
 		"br-masks": "^0.5.0",
