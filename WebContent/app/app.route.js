@@ -2,7 +2,11 @@ app.config(['$stateProvider', function($stateProvider) {
 	$stateProvider.state('home', {
         url : '',
     	views : {
-            'uiViewContent' : {
+    		'uiViewHeader' : {
+                templateUrl : 'app/header/Header.html'
+            },'uiViewCarousel' : {
+                templateUrl : 'app/home/Carousel.html'
+            }, 'uiViewContent' : {
                 templateUrl : 'app/home/Home.html'
             }
         },

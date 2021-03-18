@@ -16,6 +16,11 @@
 	</head>
 	
 	<body ng-cloak>
+	
+		<div ui-view="uiViewHeader"></div>
+	
+		<div ui-view="uiViewCarousel"></div>
+	
 		<div class="container">
 	      <div class="row anim-in-out anim-fade" id="container-principal" data-anim-speed="240" ui-view="uiViewContent"></div>
 	    </div>
@@ -43,7 +48,9 @@
 		
 		<script type="text/javascript" src="app/app.module.js"></script>
 		<script type="text/javascript" src="app/app.route.js"></script>
-		<script type="text/javascript" src="app/Login/login.component.js"></script>
+		<script type="text/javascript" src="app/login/login.component.js"></script>
+		<script type="text/javascript" src="app/home/Home.js"></script>
+		<script type="text/javascript" src="app/header/Header.js"></script>
 		
 	</body>
 </html>
