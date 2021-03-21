@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
+import src.Repositorio.UsuarioRepositorio
 
 app = Flask(__name__)
 CORS(app)
@@ -29,8 +30,9 @@ clientes = [
 ]
 
 
-@app.route('/api/clientes', methods=['GET'])
-def get_clientes():
+@app.route('/api/usuario', methods=['GET'])
+def validar_usuario():
+    json_usuario = request.json
     return jsonify(clientes)
 
 
