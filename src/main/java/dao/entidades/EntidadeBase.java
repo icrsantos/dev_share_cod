@@ -1,4 +1,4 @@
-package repositorios.entidades;
+package dao.entidades;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,5 +1,6 @@
-package repositorios;
+package application;
 
+import application.AccessingDataMysqlApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 

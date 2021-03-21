@@ -1,4 +1,4 @@
-package repositorios.entidades;
+package dao.entidades;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
