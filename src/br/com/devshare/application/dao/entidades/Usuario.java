@@ -1,6 +1,7 @@
-package dao.entidades;
+package application.dao.entidades;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Usuario")
@@ -13,7 +14,7 @@ public class Usuario extends EntidadeBase{
     private String senha;
 
     public Usuario(){
-
+        this.setDataAlteracao(new Date());
     }
 
     public Usuario(Integer id){
@@ -28,4 +29,14 @@ public class Usuario extends EntidadeBase{
 
     public String getSenha() { return senha; }
     public void setSenha(String senha) { this.senha = senha; }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "   \"Id\": " + this.getId() +
+                "   \"DataAlteracao\": \"" + this.getDataAlteracao() + "\"" +
+                "   \"Nome\": \"" + this.getNome() + "\"" +
+                "   \"Senha\": \"" + this.getSenha() + "\"" +
+                "}";
+    }
 }

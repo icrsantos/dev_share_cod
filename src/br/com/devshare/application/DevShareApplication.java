@@ -1,4 +1,4 @@
-package br.com.devshare.application;
+package application;
 
 import javax.ws.rs.ApplicationPath;
 

@@ -1,8 +1,8 @@
-package dao.entidades;
+package application.dao.entidades;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import utils.enums.EnumTipoPostagem;
+import application.utils.enums.EnumTipoPostagem;
 
 import javax.persistence.*;
 
@@ -30,8 +30,7 @@ public class Postagem extends EntidadeBase{
     @Column(name = "TipoPostagem", length = 20, nullable = false)
     private EnumTipoPostagem tipoPostagem;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "Titulo", length = 255, nullable = false)
+    @Column(name = "Titulo", nullable = false)
     private String titulo;
 
     @Column(name = "Conteudo", length = Integer.MAX_VALUE)
@@ -39,7 +38,7 @@ public class Postagem extends EntidadeBase{
 
     @ManyToOne(optional = false)
     @Fetch(FetchMode.JOIN)
-    @JoinColumn(name = "PostagemRespondidaId", nullable = true)
+    @JoinColumn(name = "PostagemRespondidaId")
     private Postagem postagemRespondida;
 
     public Postagem() {
