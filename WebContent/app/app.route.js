@@ -14,5 +14,19 @@ app.config(['$stateProvider', function($stateProvider) {
             skip: true
         }
     });
+    
+    $stateProvider.state('signup', {
+        url : '/signup',
+    	views : {
+    		'uiViewHeader' : {
+                templateUrl : 'app/header/Header.html'
+            }, 'uiViewContent' : {
+                templateUrl : 'app/signup/SignUp.html'
+            }
+        },
+        ncyBreadcrumb: {
+            skip: true
+        }
+    });
 
 }]);
