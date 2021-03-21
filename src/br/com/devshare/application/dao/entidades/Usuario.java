@@ -7,10 +7,13 @@ import java.util.Date;
 @Table(name = "Usuario")
 public class Usuario extends EntidadeBase{
 
+    @Column(name = "Nome", nullable = false)
     private String nome;
 
+    @Column(name = "Email", nullable = false)
     private String email;
 
+    @Column(name = "Senha", nullable = false)
     private String senha;
 
     public Usuario(){
