@@ -5,3 +5,4 @@ WebContent/node_modules
 .settings
 /bin/
 .classpath
+*/__pycache__
