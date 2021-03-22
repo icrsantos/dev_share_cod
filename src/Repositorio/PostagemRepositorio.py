@@ -1,26 +1,13 @@
-import mysql.connector
-from mysql.connector import errorcode
+from src.BancoDeDados import CriadorConexao
 
 
 class PostagemRepositorio:
     def __init__(self):  # Construtora:
-        try:
-            self.conexao = mysql.connector.connect(host="localhost",
-                                                   user="springuser",
-                                                   password="sinistro",
-                                                   port=3306,
-                                                   database="dev_share"
-                                                   )
-        except mysql.connector.Error as err:
-            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                print("Erro na validação! Confira o usuário e senha!")
-            elif err.errno == errorcode.ER_BAD_DB_ERROR:
-                print("Banco de dados não encontrado!")
-            else:
-                print(err)
+        self.conexao = None
 
     def buscar_postagens(self, texto_pesquisa):
         try:
+            self.conexao = CriadorConexao.criar_conexao()
             mycursor = self.conexao.cursor()
             sql = "SELECT * FROM postagem WHERE (" \
                   "(titulo like '%%%s%%') OR" \
@@ -33,6 +20,6 @@ class PostagemRepositorio:
             resultados = mycursor.fetchall()
             self.conexao.close()
             return str(resultados)
-        except:
-            print('Erro ao buscar postagens')
+        except Exception as erro:
+            print('Erro ao buscar postagens: ' + str(erro))
             return []

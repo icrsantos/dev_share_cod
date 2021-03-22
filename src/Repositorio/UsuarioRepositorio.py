@@ -1,26 +1,13 @@
-import mysql.connector
-from mysql.connector import errorcode
+from src.BancoDeDados import CriadorConexao
 
 
 class UsuarioRepositorio:
     def __init__(self):  # Construtora:
-        try:
-            self.conexao = mysql.connector.connect(host="localhost",
-                                                   user="springuser",
-                                                   password="sinistro",
-                                                   port=3306,
-                                                   database="dev_share"
-                                                   )
-        except mysql.connector.Error as err:
-            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                print("Erro na validação! Confira o usuário e senha!")
-            elif err.errno == errorcode.ER_BAD_DB_ERROR:
-                print("Banco de dados não encontrado!")
-            else:
-                print(err)
+        self.conexao = None
 
     def salvar(self, usuario):
         try:
+            self.conexao = CriadorConexao.criar_conexao()
             mycursor = self.conexao.cursor()
             sql = "INSERT INTO usuario (data_insercao, data_alteracao, nome, email, senha) " \
                   "VALUES (%s, %s, %s, %s, %s)"
@@ -35,6 +22,23 @@ class UsuarioRepositorio:
             self.conexao.commit()
             self.conexao.close()
             return str(mycursor.lastrowid)
-        except:
-            print('Erro ao inserir cliente: ' + str(usuario))
-            return 0
+        except Exception as erro:
+            print('Erro ao inserir cliente: ' + str(erro))
+            return str(0)
+
+    def validar(self, nome, senha):
+        try:
+            self.conexao = CriadorConexao.criar_conexao()
+            mycursor = self.conexao.cursor()
+            sql = "SELECT count(*) " \
+                  "FROM usuario " \
+                  "WHERE nome = %s " \
+                  "AND senha = %s "
+            parametros = (nome, senha)
+            mycursor.execute(sql, parametros)
+            resultado = mycursor.fetchone()
+            self.conexao.close()
+            return resultado[0] == 1
+        except Exception as erro:
+            print('Erro ao inserir cliente: ' + str(erro))
+            return False

@@ -1,9 +1,7 @@
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
-from src.Repositorio.UsuarioRepositorio import UsuarioRepositorio
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
-from src.Entidades.Usuario import Usuario
-from src.Entidades.Postagem import Postagem
+from src.Servico import LoginServico
 
 app = Flask(__name__)
 CORS(app)
@@ -11,20 +9,16 @@ CORS(app)
 
 @app.route('/api/usuario', methods=['GET'])
 def validar_usuario():
-    json_usuario = request.json
-    return 'OK'
+    usuario_json = request.json
+    LoginServico.validar_usuario(usuario_json)
+    return str(LoginServico.validar_usuario(usuario_json))
 
 
 @app.route('/api/usuario', methods=['POST'])
 def criar_usuario():
-    json_request = request.json
-    usuario_repositorio = UsuarioRepositorio()
-    usuario = Usuario(
-        json_request['nome'],
-        json_request["email"],
-        json_request['senha']
-    )
-    return usuario_repositorio.salvar(usuario)
+    usuario_json = request.json
+    id_usuario_criado = LoginServico.criar_usuario(usuario_json)
+    return id_usuario_criado
 
 
 @app.route('/api/pesquisar/<pesquisa>', methods=['GET'])
