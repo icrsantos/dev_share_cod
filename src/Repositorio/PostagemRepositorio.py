@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 
 
-class UsuarioRepositorio:
+class PostagemRepositorio:
     def __init__(self):  # Construtora:
         try:
             self.conexao = mysql.connector.connect(host="localhost",
@@ -19,16 +19,20 @@ class UsuarioRepositorio:
             else:
                 print(err)
 
-    def criar_usuario(self, usuario):
+    def buscar_postagens(self, texto_pesquisa):
         try:
             mycursor = self.conexao.cursor()
-            sql = "INSERT INTO usuario (nome, email, senha) " \
-                  "VALUES (%s, %s, %s)"
-            parametros = (usuario.nome, usuario.email, usuario.senha)
+            sql = "SELECT * FROM postagem WHERE (" \
+                  "(titulo like '%%%s%%') OR" \
+                  "(conteudo like '%%%s%%') OR" \
+                  "(tipo_postagem like '%%%s%%')" \
+                  ")" \
+                  "ORDER BY relevacia DESC "
+            parametros = texto_pesquisa
             mycursor.execute(sql, parametros)
-            self.conexao.commit()
+            resultados = mycursor.fetchall()
             self.conexao.close()
-            return str(mycursor.lastrowid)
+            return str(resultados)
         except:
-            print('Erro ao inserir cliente: ' + str(usuario))
-            return 0
+            print('Erro ao buscar postagens')
+            return []

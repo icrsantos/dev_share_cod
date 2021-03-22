@@ -1,10 +1,12 @@
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from src.Repositorio.UsuarioRepositorio import UsuarioRepositorio
+from src.Repositorio.PostagemRepositorio import PostagemRepositorio
 from src.Entidades.Usuario import Usuario
 
 app = Flask(__name__)
 CORS(app)
+
 
 @app.route('/api/usuario', methods=['GET'])
 def validar_usuario():
@@ -24,9 +26,14 @@ def criar_clientes():
     return usuario_repositorio.criar_usuario(usuario)
 
 
+@app.route('/api/pesquisar/<pesquisa>', methods=['GET'])
+def consultar_clientes(pesquisa):
+    postagem_repositorio = PostagemRepositorio()
+    return postagem_repositorio.buscar_postagens(pesquisa)
+
+
 @app.route('/api/clientes/<id_cliente>', methods=['DELETE'])
 def deletar_clientes(id_cliente):
-    clientes.pop(int(id_cliente))
     return jsonify({
         "status": "OK"
     })
@@ -34,15 +41,9 @@ def deletar_clientes(id_cliente):
 
 @app.route('/api/clientes/<id_cliente>', methods=['PUT'])
 def alterar_clientes(id_cliente):
-    clientes[int(id_cliente)] = request.json
     return jsonify({
         "status": "OK"
     })
-
-
-@app.route('/api/clientes/<id_cliente>', methods=['GET'])
-def consultar_clientes(id_cliente):
-    return clientes[int(id_cliente)]
 
 
 if __name__ == '__main__':
