@@ -19,12 +19,18 @@ class UsuarioRepositorio:
             else:
                 print(err)
 
-    def criar_usuario(self, usuario):
+    def salvar(self, usuario):
         try:
             mycursor = self.conexao.cursor()
-            sql = "INSERT INTO usuario (nome, email, senha) " \
-                  "VALUES (%s, %s, %s)"
-            parametros = (usuario.nome, usuario.email, usuario.senha)
+            sql = "INSERT INTO usuario (data_insercao, data_alteracao, nome, email, senha) " \
+                  "VALUES (%s, %s, %s, %s, %s)"
+            parametros = (
+                usuario.data_insercao,
+                usuario.data_alteracao,
+                usuario.nome,
+                usuario.email,
+                usuario.senha
+            )
             mycursor.execute(sql, parametros)
             self.conexao.commit()
             self.conexao.close()

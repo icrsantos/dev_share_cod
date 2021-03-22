@@ -3,6 +3,7 @@ from flask_cors import CORS
 from src.Repositorio.UsuarioRepositorio import UsuarioRepositorio
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
 from src.Entidades.Usuario import Usuario
+from src.Entidades.Postagem import Postagem
 
 app = Flask(__name__)
 CORS(app)
@@ -23,7 +24,7 @@ def criar_clientes():
         json_request["email"],
         json_request['senha']
     )
-    return usuario_repositorio.criar_usuario(usuario)
+    return usuario_repositorio.salvar(usuario)
 
 
 @app.route('/api/pesquisar/<pesquisa>', methods=['GET'])

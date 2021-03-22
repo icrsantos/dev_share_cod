@@ -1,5 +1,8 @@
+import datetime
+
+
 class Postagem:
-    data_inclusao = ''
+    data_insercao = ''
     data_alteracao = ''
     titulo = ''
     conteudo = ''
@@ -7,6 +10,6 @@ class Postagem:
     postagem_respondida_id = ''
     usuario_id = ''
 
-    def __init__(self, titulo, descricao):
-        self.data_inclusao = ''
-        self.data_alteracao = ''
+    def __init__(self):
+        self.data_insercao = datetime.datetime.now()
+        self.data_alteracao = datetime.datetime.now()
