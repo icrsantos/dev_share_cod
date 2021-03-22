@@ -16,7 +16,7 @@ def validar_usuario():
 
 
 @app.route('/api/usuario', methods=['POST'])
-def criar_clientes():
+def criar_usuario():
     json_request = request.json
     usuario_repositorio = UsuarioRepositorio()
     usuario = Usuario(
@@ -28,7 +28,7 @@ def criar_clientes():
 
 
 @app.route('/api/pesquisar/<pesquisa>', methods=['GET'])
-def consultar_clientes(pesquisa):
+def pesquisar_postagens(pesquisa):
     postagem_repositorio = PostagemRepositorio()
     return postagem_repositorio.buscar_postagens(pesquisa)
 
