@@ -13,13 +13,12 @@ class PostagemRepositorio:
             self.conexao = CriadorConexao.criar_conexao()
             mycursor = self.conexao.cursor()
             sql = "SELECT * FROM postagem WHERE (" \
-                  "(titulo like '%%%s%%') OR" \
-                  "(conteudo like '%%%s%%') OR" \
-                  "(tipo like '%%%s%%')" \
+                  "(titulo like '%" + texto_pesquisa + "%') OR " \
+                  "(conteudo like '%" + texto_pesquisa + "%') OR" \
+                  "(tipo like '%" + texto_pesquisa + "%')" \
                   ")" \
                   "ORDER BY relevacia DESC "
-            parametros = texto_pesquisa
-            mycursor.execute(sql, parametros)
+            mycursor.execute(sql)
             resultados = mycursor.fetchall()
             self.conexao.close()
             Logger.info('Encontrados ' + str(len(resultados)) + ' resultados', self.nome_classe)
