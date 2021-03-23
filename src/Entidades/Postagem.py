@@ -7,8 +7,9 @@ class Postagem:
     titulo = ''
     conteudo = ''
     tipo = ''
+    situacao = ''
     postagem_respondida_id = ''
-    usuario_id = ''
+    usuario_id = 0
 
     def __init__(self):
         self.data_insercao = datetime.datetime.now()

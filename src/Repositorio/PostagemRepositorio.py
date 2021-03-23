@@ -1,25 +1,59 @@
 from src.BancoDeDados import CriadorConexao
+from src.Utils import Logger
 
 
 class PostagemRepositorio:
     def __init__(self):  # Construtora:
+        self.nome_classe = 'PostagemRepositorio'
         self.conexao = None
 
     def buscar_postagens(self, texto_pesquisa):
         try:
+            Logger.info('Buscando postagens com a mensagem \'' + texto_pesquisa + '\'', self.nome_classe)
             self.conexao = CriadorConexao.criar_conexao()
             mycursor = self.conexao.cursor()
             sql = "SELECT * FROM postagem WHERE (" \
                   "(titulo like '%%%s%%') OR" \
                   "(conteudo like '%%%s%%') OR" \
-                  "(tipo_postagem like '%%%s%%')" \
+                  "(tipo like '%%%s%%')" \
                   ")" \
                   "ORDER BY relevacia DESC "
             parametros = texto_pesquisa
             mycursor.execute(sql, parametros)
             resultados = mycursor.fetchall()
             self.conexao.close()
+            Logger.info('Encontrados ' + str(len(resultados)) + ' resultados', self.nome_classe)
             return str(resultados)
         except Exception as erro:
-            print('Erro ao buscar postagens: ' + str(erro))
+            Logger.erro('Erro ao buscar postagem', erro, self.nome_classe)
             return []
+
+    def criar(self, postagem):
+        try:
+            Logger.info('Inserindo nova postagem', self.nome_classe)
+            self.conexao = CriadorConexao.criar_conexao()
+            mycursor = self.conexao.cursor()
+            sql = "INSERT INTO postagem" \
+                  "(data_insercao, data_alteracao," \
+                  "titulo, conteudo, tipo, situacao," \
+                  "postagem_respondida_id, usuario_id) " \
+                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            parametros = (
+                postagem.data_insercao,
+                postagem.data_alteracao,
+                postagem.titulo,
+                postagem.conteudo,
+                postagem.tipo,
+                postagem.situacao,
+                postagem.postagem_respondida_id,
+                postagem.usuario_id
+            )
+            mycursor.execute(sql, parametros)
+            self.conexao.commit()
+            self.conexao.close()
+            id_criacao = str(mycursor.lastrowid)
+            Logger.info('Criada a postagem ID: ' + id_criacao, self.nome_classe)
+            return id_criacao
+        except Exception as erro:
+            Logger.erro('Erro ao inserir postagem', erro, self.nome_classe)
+            return str(0)

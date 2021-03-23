@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
-from src.Servico import LoginServico
+from src.Servico import LoginServico, PostagemServico
+
 
 app = Flask(__name__)
 CORS(app)
@@ -19,6 +20,13 @@ def criar_usuario():
     usuario_json = request.json
     id_usuario_criado = LoginServico.criar_usuario(usuario_json)
     return id_usuario_criado
+
+
+@app.route('/api/postagem', methods=['POST'])
+def criar_postagem():
+    postagem_json = request.json
+    id_postagem_criada = PostagemServico.criar_postagem(postagem_json)
+    return id_postagem_criada
 
 
 @app.route('/api/pesquisar/<pesquisa>', methods=['GET'])
