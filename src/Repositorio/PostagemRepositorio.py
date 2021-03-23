@@ -1,5 +1,6 @@
 from src.BancoDeDados import CriadorConexao
 from src.Utils import Logger
+from src.Entidades.Postagem import ListaPostagensDTO
 
 
 class PostagemRepositorio:
@@ -14,18 +15,18 @@ class PostagemRepositorio:
             mycursor = self.conexao.cursor()
             sql = "SELECT * FROM postagem WHERE (" \
                   "(titulo like '%" + texto_pesquisa + "%') OR " \
-                  "(conteudo like '%" + texto_pesquisa + "%') OR" \
+                  "(conteudo like '%" + texto_pesquisa + "%') OR " \
                   "(tipo like '%" + texto_pesquisa + "%')" \
                   ")" \
                   "ORDER BY relevacia DESC "
             mycursor.execute(sql)
-            resultados = mycursor.fetchall()
+            tuplas = mycursor.fetchall()
             self.conexao.close()
-            Logger.info('Encontrados ' + str(len(resultados)) + ' resultados', self.nome_classe)
-            return str(resultados)
+            Logger.info('Encontrados ' + str(len(tuplas)) + ' resultados', self.nome_classe)
+            return ListaPostagensDTO(tuplas).json()
         except Exception as erro:
             Logger.erro('Erro ao buscar postagem', erro, self.nome_classe)
-            return []
+            return str('ERRO: ' + str(erro))
 
     def criar(self, postagem):
         try:
