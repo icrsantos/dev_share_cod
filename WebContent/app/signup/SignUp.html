@@ -10,7 +10,7 @@
 					<div class="form-group required" style="margin-top: 30px;"
 						ng-class="{'has-error': $root.invalid(signUpForm, signUpForm.username)}">
 						
-						<label class="col-sm-4 control-label">Nome de usuário</label>
+						<label class="col-sm-4 control-label" required="true">Nome de usuário</label>
 						<div class="col-sm-6">
 							<input type="text" name="username" id="username" required
 								class="form-control" ng-model="signUpCtrl.data.username"/>

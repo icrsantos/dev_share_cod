@@ -28,5 +28,19 @@ app.config(['$stateProvider', function($stateProvider) {
             skip: true
         }
     });
+    
+    $stateProvider.state('login', {
+        url : '/login',
+    	views : {
+    		'uiViewHeader' : {
+                templateUrl : 'app/header/Header.html'
+            }, 'uiViewContent' : {
+                templateUrl : 'app/login/login.component.html'
+            }
+        },
+        ncyBreadcrumb: {
+            skip: true
+        }
+    });
 
 }]);
