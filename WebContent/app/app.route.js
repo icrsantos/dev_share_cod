@@ -3,11 +3,11 @@ app.config(['$stateProvider', function($stateProvider) {
         url : '',
     	views : {
     		'uiViewHeader' : {
-                templateUrl : 'app/header/Header.html'
+                templateUrl : 'header/Header.html'
             },'uiViewCarousel' : {
-                templateUrl : 'app/home/Carousel.html'
+                templateUrl : 'home/Carousel.html'
             }, 'uiViewContent' : {
-                templateUrl : 'app/home/Home.html'
+                templateUrl : 'home/Home.html'
             }
         },
         ncyBreadcrumb: {
