@@ -19,9 +19,9 @@ app.config(['$stateProvider', function($stateProvider) {
         url : '/signup',
     	views : {
     		'uiViewHeader' : {
-                templateUrl : 'app/header/Header.html'
+                templateUrl : 'header/Header.html'
             }, 'uiViewContent' : {
-                templateUrl : 'app/signup/SignUp.html'
+                templateUrl : 'signup/SignUp.html'
             }
         },
         ncyBreadcrumb: {
