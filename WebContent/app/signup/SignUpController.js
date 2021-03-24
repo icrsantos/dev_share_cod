@@ -1,9 +1,10 @@
-app.controller('SignUpController', function($rootScope) {
+app.controller('SignUpController', function($rootScope, DevShareService) {
 	this.data = {};
 	this.processando = false;
 	
 	this.save = function() {
-		return "teste";
+		this.processando = true;
+        DevShareService.objRest.one('/usuario').customPOST(this.data);
 	}
 	
 });

@@ -13,7 +13,7 @@
 						<label class="col-sm-4 control-label" required="true">Nome de usuário</label>
 						<div class="col-sm-6">
 							<input type="text" name="username" id="username" required
-								class="form-control" ng-model="signUpCtrl.data.username"/>
+								class="form-control" ng-model="signUpCtrl.data.nome"/>
 						</div>
 						
 						<div ng-messages="signUpForm.username.$error" ng-if="$root.invalid(signUpForm, signUpForm.username)">
@@ -41,7 +41,7 @@
 						<label class="col-sm-4 control-label">Senha</label>
 						<div class="col-sm-6">
 							<input type="password" name="password" id="password" required
-								class="form-control" ng-model="signUpCtrl.data.password"/>
+								class="form-control" ng-model="signUpCtrl.data.senha"/>
 						</div>
 						
 						<div ng-messages="signUpForm.password.$error" ng-if="$root.invalid(signUpForm, signUpForm.password)">
