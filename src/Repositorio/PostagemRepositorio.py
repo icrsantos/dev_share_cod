@@ -23,7 +23,7 @@ class PostagemRepositorio:
             tuplas = mycursor.fetchall()
             self.conexao.close()
             Logger.info('Encontrados ' + str(len(tuplas)) + ' resultados', self.nome_classe)
-            return ListaPostagensDTO(tuplas).json()
+            return tuplas
         except Exception as erro:
             Logger.erro('Erro ao buscar postagem', erro, self.nome_classe)
             return str('ERRO: ' + str(erro))

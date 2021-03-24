@@ -1,6 +1,7 @@
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
 from src.Entidades.Postagem import Postagem
 from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
+from src.Entidades.Postagem import ListaPostagensDTO
 
 
 def criar_postagem(postagem_json):
@@ -28,3 +29,10 @@ def validar_postagem_json(postagem_json):
                         "Insira \'" + TipoPostagemEnum.PERGUNTA + "\' ou \'" + TipoPostagemEnum.RESPOSTA + "\'")
     if 'usuarioId' not in postagem_json:
         raise Exception("A ID do usuário não foi inseida!")
+
+
+def pesquisar_postagens(pesquisa):
+    postagem_repositorio = PostagemRepositorio()
+    tuplas = postagem_repositorio.buscar_postagens(pesquisa)
+    return ListaPostagensDTO(tuplas).json()
+

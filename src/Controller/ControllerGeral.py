@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
-from src.Repositorio.PostagemRepositorio import PostagemRepositorio
 from src.Servico import LoginServico, PostagemServico
 
 
@@ -31,8 +30,7 @@ def criar_postagem():
 
 @app.route('/api/pesquisar/<pesquisa>', methods=['GET'])
 def pesquisar_postagens(pesquisa):
-    postagem_repositorio = PostagemRepositorio()
-    return postagem_repositorio.buscar_postagens(pesquisa)
+    return PostagemServico.pesquisar_postagens(pesquisa)
 
 
 @app.route('/api/clientes/<id_cliente>', methods=['DELETE'])
