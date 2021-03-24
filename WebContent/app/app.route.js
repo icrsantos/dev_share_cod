@@ -33,9 +33,9 @@ app.config(['$stateProvider', function($stateProvider) {
         url : '/login',
     	views : {
     		'uiViewHeader' : {
-                templateUrl : 'app/header/Header.html'
+                templateUrl : 'header/Header.html'
             }, 'uiViewContent' : {
-                templateUrl : 'app/login/login.component.html'
+                templateUrl : 'login/login.component.html'
             }
         },
         ncyBreadcrumb: {
