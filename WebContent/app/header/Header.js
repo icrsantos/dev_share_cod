@@ -1,4 +1,4 @@
-app.controller("HeaderCrontoller", function($stateParams) {
+app.controller("HeaderController", function($stateParams) {
 	
 	this.data = {};
 })
