@@ -1,6 +1,5 @@
 from src.BancoDeDados import CriadorConexao
 from src.Utils import Logger
-from src.Entidades.Postagem import ListaPostagensDTO
 
 
 class PostagemRepositorio:
