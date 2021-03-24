@@ -6,3 +6,4 @@ WebContent/node_modules
 /bin/
 .classpath
 */__pycache__
+.idea
