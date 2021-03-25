@@ -3,12 +3,20 @@ from flask_cors import CORS
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
 from src.Servico import LoginServico, PostagemServico
 
-
 app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/api/usuario', methods=['GET'])
+@app.after_request
+def after_request(response):
+    header = response.headers
+    header['Access-Control-Allow-Origin'] = 'http://localhost:63342'
+    header['Access-Control-Allow-Credentials'] = 'true'
+    header['Access-Control-Allow-Headers'] = '*'
+    return response
+
+
+@app.route('/api/login', methods=['POST'])
 def validar_usuario():
     usuario_json = request.json
     LoginServico.validar_usuario(usuario_json)
