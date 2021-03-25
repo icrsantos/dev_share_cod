@@ -4,9 +4,9 @@ app.controller('SignUpController', function($rootScope, DevShareService) {
 	
 	this.save = function() {
 		this.processando = true;
-        DevShareService.one('/usuario').customPOST(this.data)
-        .then(() => {
-
+        DevShareService.objRest.one('/usuario').customPOST(this.data)
+        .then((response) => {
+            return response;
         }).finally(() => {
             this.processando = false;
         });

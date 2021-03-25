@@ -37,9 +37,9 @@
 			<form class="nav navbar-nav navbar-center col-sm-7" style=" margin-top: 8px;" role="search">
 		    	<div class="input-group">
 		        	<input type="text" class="form-control col-sm-12" placeholder="Pesquisar"
-		        		name="search" id="search" ng-model="headerCtrl.data.search">
+		        		name="search" id="search" ng-model="headerCtrl.pesquisa">
 			    	<div class="input-group-btn">
-			    		<button ui-sref="" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+			    		<button ng-click="headerCtrl.buscar()" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
 			    	</div>
 			    </div>
 			</form>
