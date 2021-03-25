@@ -7,3 +7,5 @@ WebContent/node_modules
 .classpath
 */__pycache__
 .idea
+.venv
+venv
