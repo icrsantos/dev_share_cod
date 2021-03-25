@@ -39,7 +39,7 @@
 		        	<input type="text" class="form-control col-sm-12" placeholder="Pesquisar"
 		        		name="search" id="search" ng-model="headerCtrl.pesquisa">
 			    	<div class="input-group-btn">
-			    		<button ng-click="headerCtrl.buscar()" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+			    		<button ui-sref="posts({search: headerCtrl.pesquisa})" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
 			    	</div>
 			    </div>
 			</form>

@@ -9,7 +9,7 @@ class PostagemRepositorio:
 
     def buscar_postagens(self, texto_pesquisa):
         try:
-            Logger.info('Buscando postagens com a mensagem \'' + texto_pesquisa + '\'', self.nome_classe)
+            Logger.info('Buscando posts com a mensagem \'' + texto_pesquisa + '\'', self.nome_classe)
             self.conexao = CriadorConexao.criar_conexao()
             mycursor = self.conexao.cursor()
             sql = "SELECT * FROM postagem WHERE (" \
