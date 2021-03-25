@@ -5,9 +5,9 @@
   
   <h2>Tecnologias utilizadas</h2>
   <ul>
-    <li>JDK 8</li>
+    <li>Python</li>
     <li>AngularJS 1.8.2</li>
-    <li>Tomcat 9</li>
-    <li>Driver JDBC Oracle </li>
+    <li>BootStrap</li>
+    <li>Mysql</li>
   </ul>
 </html>
