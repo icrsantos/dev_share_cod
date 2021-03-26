@@ -5,7 +5,7 @@
   
   <h2>Tecnologias utilizadas</h2>
   <ul>
-    <li>Phyton</li>
+    <li>Python</li>
     <li>AngularJS 1.8.2</li>
     <li>Bootstrap 3</li>
     <li>Mysql</li>

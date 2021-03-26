@@ -1,4 +1,4 @@
-app.controller('SignUpController', function($rootScope, DevShareService) {
+app.controller('SignUpController', function($rootScope, DevShareService, $state) {
 	this.data = {};
 	this.processando = false;
 	
@@ -6,7 +6,7 @@ app.controller('SignUpController', function($rootScope, DevShareService) {
 		this.processando = true;
         DevShareService.objRest.one('/usuario').customPOST(this.data)
         .then((response) => {
-            return response;
+            $state.go("home");
         }).finally(() => {
             this.processando = false;
         });
