@@ -12,3 +12,8 @@
   background-size: cover;
   position: relative;
 }
+
+.post-header{
+  display: flex;
+  justify-content: space-between;
+}

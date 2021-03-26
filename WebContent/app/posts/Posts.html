@@ -1,5 +1,18 @@
 <div ng-controller="PostsController as postCtrl" style="padding-top: 60px;">
-	<li ng-repeat="post in postCtrl.retornoPesquisa">
-		{{post}}
-	</li>
+
+    <div class="panel-group">
+
+        <div class="row" ng-repeat="post in postCtrl.retornoPesquisa">
+            <div class="panel panel-info ">
+                <div class="panel-heading post-header">
+                    <h5>{{post.titulo}}</h5>
+                    <div>
+                        <h5>{{post.relevancia}}</h5>
+                    </div>
+                </div>
+                <div class="panel-body">{{post.descricao}}</div>
+            </div>
+        </div>
+
+    </div>
 </div>
