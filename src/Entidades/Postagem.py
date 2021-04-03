@@ -27,7 +27,6 @@ class Postagem:
         self.postagem_respondida_id = postagem_json['postagemRespondidaId']
 
 
-
 class ListaPostagensDTO:
     def __init__(self, tuplas):
         lista_postagem = '[\n'
