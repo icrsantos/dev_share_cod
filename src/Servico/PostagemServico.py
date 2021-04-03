@@ -9,8 +9,7 @@ def criar_postagem(postagem_json):
     postagem = Postagem()
     postagem.definir_por_json(postagem_json)
     # TODO: Implementar Tema (categoria da postagem)
-    postagem_repositorio = PostagemRepositorio()
-    return postagem_repositorio.criar(postagem)
+    return __criar_ou_atualizar(postagem)
 
 
 def validar_postagem_json(postagem_json):
@@ -31,3 +30,11 @@ def pesquisar_postagens(pesquisa):
     tuplas = postagem_repositorio.buscar_postagens(pesquisa)
     return ListaPostagensDTO(tuplas).json()
 
+
+# funções que começam com '__' são privadas (em teoria).
+def __criar_ou_atualizar(postagem):
+    postagem_repositorio = PostagemRepositorio()
+    if postagem.id is None or not postagem_repositorio.postagem_existe(postagem.id):
+        return postagem_repositorio.criar(postagem)
+    else:
+        return postagem_repositorio.atualizar(postagem)

@@ -5,6 +5,7 @@ from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
 
 
 class Postagem:
+    id = 0
     data_insercao = ''
     data_alteracao = ''
     titulo = ''
@@ -19,6 +20,7 @@ class Postagem:
         self.data_alteracao = datetime.datetime.now()
 
     def definir_por_json(self, postagem_json):
+        self.id = postagem_json['id']
         self.titulo = postagem_json['titulo']
         self.conteudo = postagem_json['conteudo']
         self.tipo = postagem_json['tipo']
