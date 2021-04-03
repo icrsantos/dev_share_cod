@@ -35,7 +35,7 @@ def criar_postagem():
 
 @app.route('/api/pesquisar/<pesquisa>', methods=['GET'])
 def pesquisar_postagens(pesquisa):
-    return PostagemServico.pesquisar_postagens(pesquisa)
+    return jsonify(PostagemServico.pesquisar_postagens(pesquisa))
 
 
 @app.route('/api/clientes/<id_cliente>', methods=['DELETE'])

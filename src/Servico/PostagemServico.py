@@ -1,13 +1,18 @@
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
 from src.Entidades.Postagem import Postagem
 from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
-from src.Entidades.Postagem import ListaPostagensDTO
+from src.Entidades.Postagem import PostagemDTO
+from src.Utils.Logger import Logger
+
+log = Logger('PostagemServico')
 
 
 def criar_postagem(postagem_json):
     validar_postagem_json(postagem_json)
     postagem = Postagem()
     postagem.definir_por_json(postagem_json)
+    if postagem.tipo == TipoPostagemEnum.RESPOSTA:
+        __responder_postagem(postagem.postagem_respondida_id)
     # TODO: Implementar Tema (categoria da postagem)
     return __criar_ou_atualizar(postagem)
 
@@ -28,13 +33,26 @@ def validar_postagem_json(postagem_json):
 def pesquisar_postagens(pesquisa):
     postagem_repositorio = PostagemRepositorio()
     tuplas = postagem_repositorio.buscar_postagens(pesquisa)
-    return ListaPostagensDTO(tuplas).json()
+    return PostagemDTO(tuplas).json()
 
 
 # funções que começam com '__' são privadas (em teoria).
+def __responder_postagem(postagem_id):
+    try:
+        postagem_repositorio = PostagemRepositorio()
+        tupla = postagem_repositorio.buscar_postagem(postagem_id)
+        postagem_respondida = Postagem()
+        postagem_respondida.definir_por_json(PostagemDTO(tupla).json())
+        postagem_respondida.situacao = SituacaoPostagemEnum.RESPONDIDA
+        __criar_ou_atualizar(postagem_respondida)
+    except Exception as erro:
+        log.erro('Erro ao responder a postagem ID: ' + str(postagem_id), erro)
+
+
 def __criar_ou_atualizar(postagem):
     postagem_repositorio = PostagemRepositorio()
-    if postagem.id is None or not postagem_repositorio.postagem_existe(postagem.id):
+    ja_existe = len(postagem_repositorio.buscar_postagem(postagem.id)) == 1
+    if postagem.id is None or not ja_existe:
         return postagem_repositorio.criar(postagem)
     else:
         return postagem_repositorio.atualizar(postagem)

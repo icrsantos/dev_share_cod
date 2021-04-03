@@ -112,16 +112,16 @@ class PostagemRepositorio:
             self.log.erro('Erro ao buscar respostas da postagem ID: ' + str(postagem_id), erro)
             return str('ERRO: ' + str(erro))
 
-    def postagem_existe(self, postagem_id):
+    def buscar_postagem(self, postagem_id):
         try:
             self.log.info('Conferindo existência de postagem ID: ' + str(postagem_id))
             executor = self.__criar_executor()
             sql = "SELECT * FROM postagem WHERE" \
                   "(id = %s) "
             executor.execute(sql, (postagem_id,))
-            tuplas = executor.fetchall()
+            tupla = executor.fetchall()
             self.__fechar_executor()
-            return len(tuplas) == 1
+            return tupla
         except Exception as erro:
             self.log.erro('Erro ao conferir existência da postagem ID: ' + str(postagem_id), erro)
-            return False
+            return None
