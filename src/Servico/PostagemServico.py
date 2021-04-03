@@ -7,12 +7,7 @@ from src.Entidades.Postagem import ListaPostagensDTO
 def criar_postagem(postagem_json):
     validar_postagem_json(postagem_json)
     postagem = Postagem()
-    postagem.titulo = postagem_json['titulo']
-    postagem.conteudo = postagem_json['conteudo']
-    postagem.tipo = postagem_json['tipo']
-    postagem.usuario_id = postagem_json['usuarioId']
-    postagem.situacao = SituacaoPostagemEnum.NAO_RESPONDIDA
-    postagem.postagem_respondida_id = None  # TODO: Implementar reposta posteriormente
+    postagem.definir_por_json(postagem_json)
     # TODO: Implementar Tema (categoria da postagem)
     postagem_repositorio = PostagemRepositorio()
     return postagem_repositorio.criar(postagem)

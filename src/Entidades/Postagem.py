@@ -1,6 +1,7 @@
 import datetime
 from flask import jsonify
 import json
+from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
 
 
 class Postagem:
@@ -16,6 +17,15 @@ class Postagem:
     def __init__(self):
         self.data_insercao = datetime.datetime.now()
         self.data_alteracao = datetime.datetime.now()
+
+    def definir_por_json(self, postagem_json):
+        self.titulo = postagem_json['titulo']
+        self.conteudo = postagem_json['conteudo']
+        self.tipo = postagem_json['tipo']
+        self.usuario_id = postagem_json['usuarioId']
+        self.situacao = SituacaoPostagemEnum.NAO_RESPONDIDA
+        self.postagem_respondida_id = postagem_json['postagemRespondidaId']
+
 
 
 class ListaPostagensDTO:

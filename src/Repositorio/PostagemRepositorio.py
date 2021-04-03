@@ -1,15 +1,15 @@
 from src.BancoDeDados import CriadorConexao
-from src.Utils import Logger
+from src.Utils.Logger import Logger
 
 
 class PostagemRepositorio:
     def __init__(self):  # Construtora:
-        self.nome_classe = 'PostagemRepositorio'
         self.conexao = None
+        self.log = Logger('PostagemRepositorio')
 
     def buscar_postagens(self, texto_pesquisa):
         try:
-            Logger.info('Buscando posts com a mensagem \'' + texto_pesquisa + '\'', self.nome_classe)
+            self.log.info('Buscando posts com a mensagem \'' + texto_pesquisa + '\'')
             self.conexao = CriadorConexao.criar_conexao()
             mycursor = self.conexao.cursor()
             sql = "SELECT * FROM postagem WHERE (" \
@@ -21,15 +21,15 @@ class PostagemRepositorio:
             mycursor.execute(sql)
             tuplas = mycursor.fetchall()
             self.conexao.close()
-            Logger.info('Encontrados ' + str(len(tuplas)) + ' resultados', self.nome_classe)
+            self.log.info('Encontrados ' + str(len(tuplas)) + ' resultados')
             return tuplas
         except Exception as erro:
-            Logger.erro('Erro ao buscar postagem', erro, self.nome_classe)
+            self.log.erro('Erro ao buscar postagem', erro)
             return str('ERRO: ' + str(erro))
 
     def criar(self, postagem):
         try:
-            Logger.info('Inserindo nova postagem', self.nome_classe)
+            self.log.info('Inserindo nova postagem')
             self.conexao = CriadorConexao.criar_conexao()
             mycursor = self.conexao.cursor()
             sql = "INSERT INTO postagem" \
@@ -51,8 +51,8 @@ class PostagemRepositorio:
             self.conexao.commit()
             self.conexao.close()
             id_criacao = str(mycursor.lastrowid)
-            Logger.info('Criada a postagem ID: ' + id_criacao, self.nome_classe)
+            self.log.info('Criada a postagem ID: ' + id_criacao)
             return id_criacao
         except Exception as erro:
-            Logger.erro('Erro ao inserir postagem', erro, self.nome_classe)
+            self.log.erro('Erro ao inserir postagem', erro)
             return str(0)
