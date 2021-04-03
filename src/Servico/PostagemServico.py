@@ -39,6 +39,7 @@ def pesquisar_postagens(pesquisa):
 # funções que começam com '__' são privadas (em teoria).
 def __responder_postagem(postagem_id):
     try:
+        log.info('Respondendo postagem ID: ' + str(postagem_id))
         postagem_repositorio = PostagemRepositorio()
         tupla = postagem_repositorio.buscar_postagem(postagem_id)
         postagem_respondida = Postagem()
