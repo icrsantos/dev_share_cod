@@ -32,7 +32,7 @@ def validar_postagem_json(postagem_json):
 
 def pesquisar_postagens(pesquisa):
     postagem_repositorio = PostagemRepositorio()
-    tuplas = postagem_repositorio.buscar_postagens(pesquisa)
+    tuplas = postagem_repositorio.pesquisar_postagens_por_texto(pesquisa)
     return PostagemDTO(tuplas).json()
 
 
@@ -41,7 +41,7 @@ def __responder_postagem(postagem_id):
     try:
         log.info('Respondendo postagem ID: ' + str(postagem_id))
         postagem_repositorio = PostagemRepositorio()
-        tupla = postagem_repositorio.buscar_postagem(postagem_id)
+        tupla = postagem_repositorio.buscar_por_id(postagem_id)
         postagem_respondida = Postagem()
         postagem_respondida.definir_por_json(PostagemDTO(tupla).json())
         postagem_respondida.situacao = SituacaoPostagemEnum.RESPONDIDA
@@ -52,7 +52,7 @@ def __responder_postagem(postagem_id):
 
 def __criar_ou_atualizar(postagem):
     postagem_repositorio = PostagemRepositorio()
-    ja_existe = len(postagem_repositorio.buscar_postagem(postagem.id)) == 1
+    ja_existe = len(postagem_repositorio.buscar_por_id(postagem.id)) == 1
     if postagem.id is None or not ja_existe:
         return postagem_repositorio.criar(postagem)
     else:

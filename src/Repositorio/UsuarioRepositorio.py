@@ -7,11 +7,20 @@ class UsuarioRepositorio:
         self.log = Logger('UsuarioRepositorio')
         self.conexao = None
 
+    def __criar_executor(self):
+        self.conexao = CriadorConexao.criar_conexao()
+        return self.conexao.cursor()
+
+    def __commit_mudancas(self):
+        self.conexao.commit()
+
+    def __fechar_executor(self):
+        self.conexao.close()
+
     def salvar(self, usuario):
         try:
             self.log.info('Validando usuario ' + usuario.nome)
-            self.conexao = CriadorConexao.criar_conexao()
-            mycursor = self.conexao.cursor()
+            executor = self.__criar_executor()
             sql = "INSERT INTO usuario " \
                   "(data_insercao, data_alteracao, nome, email, senha) " \
                   "VALUES (%s, %s, %s, %s, %s)"
@@ -22,10 +31,10 @@ class UsuarioRepositorio:
                 usuario.email,
                 usuario.senha
             )
-            mycursor.execute(sql, parametros)
-            self.conexao.commit()
-            self.conexao.close()
-            id_criacao = str(mycursor.lastrowid)
+            executor.execute(sql, parametros)
+            self.__commit_mudancas()
+            self.__fechar_executor()
+            id_criacao = str(executor.lastrowid)
             self.log.info('Criado o usuario ID: ' + id_criacao)
             return id_criacao
         except Exception as erro:
@@ -35,16 +44,15 @@ class UsuarioRepositorio:
     def validar(self, nome, senha):
         try:
             self.log.info('Validando usuario ' + nome)
-            self.conexao = CriadorConexao.criar_conexao()
-            mycursor = self.conexao.cursor()
+            executor = self.__criar_executor()
             sql = "SELECT count(*) " \
                   "FROM usuario " \
                   "WHERE nome = %s " \
                   "AND senha = %s "
             parametros = (nome, senha)
-            mycursor.execute(sql, parametros)
-            resultado = mycursor.fetchone()
-            self.conexao.close()
+            executor.execute(sql, parametros)
+            resultado = executor.fetchone()
+            self.__fechar_executor()
             self.log.info('Usuario ' + nome + ' validado: ' + str(resultado[0] == 1))
             return resultado[0] == 1
         except Exception as erro:
