@@ -18,12 +18,17 @@
 	
 	<body ng-cloak>
 
+		<!-- View para o conteúdos de login e cadastro -->
+    	<div ui-view="uiViewLoginSinup"></div>
+
 		<div ui-view="uiViewHeader"></div>
 
-		<div ui-view="uiViewCarousel"></div>
-
 		<div class="container">
-	      <div class="row anim-in-out anim-fade" id="container-principal" data-anim-speed="240" ui-view="uiViewContent"></div>
+	  		<div class="row anim-in-out anim-fade"
+		   		id="container-principal"
+		   		data-anim-speed="240"
+		   		ui-view="uiViewContent">
+	  		</div>
 	    </div>
 	
 		<!-- LIBS -->

@@ -32,9 +32,7 @@ app.config(['$stateProvider', function($stateProvider) {
     $stateProvider.state('login', {
         url : '/login',
     	views : {
-    		'uiViewHeader' : {
-                templateUrl : 'header/Header.html'
-            }, 'uiViewContent' : {
+    		'uiViewLoginSinup' : {
                 templateUrl : 'login/login.component.html'
             }
         },
