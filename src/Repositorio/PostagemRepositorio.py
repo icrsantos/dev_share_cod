@@ -82,7 +82,7 @@ class PostagemRepositorio:
             sql = "SELECT * FROM postagem WHERE" \
                   "(id = %s) "
             executor.execute(sql, (postagem_id,))
-            tupla = executor.fetchall()
+            tupla = executor.fetchone()
             self.__fechar_executor()
             return tupla
         except Exception as erro:

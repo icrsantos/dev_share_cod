@@ -19,7 +19,7 @@ class UsuarioRepositorio:
 
     def salvar(self, usuario):
         try:
-            self.log.info('Validando usuario ' + usuario.nome)
+            self.log.info('Criando o usuario: ' + usuario.nome)
             executor = self.__criar_executor()
             sql = "INSERT INTO usuario " \
                   "(data_insercao, data_alteracao, nome, email, senha) " \
@@ -58,3 +58,18 @@ class UsuarioRepositorio:
         except Exception as erro:
             self.log.erro('Erro ao validar usuario', erro)
             return False
+
+    def buscar_por_id(self, usuario_id):
+        try:
+            self.log.info('Buscando usuario ID: ' + str(usuario_id))
+            executor = self.__criar_executor()
+            sql = "SELECT * " \
+                  "FROM usuario " \
+                  "WHERE id = %s "
+            executor.execute(sql, (usuario_id,))
+            resultado = executor.fetchone()
+            self.__fechar_executor()
+            return resultado
+        except Exception as erro:
+            self.log.erro('Erro ao buscar usuario ID: ' + str(usuario_id), erro)
+            return None

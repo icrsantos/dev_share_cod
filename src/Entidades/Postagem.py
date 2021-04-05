@@ -1,5 +1,4 @@
 import datetime
-from flask import jsonify
 import json
 from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
 
@@ -12,50 +11,60 @@ class Postagem:
     conteudo = ''
     tipo = ''
     situacao = ''
-    postagem_respondida_id = ''
-    usuario_id = 0
+    postagem_respondida_id = None
+    usuario_id = None
+    relevancia = 0
 
     def __init__(self):
         self.data_insercao = datetime.datetime.now()
         self.data_alteracao = datetime.datetime.now()
+        self.postagem_respondida_id = None
+        self.relevancia = 0
 
     def definir_por_json(self, postagem_json):
-        self.id = postagem_json['id']
+        if "id" in postagem_json:
+            self.id = postagem_json['id']
         self.titulo = postagem_json['titulo']
         self.conteudo = postagem_json['conteudo']
         self.tipo = postagem_json['tipo']
         self.usuario_id = postagem_json['usuarioId']
         self.situacao = SituacaoPostagemEnum.NAO_RESPONDIDA
-        self.postagem_respondida_id = postagem_json['postagemRespondidaId']
+        if "postagemRespondidaId" in postagem_json:
+            self.postagem_respondida_id = postagem_json['postagemRespondidaId']
+        if "relevancia" in postagem_json:
+            self.relevancia = postagem_json["relevancia"]
 
-
-class PostagemDTO:
-    def __init__(self, tuplas):
-        lista_postagem = ''
-        if len(tuplas) > 1:
-            lista_postagem += '[\n'
-        for tupla in tuplas:
-            lista_postagem += '\t{\n'
-            lista_postagem += '\t\t\"id\": ' + str(tupla[0]) + ',\n'
-            lista_postagem += '\t\t\"titulo\": \"' + tupla[4] + '\",\n'
-            lista_postagem += '\t\t\"conteudo\": \"' + tupla[2] + '\",\n'
-            lista_postagem += '\t\t\"tipo\": \"' + tupla[3] + '\",\n'
-            lista_postagem += '\t\t\"postagemRespondidaId\": ' \
-                              + (str(tupla[5]) if tupla[5] is not None else 'null') + ',\n'
-            lista_postagem += '\t\t\"usuarioId\": ' + str(tupla[6]) + ',\n'
-            lista_postagem += '\t\t\"dataInsercao\": \"' + str(tupla[7]) + '\",\n'
-            lista_postagem += '\t\t\"relevancia\": ' + str(tupla[8]) + ',\n'
-            lista_postagem += '\t\t\"situacao\": \"' + tupla[9] + '\"\n'
-            if tuplas.index(tupla) != (len(tuplas) - 1):
-                lista_postagem += '\t},\n'
-            else:
-                lista_postagem += '\t}\n'
-        if len(tuplas) > 1:
-            lista_postagem += ']'
-        self.texto_json = lista_postagem
-
-    def __str__(self):
-        return self.texto_json
+    def definir_por_tupla(self, tupla):
+        self.id = tupla[0]
+        self.data_insercao = tupla[7]
+        self.data_alteracao = tupla[1]
+        self.titulo = tupla[4]
+        self.conteudo = tupla[2]
+        self.tipo = tupla[3]
+        self.usuario_id = tupla[6]
+        self.situacao = tupla[9]
+        self.postagem_respondida_id = tupla[5]
+        self.relevancia = tupla[8]
 
     def json(self):
-        return json.loads(self.texto_json)
+        return json.loads(self.json_string())
+
+    def json_string(self):
+        texto_json = '{\n'
+        texto_json += '\t\t\"id\": ' + str(self.id) + ',\n'
+        texto_json += '\t\t\"titulo\": \"' + self.titulo + '\",\n'
+        texto_json += '\t\t\"conteudo\": \"' + self.conteudo + '\",\n'
+        texto_json += '\t\t\"tipo\": \"' + self.tipo + '\",\n'
+        texto_json += '\t\t\"postagemRespondidaId\": ' \
+                      + (str(self.postagem_respondida_id)
+                         if self.postagem_respondida_id is not None
+                         else 'null') + ',\n'
+        texto_json += '\t\t\"usuarioId\": ' + str(self.usuario_id) + ',\n'
+        texto_json += '\t\t\"dataInsercao\": \"' + str(self.data_insercao) + '\",\n'
+        texto_json += '\t\t\"relevancia\": ' + str(self.relevancia) + ',\n'
+        texto_json += '\t\t\"situacao\": \"' + self.situacao + '\"\n'
+        texto_json += '}'
+        return texto_json
+
+    def __str__(self):
+        return self.json_string()

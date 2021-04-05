@@ -1,8 +1,10 @@
+import json
+
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
-from src.Entidades.Postagem import Postagem
 from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
-from src.Entidades.Postagem import PostagemDTO
+from src.Entidades.Postagem import Postagem
 from src.Utils.Logger import Logger
+from src.Servico import NotificacaoServico
 
 log = Logger('PostagemServico')
 
@@ -33,26 +35,43 @@ def validar_postagem_json(postagem_json):
 def pesquisar_postagens(pesquisa):
     postagem_repositorio = PostagemRepositorio()
     tuplas = postagem_repositorio.pesquisar_postagens_por_texto(pesquisa)
-    return PostagemDTO(tuplas).json()
+    return __lista_tuplas_para_lista_json(tuplas)
+
+
+def __lista_tuplas_para_lista_json(tuplas):
+    lista_postagem = ''
+    if len(tuplas) > 1:
+        lista_postagem += '[\n'
+    for tupla in tuplas:
+        postagem = Postagem()
+        postagem.definir_por_tupla(tupla)
+        lista_postagem += postagem.json_string()
+        if tuplas.index(tupla) != (len(tuplas) - 1):
+            lista_postagem += '\t,\n'
+    if len(tuplas) > 1:
+        lista_postagem += ']'
+    return json.loads(lista_postagem)
 
 
 # funções que começam com '__' são privadas (em teoria).
-def __responder_postagem(postagem_id):
+def __responder_postagem(postagem_respondida_id):
     try:
-        log.info('Respondendo postagem ID: ' + str(postagem_id))
+        log.info('Respondendo postagem ID: ' + str(postagem_respondida_id))
         postagem_repositorio = PostagemRepositorio()
-        tupla = postagem_repositorio.buscar_por_id(postagem_id)
+        tupla = postagem_repositorio.buscar_por_id(postagem_respondida_id)
         postagem_respondida = Postagem()
-        postagem_respondida.definir_por_json(PostagemDTO(tupla).json())
+        postagem_respondida.definir_por_tupla(tupla)
         postagem_respondida.situacao = SituacaoPostagemEnum.RESPONDIDA
-        __criar_ou_atualizar(postagem_respondida)
+        id_postagem_criada = __criar_ou_atualizar(postagem_respondida)
+        if id_postagem_criada != 0:
+            NotificacaoServico.notificar_resposta_de_postagem(postagem_respondida)
     except Exception as erro:
-        log.erro('Erro ao responder a postagem ID: ' + str(postagem_id), erro)
+        log.erro('Erro ao responder a postagem ID: ' + str(postagem_respondida_id), erro)
 
 
 def __criar_ou_atualizar(postagem):
     postagem_repositorio = PostagemRepositorio()
-    ja_existe = len(postagem_repositorio.buscar_por_id(postagem.id)) == 1
+    ja_existe = postagem_repositorio.buscar_por_id(postagem.id) is not None
     if postagem.id is None or not ja_existe:
         return postagem_repositorio.criar(postagem)
     else:

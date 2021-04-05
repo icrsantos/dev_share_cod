@@ -5,11 +5,9 @@ import hashlib
 
 def criar_usuario(usuario_json):
     usuario_repositorio = UsuarioRepositorio()
-    usuario = Usuario(
-        usuario_json['nome'],
-        usuario_json["email"],
-        encriptar_senha(usuario_json['senha'])
-    )
+    usuario = Usuario()
+    usuario_json["senha"] = encriptar_senha(usuario_json["senha"])
+    usuario.definir_por_json(usuario_json)
     return usuario_repositorio.salvar(usuario)
 
 
