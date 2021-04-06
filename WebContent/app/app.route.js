@@ -18,9 +18,7 @@ app.config(['$stateProvider', function($stateProvider) {
     $stateProvider.state('signup', {
         url : '/signup',
     	views : {
-    		'uiViewHeader' : {
-                templateUrl : 'header/Header.html'
-            }, 'uiViewContent' : {
+    		'uiViewLoginSignup' : {
                 templateUrl : 'signup/SignUp.html'
             }
         },
@@ -32,7 +30,7 @@ app.config(['$stateProvider', function($stateProvider) {
     $stateProvider.state('login', {
         url : '/login',
     	views : {
-    		'uiViewLoginSinup' : {
+    		'uiViewLoginSignup' : {
                 templateUrl : 'login/login.component.html'
             }
         },
@@ -52,6 +50,16 @@ app.config(['$stateProvider', function($stateProvider) {
         },
         ncyBreadcrumb: {
             skip: true
+        }
+    });
+
+    $stateProvider.state('logout', {
+        url : '/logout',
+        views : {
+            'uiViewContent@' : {
+                controller: 'LogoutController',
+                template: "<div ui-view></div>"
+            }
         }
     });
 

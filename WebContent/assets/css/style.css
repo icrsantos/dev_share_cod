@@ -11,6 +11,12 @@
     background: linear-gradient(180deg, #00fe95, #8d00ff);
 }
 
+.title {
+    background: -webkit-linear-gradient(180deg, #00fe95, #8d00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .card {
     margin-bottom: 20px;
     border: none
@@ -24,7 +30,7 @@
     left: 70%;
     background: #343635;
     text-align: center;
-    margin-top: 10%;
+    margin-top: 5%;
     border-radius: 20px;
     color: white;
 }
@@ -46,7 +52,7 @@
 	text-align: center;
 }
 
-.spinner-button>div {
+.spinner-button > div {
 	width: 18px;
 	height: 18px;
 	background-color: rgba(255, 255, 255, .5);

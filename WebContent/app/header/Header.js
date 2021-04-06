@@ -1,4 +1,3 @@
-app.controller("HeaderController", function($stateParams, DevShareService) {
-	this.pesquisa = '';
-
+app.controller("HeaderController", function($stateParams, DevShareService, Auth, $state) {
+    this.user = Auth.getUser();
 })
