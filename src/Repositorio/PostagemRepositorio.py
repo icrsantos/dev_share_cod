@@ -126,3 +126,39 @@ class PostagemRepositorio:
             self.log.erro('Erro ao buscar respostas da postagem ID: ' + str(postagem_id), erro)
             return str('ERRO: ' + str(erro))
 
+    def buscar_perguntas_de_usuario(self, usuario_id):
+        try:
+            self.log.info('Buscando perguntas do usuario ID: ' + str(usuario_id))
+            executor = self.__criar_executor()
+            sql = "SELECT * FROM postagem WHERE (" \
+                  "(usuario_id = %s ) AND " \
+                  "(tipo = '" + TipoPostagemEnum.PERGUNTA + "')" \
+                  ")" \
+                  "ORDER BY relevacia DESC "
+            executor.execute(sql, (usuario_id,))
+            tuplas = executor.fetchall()
+            self.__fechar_executor()
+            self.log.info('Encontrados ' + str(len(tuplas)) + ' resultados')
+            return tuplas
+        except Exception as erro:
+            self.log.erro('Erro ao buscar perguntas do usuario ID: ' + str(usuario_id), erro)
+            return str('ERRO: ' + str(erro))
+
+    def buscar_respostas_de_usuario(self, usuario_id):
+        try:
+            self.log.info('Buscando respostas do usuario ID: ' + str(usuario_id))
+            executor = self.__criar_executor()
+            sql = "SELECT * FROM postagem WHERE (" \
+                  "(usuario_id = %s ) AND " \
+                  "(tipo = '" + TipoPostagemEnum.RESPOSTA + "')" \
+                  ")" \
+                  "ORDER BY relevacia DESC "
+            executor.execute(sql, (usuario_id,))
+            tuplas = executor.fetchall()
+            self.__fechar_executor()
+            self.log.info('Encontrados ' + str(len(tuplas)) + ' resultados')
+            return tuplas
+        except Exception as erro:
+            self.log.erro('Erro ao buscar respostas do usuario ID: ' + str(usuario_id), erro)
+            return str('ERRO: ' + str(erro))
+

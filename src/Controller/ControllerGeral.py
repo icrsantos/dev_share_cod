@@ -38,6 +38,16 @@ def pesquisar_postagens(pesquisa):
     return jsonify(PostagemServico.pesquisar_postagens(pesquisa))
 
 
+@app.route('/api/postagem/usuario/<usuario_id>/perguntas', methods=['GET'])
+def buscar_perguntas_usuario(usuario_id):
+    return jsonify(PostagemServico.buscar_perguntas_de_usuario(usuario_id))
+
+
+@app.route('/api/postagem/usuario/<usuario_id>/respostas', methods=['GET'])
+def buscar_respostas_usuario(usuario_id):
+    return jsonify(PostagemServico.buscar_respostas_de_usuario(usuario_id))
+
+
 @app.route('/api/clientes/<id_cliente>', methods=['DELETE'])
 def deletar_clientes(id_cliente):
     return jsonify({

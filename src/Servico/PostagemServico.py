@@ -1,5 +1,7 @@
 import json
 
+from src.Repositorio.UsuarioRepositorio import UsuarioRepositorio
+from src.Entidades.Usuario import Usuario
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
 from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
 from src.Entidades.Postagem import Postagem
@@ -37,6 +39,18 @@ def validar_postagem_json(postagem_json):
 def pesquisar_postagens(pesquisa):
     postagem_repositorio = PostagemRepositorio()
     tuplas = postagem_repositorio.pesquisar_postagens_por_texto(pesquisa)
+    return __lista_tuplas_para_lista_json(tuplas)
+
+
+def buscar_perguntas_de_usuario(ususario_id):
+    postagem_repositorio = PostagemRepositorio()
+    tuplas = postagem_repositorio.buscar_perguntas_de_usuario(ususario_id)
+    return __lista_tuplas_para_lista_json(tuplas)
+
+
+def buscar_respostas_de_usuario(ususario_id):
+    postagem_repositorio = PostagemRepositorio()
+    tuplas = postagem_repositorio.buscar_respostas_de_usuario(ususario_id)
     return __lista_tuplas_para_lista_json(tuplas)
 
 
