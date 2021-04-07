@@ -34,7 +34,7 @@ def notificar_resposta_de_postagem(postagem_respondida, resposta_postagem):
 def __compor_mensagem_postagem_respondida(postagem_respondida, resposta_postagem):
     mensagem = "Subject: Postagem respondida\n\n " \
                "A postagem \"" + postagem_respondida.titulo + "\" foi respondida! Eis a resposta:\n" \
-               "\"" + resposta_postagem.conteudo + "\n"
+               "\"" + resposta_postagem.conteudo + "\"\n"
     return mensagem
 
 
