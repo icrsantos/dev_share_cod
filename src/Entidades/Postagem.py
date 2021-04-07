@@ -4,21 +4,16 @@ from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
 
 
 class Postagem:
-    id = 0
-    data_insercao = ''
-    data_alteracao = ''
-    titulo = ''
-    conteudo = ''
-    tipo = ''
-    situacao = ''
-    postagem_respondida_id = None
-    usuario_id = None
-    relevancia = 0
-
     def __init__(self):
+        self.id = 0
         self.data_insercao = datetime.datetime.now()
         self.data_alteracao = datetime.datetime.now()
+        self.titulo = ''
+        self.conteudo = ''
         self.postagem_respondida_id = None
+        self.tipo = ''
+        self.situacao = ''
+        self.usuario_id = None
         self.relevancia = 0
 
     def definir_por_json(self, postagem_json):

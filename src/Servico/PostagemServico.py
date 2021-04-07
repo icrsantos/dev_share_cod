@@ -14,7 +14,9 @@ def criar_postagem(postagem_json):
     postagem = Postagem()
     postagem.definir_por_json(postagem_json)
     if postagem.tipo == TipoPostagemEnum.RESPOSTA:
-        __responder_postagem(postagem.postagem_respondida_id)
+        postagem_respondida = __responder_postagem(postagem.postagem_respondida_id)
+        if postagem_respondida is not None and postagem_respondida.id != 0:
+            NotificacaoServico.notificar_resposta_de_postagem(postagem_respondida, postagem)
     # TODO: Implementar Tema (categoria da postagem)
     return __criar_ou_atualizar(postagem)
 
@@ -63,8 +65,8 @@ def __responder_postagem(postagem_respondida_id):
         postagem_respondida.definir_por_tupla(tupla)
         postagem_respondida.situacao = SituacaoPostagemEnum.RESPONDIDA
         id_postagem_criada = __criar_ou_atualizar(postagem_respondida)
-        if id_postagem_criada != 0:
-            NotificacaoServico.notificar_resposta_de_postagem(postagem_respondida)
+        postagem_respondida.id = id_postagem_criada
+        return postagem_respondida
     except Exception as erro:
         log.erro('Erro ao responder a postagem ID: ' + str(postagem_respondida_id), erro)
 

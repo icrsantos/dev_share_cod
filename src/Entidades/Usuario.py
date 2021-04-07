@@ -3,16 +3,13 @@ import json
 
 
 class Usuario:
-    id = None
-    data_insercao = ''
-    data_alteracao = ''
-    nome = ''
-    senha = ''
-    email = ''
-
     def __init__(self):  # Construtora:
+        self.id = None
         self.data_insercao = datetime.datetime.now()
         self.data_alteracao = datetime.datetime.now()
+        self.nome = ''
+        self.senha = ''
+        self.email = ''
 
     def definir_por_json(self, usuario_json):
         if "id" in usuario_json:
