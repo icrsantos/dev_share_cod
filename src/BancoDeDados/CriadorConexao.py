@@ -1,8 +1,10 @@
 import mysql.connector
 from mysql.connector import errorcode
 
+conexao = None
 
-def criar_conexao():
+
+def __criar_conexao():
     try:
         return mysql.connector.connect(host="localhost",
                                        user="springuser",
@@ -18,3 +20,17 @@ def criar_conexao():
         else:
             print(erro)
         return None
+
+
+def criar_executor():
+    global conexao
+    conexao = __criar_conexao()
+    return conexao.cursor()
+
+
+def commit_mudancas():
+    conexao.commit()
+
+
+def fechar_executor():
+    conexao.close()
