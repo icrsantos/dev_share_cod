@@ -15,6 +15,7 @@ class Postagem:
         self.situacao = ''
         self.usuario_id = None
         self.relevancia = 0
+        self.curtidas = 0
 
     def definir_por_json(self, postagem_json):
         if "id" in postagem_json:
@@ -28,6 +29,8 @@ class Postagem:
             self.postagem_respondida_id = postagem_json['postagemRespondidaId']
         if "relevancia" in postagem_json:
             self.relevancia = postagem_json["relevancia"]
+        if "curtidas" in postagem_json:
+            self.curtidas = postagem_json["curtidas"]
 
     def definir_por_tupla(self, tupla):
         self.id = tupla[0]
@@ -40,6 +43,7 @@ class Postagem:
         self.situacao = tupla[9]
         self.postagem_respondida_id = tupla[5]
         self.relevancia = tupla[8]
+        self.curtidas = tupla[10]
 
     def json(self):
         return json.loads(self.json_string())
@@ -57,6 +61,7 @@ class Postagem:
         texto_json += '\t\t\"usuarioId\": ' + str(self.usuario_id) + ',\n'
         texto_json += '\t\t\"dataInsercao\": \"' + str(self.data_insercao) + '\",\n'
         texto_json += '\t\t\"relevancia\": ' + str(self.relevancia) + ',\n'
+        texto_json += '\t\t\"curtidas\": ' + str(self.curtidas) + ',\n'
         texto_json += '\t\t\"situacao\": \"' + self.situacao + '\"\n'
         texto_json += '}'
         return texto_json

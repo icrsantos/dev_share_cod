@@ -53,7 +53,8 @@ class PostagemRepositorio:
             executor = self.__criar_executor()
             sql = "UPDATE postagem SET " \
                   "data_alteracao = %s, " \
-                  "titulo = %s, conteudo = %s, tipo = %s, situacao = %s, " \
+                  "titulo = %s, conteudo = %s, tipo = %s, situacao = %s," \
+                  "curtidas = %s, relevancia = %s, " \
                   "postagem_respondida_id = %s, usuario_id = %s " \
                   "WHERE id = %s"
             parametros = (
@@ -62,6 +63,8 @@ class PostagemRepositorio:
                 postagem.conteudo,
                 postagem.tipo,
                 postagem.situacao,
+                postagem.curtidas,
+                postagem.relevancia,
                 postagem.postagem_respondida_id,
                 postagem.usuario_id,
                 postagem.id
