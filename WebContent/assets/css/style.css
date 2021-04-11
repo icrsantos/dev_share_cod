@@ -80,3 +80,45 @@
 .spinner-content .spinner-button > div {
 	background-color: rgba(0, 0, 0, 0.5);
 }
+
+.vl {
+  border-left: 1px solid gray;
+  height: 400px;
+}
+
+.project-menu {
+	margin-bottom: 20px;
+	font-size: 14px;
+    background-color: #ECF0F1;
+}
+
+.project-menu li{
+	text-decoration: none;
+	color: #7f8c8d;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.project-menu .active {
+	background-color: white;
+}
+
+.project-menu li{
+    text-align: center;
+    padding: 12px;
+    border-bottom: 2px solid transparent;
+}
+
+.project-menu a{
+    flex-grow: 1;
+    text-decoration: none;
+}
+
+.project-menu li:hover {
+	border-bottom: 2px solid #7f8c8d;
+}
+
+.project-menu .active li:hover {
+	cursor: default;
+	border-bottom: 2px solid transparent;
+}

@@ -31,7 +31,7 @@ app.config(['$stateProvider', function($stateProvider) {
         url : '/login',
     	views : {
     		'uiViewLoginSignup' : {
-                templateUrl : 'login/login.component.html'
+                templateUrl : 'login/login.html'
             }
         },
         ncyBreadcrumb: {
@@ -41,6 +41,20 @@ app.config(['$stateProvider', function($stateProvider) {
 
     $stateProvider.state('posts', {
         url : '/posts/:search',
+    	views : {
+    		'uiViewHeader' : {
+                templateUrl : 'header/Header.html'
+            }, 'uiViewContent' : {
+                templateUrl : 'posts/Posts.html'
+            }
+        },
+        ncyBreadcrumb: {
+            skip: true
+        }
+    });
+
+    $stateProvider.state('post', {
+        url : '/posts/:id',
     	views : {
     		'uiViewHeader' : {
                 templateUrl : 'header/Header.html'
@@ -63,4 +77,31 @@ app.config(['$stateProvider', function($stateProvider) {
         }
     });
 
+    $stateProvider.state('profile', {
+        url : '/profile',
+    	views : {
+    		'uiViewHeader' : {
+                templateUrl : 'header/Header.html'
+            }, 'uiViewContent' : {
+                templateUrl : 'profile/Profile.html'
+            }, 'uiViewPostsProfile@profile' : {
+                templateUrl: 'profile/ProfileQuestions.html'
+            }
+        },
+        ncyBreadcrumb: {
+            skip: true
+        }
+    });
+
+    $stateProvider.state('profile.respostas', {
+        url : '/respostas',
+    	views : {
+    		'uiViewPostsProfile@profile' : {
+                templateUrl: 'profile/ProfileReply.html'
+            }
+        },
+        ncyBreadcrumb: {
+            skip: true
+        }
+    });
 }]);

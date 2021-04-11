@@ -1,0 +1,42 @@
+<div ng-controller="ProfileController as profileCtrl" style="padding-top: 50px;">
+    <div class="row" style="padding-top: 30px;">
+        <div class="col-sm-4">
+            <div class="text-center">
+                <img src="../assets/img/user_default.jpg" class="img-circle" width="200" height="200">
+
+                <h4 class="form-control-static">{{profileCtrl.user.nome}}</h4>
+
+                <div class="col-md-offset-3 col-sm-6" style="padding-top: 30px;">
+                    <button type="button" class="btn btn-default btn-block">Editar Perfil</button>
+                </div>
+
+                <div class="col-sm-12 row form-Or">
+                    <hr class="hr-Or">
+                </div>
+
+                <div class="col-sm-12 row">
+                    <h4>
+                        <i class="bi bi-trophy-fill"></i>
+                        {{profileCtrl.user.pontos}} Pontos
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1 vl"></div>
+        <div class="col-sm-7">
+            <ul class="nav nav-justified project-menu">
+                <li role="presentation" class="content-center active"  ui-sref="profile" ui-sref-active-eq="active">
+                    <span class="glyphicon glyphicon-question-sign" style="padding-right: 10px;"></span>
+                    <span>Perguntas</span>
+                </li>
+                <li role="presentation" class="content-center"  ui-sref="profile.respostas" ui-sref-active-eq="active">
+                    <span class="glyphicon glyphicon-ok-sign" style="padding-right: 10px;"></span>
+                    <span>Respostas</span>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div ui-view="uiViewPostsProfile"></div>
+            </div>
+        </div>
+    </div>
+</div>
