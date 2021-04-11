@@ -10,4 +10,11 @@ var app = angular.module('dev_share', ['restangular', 'LocalStorageModule', 'ui.
         $qProvider.errorOnUnhandledRejections(false);
     }]);
 
+app.run(function($rootScope, ModalService) {
+    $rootScope.invalid = function(form, field) {
+        return field && field.$invalid && (field.$dirty || form.$submitted);
+    };
+
+    $rootScope.modal = ModalService;
+})
 window.app = app;

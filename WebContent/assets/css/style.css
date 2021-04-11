@@ -1,19 +1,124 @@
 .form-group.required .control-label:after {
-  content:" *";
-  color:red;
+    content:" *";
+    color:red;
 }
 
-.login-image {
-  background-image: url("../img/code_wallpaper.png");
-  background-color: #cccccc;
-  height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
+.background-gradient {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font: 600 16px/18px 'Open Sans', sans-serif;
+    background: linear-gradient(180deg, #00fe95, #8d00ff);
 }
 
-.post-header{
-  display: flex;
-  justify-content: space-between;
+.title {
+    background: -webkit-linear-gradient(180deg, #00fe95, #8d00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card {
+    margin-bottom: 20px;
+    border: none
+}
+
+.login-box {
+    width: 100%;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    background: #343635;
+    text-align: center;
+    margin-top: 5%;
+    border-radius: 20px;
+    color: white;
+}
+
+.login-box .form-group  {
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.login-box button, a {
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.spinner-button {
+	margin: 0;
+	width: 70px;
+	height: 20px;
+	text-align: center;
+}
+
+.spinner-button > div {
+	width: 18px;
+	height: 18px;
+	background-color: rgba(255, 255, 255, .5);
+	border-radius: 100%;
+	display: inline-block;
+	-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+	animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner-button .bounce1 {
+	-webkit-animation-delay: -0.32s;
+	animation-delay: -0.32s;
+}
+
+.spinner-button .bounce2 {
+	-webkit-animation-delay: -0.16s;
+	animation-delay: -0.16s;
+}
+
+.spinner-content .spinner-button {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.spinner-content .spinner-button > div {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.vl {
+  border-left: 1px solid gray;
+  height: 400px;
+}
+
+.project-menu {
+	margin-bottom: 20px;
+	font-size: 14px;
+    background-color: #ECF0F1;
+}
+
+.project-menu li{
+	text-decoration: none;
+	color: #7f8c8d;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.project-menu .active {
+	background-color: white;
+}
+
+.project-menu li{
+    text-align: center;
+    padding: 12px;
+    border-bottom: 2px solid transparent;
+}
+
+.project-menu a{
+    flex-grow: 1;
+    text-decoration: none;
+}
+
+.project-menu li:hover {
+	border-bottom: 2px solid #7f8c8d;
+}
+
+.project-menu .active li:hover {
+	cursor: default;
+	border-bottom: 2px solid transparent;
 }

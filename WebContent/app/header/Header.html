@@ -1,8 +1,7 @@
-<nav class="navbar navbar-default navbar-static-top" role="banner"
-	ng-controller="HeaderController as headerCtrl">
+<nav class="navbar navbar-inverse navbar-static-top" ng-controller="HeaderController as headerCtrl">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" ui-sref="home.perm">
+			<a class="navbar-brand title" ui-sref="home.perm">
 				Devshare
 				<!-- LOGO -->
 				<!-- img class="img-responsive center-block" src="#"-->
@@ -25,28 +24,36 @@
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-left">
 				<li ui-sref-active="active" class="nav-item">
-					<a class="nav-link" id="item_home" ui-sref="#">Home</a>
+					<a class="nav-link" id="item_home" ui-sref="home">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" id="item_about" ui-sref="#">Sobre</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="item_forum" ui-sref="#">Fórum</a>
+					<a class="nav-link" id="item_forum" ui-sref="posts({search: null})">Fórum</a>
 				</li>
 			</ul>
-			<form class="nav navbar-nav navbar-center col-sm-7" style=" margin-top: 8px;" role="search">
-		    	<div class="input-group">
-		        	<input type="text" class="form-control col-sm-12" placeholder="Pesquisar"
-		        		name="search" id="search" ng-model="headerCtrl.pesquisa">
-			    	<div class="input-group-btn">
-			    		<button ui-sref="posts({search: headerCtrl.pesquisa})" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-			    	</div>
-			    </div>
-			</form>
-			<ul class="nav navbar-nav navbar-right">
-	      		<li><a ui-sref="signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-	      		<li><a ui-sref="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-		    </ul>
+
+			<div class="navbar-right">
+				<form class="navbar-form col-sm-12" style="padding-top: 8px;">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Pesquisar"
+							name="search" id="search" ng-model="headerCtrl.pesquisa">
+
+						<div class="input-group-btn">
+							<button ui-sref="posts({search: headerCtrl.pesquisa})" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+						</div>
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav" ng-if="!headerCtrl.user">
+					<li><a ui-sref="signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					<li><a ui-sref="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+
+				<ul class="nav navbar-nav" ng-if="headerCtrl.user">
+					<li><a ui-sref="#"><span class="glyphicon glyphicon-globe"></span> Notificações</a></li>
+					<li><a ui-sref="profile"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
+					<li><a ui-sref="logout"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </nav>

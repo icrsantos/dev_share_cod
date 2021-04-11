@@ -1,4 +1,4 @@
-app.controller("LoginController", function(DevShareService, $state) {
+app.controller("LoginController", function(DevShareService, $state, Auth) {
     this.data = {};
 	this.processando = false;
 
@@ -6,6 +6,7 @@ app.controller("LoginController", function(DevShareService, $state) {
         this.processando = true;
         DevShareService.objRest.one('/login').customPOST(this.data)
         .then((response) => {
+            Auth.setUser(this.data);
             $state.go("home");
         }).finally(() => {
             this.processando = false;

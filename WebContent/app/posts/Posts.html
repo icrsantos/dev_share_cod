@@ -1,7 +1,14 @@
-<div ng-controller="PostsController as postCtrl" style="padding-top: 60px;">
+<div ng-controller="PostsController as postCtrl">
 
-    <div class="panel-group">
+    <div ng-if="postCtrl.pesquisa &&postCtrl.retornoPesquisa && postCtrl.retornoPesquisa.length > 0">
+        <h3>Resultados para "{{postCtrl.pesquisa}}"</h3>
+    </div>
 
+    <div ng-if="!postCtrl.retornoPesquisa || postCtrl.retornoPesquisa.length == 0">
+        <h3>Nenhum resultado encontrado para "{{postCtrl.pesquisa}}"</h3>
+    </div>
+
+    <div class="panel-group" style="padding-top: 30px;">
         <div class="row" ng-repeat="post in postCtrl.retornoPesquisa">
             <div class="panel panel-info ">
                 <div class="panel-heading post-header">

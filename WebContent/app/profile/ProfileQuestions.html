@@ -1,0 +1,21 @@
+<div class="panel-group" ng-controller="ProfileController as profileCtrl">
+    <div class="row" ng-repeat="post in profileCtrl.perguntasProfile">
+        <div class="panel panel-info" style="margin:10px">
+            <div class="panel-heading post-header">
+                <div class="row">
+                    <h4 class="col-sm-10"><a ui-sref="post({id: post.id})">{{post.titulo}}</a></h4>
+                    <div class="col-sm-2 content-right">
+                        <h5>{{post.relevancia}}</h5>
+                    </div>
+                    <p class="col-sm-10">@{{post.autor}}</p>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p style="padding:10px">{{post.descricao}}</p>
+                <ul class="nav nav-justified">
+					<li><span class="text-success glyphicon glyphicon-ok-sign"></span> {{post.totalRespostas}} respostas</li>
+				</ul>
+            </div>
+        </div>
+    </div>
+</div>

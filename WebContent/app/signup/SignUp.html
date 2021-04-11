@@ -1,68 +1,70 @@
-<div ng-controller="SignUpController as signUpCtrl" class="row" style="padding-top: 50px;">
-	<div class="col-md-6 col-md-offset-3">
-		<h1 class="text-center">Crie sua conta</h1>
-		
-		<div class="panel" style="margin-top: 30px;">
-			<form class="form-horizontal" name="signUpForm" id="signUpForm" role="form" 
-				ng-submit="signUpForm.$valid && signUpCtrl.save()" novalidate>
-			
-				<div class="panel-body">
+<div ng-controller="SignUpController as signUpCtrl" class="background-gradient">
+	<div class="row">
+		<div class="col-md-5">
+			<div class="card">
+				<form class="form-horizontal login-box" name="signUpForm" id="signUpForm" role="form"
+					ng-submit="signUpForm.$valid && signUpCtrl.save()" novalidate>
+
+					<h1>Crie sua conta</h1>
+
 					<div class="form-group required" style="margin-top: 30px;"
 						ng-class="{'has-error': $root.invalid(signUpForm, signUpForm.username)}">
-						
-						<label class="col-sm-4 control-label" required="true">Nome de usuário</label>
-						<div class="col-sm-6">
-							<input type="text" name="username" id="username" required
+
+						<div class="col-sm-6 col-sm-offset-3">
+							<input type="text" name="username" id="username" required placeholder="Nome de usuário"
 								class="form-control" ng-model="signUpCtrl.data.nome"/>
 						</div>
-						
-						<div ng-messages="signUpForm.username.$error" ng-if="$root.invalid(signUpForm, signUpForm.username)">
+
+						<div class="col-sm-6 col-sm-offset-2" ng-messages="signUpForm.username.$error" ng-if="$root.invalid(signUpForm, signUpForm.username)">
 							<div ng-message="required" class="help-block">Campo obrigatório</div>
 						</div>
 					</div>
-					
+
 					<div class="form-group required" style="margin-top: 30px;"
 						ng-class="{'has-error': $root.invalid(signUpForm, signUpForm.email)}">
-							
-						<label class="col-sm-4 control-label">E-mail</label>
-						<div class="col-sm-6">
-							<input type="email" name="email" id="email" required
+
+						<div class="col-sm-6 col-sm-offset-3">
+							<input type="email" name="email" id="email" required placeholder="E-mail"
 								class="form-control" ng-model="signUpCtrl.data.email"/>
 						</div>
-						
-						<div ng-messages="signUpForm.email.$error" ng-if="$root.invalid(signUpForm, signUpForm.email)">
+
+						<div class="col-sm-6 col-sm-offset-2" ng-messages="signUpForm.email.$error" ng-if="$root.invalid(signUpForm, signUpForm.email)">
 							<div ng-message="required" class="help-block">Campo obrigatório</div>
 						</div>
 					</div>
-					
+
 					<div class="form-group required" style="margin-top: 30px;"
 						ng-class="{'has-error': $root.invalid(signUpForm, signUpForm.password)}">
-						
-						<label class="col-sm-4 control-label">Senha</label>
-						<div class="col-sm-6">
-							<input type="password" name="password" id="password" required
+
+						<div class="col-sm-6 col-sm-offset-3">
+							<input type="password" name="password" id="password" required placeholder="Senha"
 								class="form-control" ng-model="signUpCtrl.data.senha"/>
 						</div>
-						
-						<div ng-messages="signUpForm.password.$error" ng-if="$root.invalid(signUpForm, signUpForm.password)">
+
+						<div class="col-sm-6 col-sm-offset-2" ng-messages="signUpForm.password.$error" ng-if="$root.invalid(signUpForm, signUpForm.password)">
 							<div ng-message="required" class="help-block">Campo obrigatório</div>
 						</div>
 					</div>
-				</div>
-				
-				<div class="form-group" style="margin-top: 30px;"> 
-					<div class="col-md-offset-3 col-md-6 text-center">
-						<button type="submit" class="btn btn-primary btn-block" ng-disabled="signUpCtrl.processando">
-							<div class="spinner-button" ng-if="signUpCtrl.processando">
-								<div class="bounce1"></div>
-								<div class="bounce2"></div>
-								<div></div>
+
+					<div class="form-group" style="margin-top: 30px;">
+						<div class="col-md-offset-3 col-md-6 text-center">
+							<button type="submit" class="btn btn-success btn-lg btn-block" ng-disabled="signUpCtrl.processando">
+								<div class="spinner-button" ng-if="signUpCtrl.processando">
+									<div class="bounce1"></div>
+									<div class="bounce2"></div>
+									<div></div>
+								</div>
+								<span ng-if="!signUpCtrl.processando">Cadastrar</span>
+							</button>
+							<div class="row form-Or">
+								<hr class="hr-Or">
+								<span class="span-Or">ou</span>
 							</div>
-							<span ng-if="!signUpCtrl.processando">Cadastrar</span>
-						</button>
+							<a class="btn btn-lg btn-default btn-block" ui-sref="login"> Logar </a>
+						</div>
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
