@@ -1,13 +1,15 @@
-<div ng-controller="ProfileController as profileCtrl" style="padding-top: 50px;">
-    <div class="row" style="padding-top: 30px;">
+<div ng-controller="ProfileController as profileCtrl">
+    <div style="padding-top: 50px;">
+        <div class="row" style="padding-top: 30px;">
         <div class="col-sm-4">
             <div class="text-center">
-                <img src="../assets/img/user_default.jpg" class="img-circle" width="200" height="200">
+                <img src="../assets/img/user_default.png" class="img-circle" width="200" height="200">
 
                 <h4 class="form-control-static">{{profileCtrl.user.nome}}</h4>
 
                 <div class="col-md-offset-3 col-sm-6" style="padding-top: 30px;">
-                    <button type="button" class="btn btn-default btn-block">Editar Perfil</button>
+                    <button type="button" class="btn btn-default btn-block"
+                        data-toggle="modal" data-target="#editUserModal">Editar Perfil</button>
                 </div>
 
                 <div class="col-sm-12 row form-Or">
@@ -17,7 +19,7 @@
                 <div class="col-sm-12 row">
                     <h4>
                         <i class="bi bi-trophy-fill"></i>
-                        {{profileCtrl.user.pontos}} Pontos
+                        {{profileCtrl.user.pontos ? profileCtrl.user.pontos : 0}} Pontos
                     </h4>
                 </div>
             </div>
@@ -36,6 +38,49 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div ui-view="uiViewPostsProfile"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- modal de edição do perfil -->
+    <div class="modal fade" id="editUserModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+                    <h3>Editar Perfil</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group required col-sm-6">
+                            <label class="control-label">Nome de usuário</label>
+                            <input type="text" name="username" id="username" required placeholder="Nome de usuário"
+                                class="form-control" ng-model="profileCtrl.user.nome"/>
+                        </div>
+                        <div class="form-group required col-sm-6">
+                            <label class="control-label">E-mail</label>
+                            <input type="email" name="email" id="email" required placeholder="E-mail"
+								class="form-control" ng-model="profileCtrl.user.email"/>
+                        </div>
+                        <div class="form-group required col-sm-6">
+                            <label class="control-label">Senha</label>
+                            <input type="password" name="password" id="password" required placeholder="Senha"
+								class="form-control" ng-model="profileCtrl.user.senha" disabled/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="profileCtrl.processando" ng-click="profileCtrl.salvarEdicaoUsuario()">
+                        <div class="spinner-button" ng-if="profileCtrl.processando">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div></div>
+                        </div>
+                        <span ng-if="!profileCtrl.processando">Salvar Alterações</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

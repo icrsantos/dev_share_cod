@@ -56,6 +56,8 @@ def buscar_respostas_de_usuario(ususario_id):
 
 def __lista_tuplas_para_lista_json(tuplas):
     lista_postagem = ''
+    if len(tuplas) == 0:
+        return []
     if len(tuplas) > 1:
         lista_postagem += '[\n'
     for tupla in tuplas:

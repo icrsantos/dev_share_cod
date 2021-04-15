@@ -73,3 +73,18 @@ class UsuarioRepositorio:
         except Exception as erro:
             self.log.erro('Erro ao buscar usuario ID: ' + str(usuario_id), erro)
             return None
+
+    def buscar_por_nome_usuario(self, nome_usuario):
+        try:
+            self.log.info('Buscando usuario name: ' + str(nome_usuario))
+            executor = self.__criar_executor()
+            sql = "SELECT * " \
+                  "FROM usuario " \
+                  "WHERE nome = %s"
+            executor.execute(sql, (nome_usuario,))
+            resultado = executor.fetchone()
+            self.__fechar_executor()
+            return resultado
+        except Exception as erro:
+            self.log.erro('Erro ao buscar usuario name: ' + str(nome_usuario), erro)
+            return None

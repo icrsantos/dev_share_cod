@@ -15,7 +15,14 @@ def validar_usuario(usuario_json):
     usuario_repositorio = UsuarioRepositorio()
     nome = usuario_json['nome']
     senha = encriptar_senha(usuario_json['senha'])
-    return usuario_repositorio.validar(nome, senha)
+
+    if not usuario_repositorio.validar(nome, senha):
+        return False
+    else:
+        tupla = usuario_repositorio.buscar_por_nome_usuario(nome)
+        usuario_logado = Usuario()
+        usuario_logado.definir_por_tupla(tupla)
+        return usuario_logado
 
 
 def encriptar_senha(senha):
