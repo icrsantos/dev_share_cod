@@ -1,0 +1,20 @@
+<div class="modal fade" id="notificationsModal">
+    <div class="modal-dialog" style="height:90%;overflow-y:auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Notificações</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin: 5px" ng-repeat="notification in notificationsCtrl.notifications">
+                    <div class="panel" ng-class="notification.nova_notificacao == 'S' ? 'panel-success' : 'panel-info'">
+                        <div ng-class="notification.nova_notificacao == 'S' ? 'panel-heading post-header' : 'panel-body'">
+                            <h5>{{notification.mensagem_enviada}}</h5>
+                            <p>{{notification.data_insercao}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

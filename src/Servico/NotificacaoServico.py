@@ -1,6 +1,9 @@
+import json
 import smtplib
 import ssl
 
+from src.Entidades.Notificacao import Notificacao
+from src.Repositorio.NotificacaoRepositorio import NotificacaoRepositorio
 from src.Utils.Logger import Logger
 from src.Repositorio.UsuarioRepositorio import UsuarioRepositorio
 from src.Entidades.Usuario import Usuario
@@ -60,3 +63,31 @@ def enviar_email(email_destinatario, mensagem):
         log.erro('Erro ao enviar e-mail para o destinatário \"' + email_destinatario + "\"", erro)
         servidor.close()
         return False
+
+
+def novas_notificacoes(usuario_id):
+    notificacao_repositorio = NotificacaoRepositorio()
+    return notificacao_repositorio.novas_notificacoes(usuario_id)
+
+
+def buscar_notificacoes(usuario_id):
+    notificacao_repositorio = NotificacaoRepositorio()
+    tuplas = notificacao_repositorio.buscar_notificacoes(usuario_id)
+    return __lista_tuplas_para_lista_json(tuplas)
+
+
+def __lista_tuplas_para_lista_json(tuplas):
+    lista_notificacoes = ''
+    if len(tuplas) == 0:
+        return []
+    if len(tuplas) >= 1:
+        lista_notificacoes += '[\n'
+    for tupla in tuplas:
+        notificacao = Notificacao()
+        notificacao.definir_por_tupla(tupla)
+        lista_notificacoes += notificacao.json_string()
+        if tuplas.index(tupla) != (len(tuplas) - 1):
+            lista_notificacoes += '\t,\n'
+    if len(tuplas) >= 1:
+        lista_notificacoes += ']'
+    return json.loads(lista_notificacoes)

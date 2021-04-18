@@ -7,13 +7,13 @@
                     <div class="col-sm-2 content-right">
                         <h5>{{post.relevancia}}</h5>
                     </div>
-                    <p class="col-sm-10">@{{post.autor}}</p>
+                    <p class="col-sm-10">@{{profileCtrl.user.nome}}</p>
                 </div>
             </div>
             <div class="panel-body">
-                <p style="padding:10px">{{post.descricao}}</p>
+                <p style="padding:10px">{{post.conteudo}}</p>
                 <ul class="nav nav-justified">
-					<li><span class="text-success glyphicon glyphicon-ok-sign"></span> {{post.totalRespostas}} respostas</li>
+					<li><span class="text-success glyphicon glyphicon-ok-sign"></span> {{post.totalRespostas ? post.totalRespostas : 0}} respostas</li>
 				</ul>
             </div>
         </div>

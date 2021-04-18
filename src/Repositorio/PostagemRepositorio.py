@@ -98,7 +98,7 @@ class PostagemRepositorio:
                   "(conteudo like '%" + texto_pesquisa + "%') OR " \
                   "(tipo like '%" + texto_pesquisa + "%')" \
                   ")" \
-                  "ORDER BY relevacia DESC "
+                  "ORDER BY relevancia DESC "
             executor.execute(sql)
             tuplas = executor.fetchall()
             self.__fechar_executor()
@@ -116,7 +116,7 @@ class PostagemRepositorio:
                   "(postagem_respondida_id = %s ) AND " \
                   "(tipo = '" + TipoPostagemEnum.RESPOSTA + "')" \
                   ")" \
-                  "ORDER BY relevacia DESC "
+                  "ORDER BY relevancia DESC "
             executor.execute(sql, (postagem_id,))
             tuplas = executor.fetchall()
             self.__fechar_executor()
@@ -134,7 +134,7 @@ class PostagemRepositorio:
                   "(usuario_id = %s ) AND " \
                   "(tipo = '" + TipoPostagemEnum.PERGUNTA + "')" \
                   ")" \
-                  "ORDER BY relevacia DESC "
+                  "ORDER BY relevancia DESC "
             executor.execute(sql, (usuario_id,))
             tuplas = executor.fetchall()
             self.__fechar_executor()
@@ -152,7 +152,7 @@ class PostagemRepositorio:
                   "(usuario_id = %s ) AND " \
                   "(tipo = '" + TipoPostagemEnum.RESPOSTA + "')" \
                   ")" \
-                  "ORDER BY relevacia DESC "
+                  "ORDER BY relevancia DESC "
             executor.execute(sql, (usuario_id,))
             tuplas = executor.fetchall()
             self.__fechar_executor()

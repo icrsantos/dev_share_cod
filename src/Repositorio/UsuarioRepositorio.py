@@ -88,3 +88,26 @@ class UsuarioRepositorio:
         except Exception as erro:
             self.log.erro('Erro ao buscar usuario name: ' + str(nome_usuario), erro)
             return None
+
+    def editar(self, usuario):
+        try:
+            self.log.info('Editando o usuario: ' + usuario.nome)
+            executor = self.__criar_executor()
+            sql = "UPDATE usuario SET " \
+                  "nome = %s," \
+                  "email = %s," \
+                  "data_alteracao = sysdate()" \
+                  "WHERE id = %s"
+            parametros = (
+                usuario.nome,
+                usuario.email,
+                usuario.id
+            )
+            executor.execute(sql, parametros)
+            self.__commit_mudancas()
+            self.__fechar_executor()
+            self.log.info('Editado o usuario ID: ' + str(usuario.id))
+            return str(usuario.id)
+        except Exception as erro:
+            self.log.erro('Erro ao editar o usuario', erro)
+            return str(0)

@@ -10,11 +10,18 @@ var app = angular.module('dev_share', ['restangular', 'LocalStorageModule', 'ui.
         $qProvider.errorOnUnhandledRejections(false);
     }]);
 
-app.run(function($rootScope, ModalService) {
+app.run(function($rootScope, Restangular, Auth) {
     $rootScope.invalid = function(form, field) {
         return field && field.$invalid && (field.$dirty || form.$submitted);
     };
 
-    $rootScope.modal = ModalService;
+    setInterval(function() {
+        if(Auth.getUser()) {
+            Restangular.one('/new-notifications/' + Auth.getUser().id).get()
+            .then(angular.bind(this, function(response) {
+                $rootScope.newNotifications = response;
+            }));
+        }
+    }, 1000 * 60);
 })
 window.app = app;

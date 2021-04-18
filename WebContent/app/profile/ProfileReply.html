@@ -12,10 +12,10 @@
             </div>
             <div class="panel-body">
                 <div style="padding:10px">
-                    <p><strong>@{{post.autor}}</strong> : {{post.resposta}}</p>
+                    <p><strong>@{{profileCtrl.user.nome}}</strong> : {{post.conteudo}}</p>
                 </div>
                 <ul class="nav nav-justified">
-					<li><span class="text-primary glyphicon glyphicon-hand-right"></span> {{post.totalLikes}} likes</li>
+					<li><span class="text-primary glyphicon glyphicon-hand-right"></span> {{post.curtidas ? post.curtidas : 0}} likes</li>
 				</ul>
             </div>
         </div>

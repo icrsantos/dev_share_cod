@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from src.Servico import LoginServico, PostagemServico
+from src.Servico import LoginServico, PostagemServico, NotificacaoServico
 
 app = Flask(__name__)
 CORS(app)
@@ -60,6 +60,16 @@ def alterar_clientes(id_cliente):
     return jsonify({
         "status": "OK"
     })
+
+
+@app.route('/api/new-notifications/<usuario_id>', methods=['GET'])
+def validar_novas_notificacoes(usuario_id):
+    return NotificacaoServico.novas_notificacoes(usuario_id)
+
+
+@app.route('/api/notifications/<usuario_id>', methods=['GET'])
+def buscar_notificacoes(usuario_id):
+    return jsonify(NotificacaoServico.buscar_notificacoes(usuario_id))
 
 
 if __name__ == '__main__':

@@ -58,7 +58,7 @@ def __lista_tuplas_para_lista_json(tuplas):
     lista_postagem = ''
     if len(tuplas) == 0:
         return []
-    if len(tuplas) > 1:
+    if len(tuplas) >= 1:
         lista_postagem += '[\n'
     for tupla in tuplas:
         postagem = Postagem()
@@ -66,7 +66,7 @@ def __lista_tuplas_para_lista_json(tuplas):
         lista_postagem += postagem.json_string()
         if tuplas.index(tupla) != (len(tuplas) - 1):
             lista_postagem += '\t,\n'
-    if len(tuplas) > 1:
+    if len(tuplas) >= 1:
         lista_postagem += ']'
     return json.loads(lista_postagem)
 
