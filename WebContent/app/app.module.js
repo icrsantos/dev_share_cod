@@ -19,7 +19,8 @@ app.run(function($rootScope, Restangular, Auth) {
         if(Auth.getUser()) {
             Restangular.one('/new-notifications/' + Auth.getUser().id).get()
             .then(angular.bind(this, function(response) {
-                $rootScope.newNotifications = response;
+                if(response && response > 0)
+                    $rootScope.newNotifications = response;
             }));
         }
     }, 1000 * 60);

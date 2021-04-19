@@ -7,27 +7,17 @@ class NotificacaoRepositorio:
         self.log = Logger('NotificacaoRepositorio')
         self.conexao = None
 
-    def __criar_executor(self):
-        self.conexao = CriadorConexao.criar_conexao()
-        return self.conexao.cursor()
-
-    def __commit_mudancas(self):
-        self.conexao.commit()
-
-    def __fechar_executor(self):
-        self.conexao.close()
-
     def novas_notificacoes(self, usuario_id):
         try:
             self.log.info('Buscando novas notificações do usuário ' + str(usuario_id))
-            executor = self.__criar_executor()
+            executor = CriadorConexao.criar_executor()
             sql = "SELECT count(*) " \
                   "FROM historico_notificacoes " \
                   "WHERE usuario_notificado_id = %s " \
                   "AND nova_notificacao = %s"
             executor.execute(sql, (usuario_id, 'S'))
             resultado = executor.fetchone()
-            self.__fechar_executor()
+            CriadorConexao.fechar_executor()
             self.log.info(str(resultado[0]) + ' notificações novas encontradas para o usuário ' + str(usuario_id))
             return str(resultado[0])
         except Exception as erro:
@@ -37,14 +27,14 @@ class NotificacaoRepositorio:
     def buscar_notificacoes(self, usuario_id):
         try:
             self.log.info('Buscando notificações do usuário ' + str(usuario_id))
-            executor = self.__criar_executor()
+            executor = CriadorConexao.criar_executor()
             sql = "SELECT * " \
                   "FROM historico_notificacoes " \
                   "WHERE usuario_notificado_id = %s" \
                   "ORDER BY data_insercao desc"
             executor.execute(sql, (usuario_id,))
             resultado = executor.fetchall()
-            self.__fechar_executor()
+            CriadorConexao.fechar_executor()
             self.log.info(str(len(resultado)) + ' notificações encontradas para o usuário ' + str(usuario_id))
             return resultado
         except Exception as erro:
@@ -54,14 +44,14 @@ class NotificacaoRepositorio:
     def limpar_notificacoes(self, usuario_id):
         try:
             self.log.info('Limpando notificações do usuário ' + str(usuario_id))
-            executor = self.__criar_executor()
+            executor = CriadorConexao.criar_executor()
             sql = "UPDATE historico_notificacoes " \
                   "SET nova_notificacao = %s " \
                   "WHERE usuario_notificado_id = %s" \
                   "AND data_insercao < sysdate()"
             executor.execute(sql, ('N', usuario_id))
-            self.__commit_mudancas()
-            self.__fechar_executor()
+            CriadorConexao.commit_mudancas()
+            CriadorConexao.fechar_executor()
             self.log.info('Notificações limpas para o usuário ' + str(usuario_id))
         except Exception as erro:
             self.log.erro('Erro ao limpar as notificações do usuário ' + str(usuario_id), erro)
