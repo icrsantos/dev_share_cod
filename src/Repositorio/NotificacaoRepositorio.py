@@ -40,7 +40,8 @@ class NotificacaoRepositorio:
             executor = self.__criar_executor()
             sql = "SELECT * " \
                   "FROM historico_notificacoes " \
-                  "WHERE usuario_notificado_id = %s"
+                  "WHERE usuario_notificado_id = %s" \
+                  "ORDER BY data_insercao desc"
             executor.execute(sql, (usuario_id,))
             resultado = executor.fetchall()
             self.__fechar_executor()
@@ -48,4 +49,20 @@ class NotificacaoRepositorio:
             return resultado
         except Exception as erro:
             self.log.erro('Erro ao buscar as notificações do usuário ' + str(usuario_id), erro)
+            return str(0)
+
+    def limpar_notificacoes(self, usuario_id):
+        try:
+            self.log.info('Limpando notificações do usuário ' + str(usuario_id))
+            executor = self.__criar_executor()
+            sql = "UPDATE historico_notificacoes " \
+                  "SET nova_notificacao = %s " \
+                  "WHERE usuario_notificado_id = %s" \
+                  "AND data_insercao < sysdate()"
+            executor.execute(sql, ('N', usuario_id))
+            self.__commit_mudancas()
+            self.__fechar_executor()
+            self.log.info('Notificações limpas para o usuário ' + str(usuario_id))
+        except Exception as erro:
+            self.log.erro('Erro ao limpar as notificações do usuário ' + str(usuario_id), erro)
             return str(0)

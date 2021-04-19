@@ -76,6 +76,12 @@ def buscar_notificacoes(usuario_id):
     return __lista_tuplas_para_lista_json(tuplas)
 
 
+def limpar_notificacoes(usuario_id):
+    notificacao_repositorio = NotificacaoRepositorio()
+    notificacao_repositorio.limpar_notificacoes(usuario_id)
+    return buscar_notificacoes(usuario_id)
+
+
 def __lista_tuplas_para_lista_json(tuplas):
     lista_notificacoes = ''
     if len(tuplas) == 0:

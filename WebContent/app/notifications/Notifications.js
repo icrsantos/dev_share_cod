@@ -2,7 +2,7 @@ app.component('notifications', {
     bindings: {},
     templateUrl: 'notifications/Notifications.html',
     controllerAs: 'notificationsCtrl',
-    controller: function($scope, DevShareService, Auth) {
+    controller: function($scope, DevShareService, Auth, $state) {
         this.notifications;
         this.user = Auth.getUser();
 
@@ -16,7 +16,16 @@ app.component('notifications', {
         }
 
         this.closeModal = () => {
+            $('#notificationsModal').modal('hide');
+            DevShareService.objRest.one('/clean-notifications/' + this.user.id).get()
+            .then((response) => {
+                this.notifications = response.data;
+            });
+        }
 
+        this.goToPost = (postagem_id) => {
+            this.closeModal();
+            $state.go("post", {id: postagem_id });
         }
     }
 

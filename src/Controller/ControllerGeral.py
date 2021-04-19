@@ -72,5 +72,10 @@ def buscar_notificacoes(usuario_id):
     return jsonify(NotificacaoServico.buscar_notificacoes(usuario_id))
 
 
+@app.route('/api/clean-notifications/<usuario_id>', methods=['GET'])
+def limpar_notificacoes(usuario_id):
+    return jsonify(NotificacaoServico.limpar_notificacoes(usuario_id))
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
