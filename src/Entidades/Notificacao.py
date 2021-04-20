@@ -13,15 +13,15 @@ class Notificacao:
         self.mensagem_enviada = ''
         self.nova_notificacao = ''
 
-    def definir_por_tupla(self, tupla):
-        self.id = tupla[0]
-        self.data_insercao = tupla[1]
-        self.data_alteracao = tupla[2]
-        self.tipo = tupla[3]
-        self.postagem_id = tupla[4]
-        self.usuario_notificado_id = tupla[5]
-        self.mensagem_enviada = tupla[6]
-        self.nova_notificacao = tupla[7]
+    def definir_por_tupla(self, tupla_notificacao):
+        self.id = tupla_notificacao[0]
+        self.data_insercao = tupla_notificacao[1]
+        self.data_alteracao = tupla_notificacao[2]
+        self.tipo = tupla_notificacao[3]
+        self.postagem_id = tupla_notificacao[4]
+        self.usuario_notificado_id = tupla_notificacao[5]
+        self.mensagem_enviada = tupla_notificacao[6]
+        self.nova_notificacao = tupla_notificacao[7]
 
     def definir_por_json(self, notificacao_json):
         self.id = notificacao_json['id']

@@ -129,10 +129,10 @@ class PostagemRepositorio:
                   ")" \
                   "ORDER BY relevancia DESC "
             executor.execute(sql, (usuario_id,))
-            tuplas = executor.fetchall()
+            tuplas_perguntas = executor.fetchall()
             CriadorConexao.fechar_executor()
-            self.log.info('Encontrados ' + str(len(tuplas)) + ' resultados')
-            return tuplas
+            self.log.info('Encontrados ' + str(len(tuplas_perguntas)) + ' resultados')
+            return tuplas_perguntas
         except Exception as erro:
             self.log.erro('Erro ao buscar perguntas do usuario ID: ' + str(usuario_id), erro)
             return str('ERRO: ' + str(erro))
@@ -147,10 +147,10 @@ class PostagemRepositorio:
                   ")" \
                   "ORDER BY relevancia DESC "
             executor.execute(sql, (usuario_id,))
-            tuplas = executor.fetchall()
+            tuplas_respostas = executor.fetchall()
             CriadorConexao.fechar_executor()
-            self.log.info('Encontrados ' + str(len(tuplas)) + ' resultados')
-            return tuplas
+            self.log.info('Encontrados ' + str(len(tuplas_respostas)) + ' resultados')
+            return tuplas_respostas
         except Exception as erro:
             self.log.erro('Erro ao buscar respostas do usuario ID: ' + str(usuario_id), erro)
             return str('ERRO: ' + str(erro))

@@ -9,13 +9,13 @@ app.controller("ProfileController", function(Auth, DevShareService) {
             DevShareService.objRest.one('/postagem/usuario/' + this.user.id + '/perguntas').get()
             .then((response) => {
                 this.profileQuestions = response.data;
-            })
-        }
-
-        if(!this.profileReply) {
-            DevShareService.objRest.one('/postagem/usuario/' + this.user.id + '/respostas').get()
-            .then((response) => {
-                this.profileReply = response.data;
+            }).finally(() => {
+                if(!this.profileReply) {
+                    DevShareService.objRest.one('/postagem/usuario/' + this.user.id + '/respostas').get()
+                    .then((response) => {
+                        this.profileReply = response.data;
+                    })
+                }
             })
         }
     };

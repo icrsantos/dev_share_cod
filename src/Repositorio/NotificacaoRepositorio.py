@@ -15,11 +15,11 @@ class NotificacaoRepositorio:
                   "FROM historico_notificacoes " \
                   "WHERE usuario_notificado_id = %s " \
                   "AND nova_notificacao = %s"
-            executor.execute(sql, (usuario_id, 'S'))
-            resultado = executor.fetchone()
+            executor.execute(sql, (usuario_id, 'S',))
+            tupla_novas_notificacao = executor.fetchone()
             CriadorConexao.fechar_executor()
-            self.log.info(str(resultado[0]) + ' notificações novas encontradas para o usuário ' + str(usuario_id))
-            return str(resultado[0])
+            self.log.info(str(tupla_novas_notificacao[0]) + ' notificações novas encontradas para o usuário ' + str(usuario_id))
+            return str(tupla_novas_notificacao[0])
         except Exception as erro:
             self.log.erro('Erro ao buscar novas notificações do usuário ', str(usuario_id), erro)
             return str(0)
@@ -33,10 +33,10 @@ class NotificacaoRepositorio:
                   "WHERE usuario_notificado_id = %s" \
                   "ORDER BY data_insercao desc"
             executor.execute(sql, (usuario_id,))
-            resultado = executor.fetchall()
+            tupla_notificacao = executor.fetchall()
             CriadorConexao.fechar_executor()
-            self.log.info(str(len(resultado)) + ' notificações encontradas para o usuário ' + str(usuario_id))
-            return resultado
+            self.log.info(str(len(tupla_notificacao)) + ' notificações encontradas para o usuário ' + str(usuario_id))
+            return tupla_notificacao
         except Exception as erro:
             self.log.erro('Erro ao buscar as notificações do usuário ' + str(usuario_id), erro)
             return str(0)
