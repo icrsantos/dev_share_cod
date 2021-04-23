@@ -70,6 +70,7 @@ create table historico_notificacoes
    postagem_id           int         not null,
    usuario_notificado_id int         not null,
    mensagem_enviada      longtext    not null,
+   nova_notificacao      char(1)     default 'N' not null,
    constraint historico_notificacoes_id_uindex
        unique (id),
    constraint historico_notificacoes_postagem_id_fk

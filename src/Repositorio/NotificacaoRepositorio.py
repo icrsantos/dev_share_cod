@@ -21,7 +21,7 @@ class NotificacaoRepositorio:
             self.log.info(str(tupla_novas_notificacao[0]) + ' notificações novas encontradas para o usuário ' + str(usuario_id))
             return str(tupla_novas_notificacao[0])
         except Exception as erro:
-            self.log.erro('Erro ao buscar novas notificações do usuário ', str(usuario_id), erro)
+            self.log.erro('Erro ao buscar novas notificações do usuário ' + str(usuario_id), erro)
             return str(0)
 
     def buscar_notificacoes(self, usuario_id):
@@ -30,7 +30,7 @@ class NotificacaoRepositorio:
             executor = CriadorConexao.criar_executor()
             sql = "SELECT * " \
                   "FROM historico_notificacoes " \
-                  "WHERE usuario_notificado_id = %s" \
+                  "WHERE usuario_notificado_id = %s " \
                   "ORDER BY data_insercao desc"
             executor.execute(sql, (usuario_id,))
             tupla_notificacao = executor.fetchall()
@@ -47,7 +47,7 @@ class NotificacaoRepositorio:
             executor = CriadorConexao.criar_executor()
             sql = "UPDATE historico_notificacoes " \
                   "SET nova_notificacao = %s " \
-                  "WHERE usuario_notificado_id = %s" \
+                  "WHERE usuario_notificado_id = %s " \
                   "AND data_insercao < sysdate()"
             executor.execute(sql, ('N', usuario_id))
             CriadorConexao.commit_mudancas()
