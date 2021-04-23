@@ -29,6 +29,17 @@ def __criar_servidor_conexao():
 def notificar_resposta_de_postagem(postagem_respondida, resposta_postagem):
     try:
         mensagem = __compor_mensagem_postagem_respondida(postagem_respondida, resposta_postagem)
+
+        notificacao = Notificacao()
+        notificacao.nova_notificacao = 'S'
+        notificacao.postagem_id = postagem_respondida.id
+        notificacao.tipo = 'RESPOSTA'
+        notificacao.usuario_notificado_id = postagem_respondida.usuario_id
+        notificacao.mensagem_enviada = mensagem
+
+        notificacao_repositorio = NotificacaoRepositorio()
+        notificacao_repositorio.salvar_notificacao(notificacao)
+
         __enviar_notificacao_autor(postagem_respondida, mensagem)
     except Exception as erro:
         log.erro('Erro ao notificar postagem ID: ' + postagem_respondida.id, erro)

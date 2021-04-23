@@ -11,7 +11,7 @@ class Notificacao:
         self.postagem_id = ''
         self.usuario_notificado_id = ''
         self.mensagem_enviada = ''
-        self.nova_notificacao = ''
+        self.nova_notificacao = 'S'
 
     def definir_por_tupla(self, tupla_notificacao):
         self.id = tupla_notificacao[0]

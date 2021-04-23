@@ -56,3 +56,30 @@ class NotificacaoRepositorio:
         except Exception as erro:
             self.log.erro('Erro ao limpar as notificações do usuário ' + str(usuario_id), erro)
             return str(0)
+
+    def salvar_notificacao(self, notificacao):
+        try:
+            self.log.info('Inserindo notificação')
+            executor_notificacao = CriadorConexao.criar_executor()
+            sql = "INSERT INTO historico_notificacoes" \
+                  "(data_insercao, data_alteracao," \
+                  "usuario_notificado_id, postagem_id," \
+                  "mensagem_enviada, nova_notificacao, tipo) " \
+                  "VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            parametros = (
+                notificacao.data_insercao,
+                notificacao.data_alteracao,
+                notificacao.usuario_notificado_id,
+                notificacao.postagem_id,
+                notificacao.mensagem_enviada,
+                notificacao.nova_notificacao,
+                notificacao.tipo
+            )
+            executor_notificacao.execute(sql, parametros)
+            CriadorConexao.commit_mudancas()
+            CriadorConexao.fechar_executor()
+            id_notificacao = str(executor_notificacao.lastrowid)
+            self.log.info('Criada a notificação ID: ' + id_notificacao)
+        except Exception as erro:
+            self.log.erro('Erro ao inserir uma notificação para o usuário' + str(notificacao.usuario_notificado_id), erro)
+            return str(0)
