@@ -1,1 +1,0 @@
-ALTER TABLE historico_notificacoes ADD nova_notificacao CHAR(1);
