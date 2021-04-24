@@ -86,10 +86,11 @@ class PostagemRepositorio:
         try:
             self.log.info('Buscando posts com a mensagem \'' + texto_pesquisa + '\'')
             executor = self.criador_conexao.criar_executor()
-            sql = "SELECT * FROM postagem WHERE (" \
+            sql = "SELECT * FROM postagem WHERE " \
+                  "(tipo = '" + TipoPostagemEnum.PERGUNTA + "') AND (" \
                   "(titulo like '%" + texto_pesquisa + "%') OR " \
                   "(conteudo like '%" + texto_pesquisa + "%') OR " \
-                  "(tipo like '%" + texto_pesquisa + "%')" \
+                  "(tipo like '%" + texto_pesquisa + "%') " \
                   ")" \
                   "ORDER BY relevancia DESC "
             executor.execute(sql)
