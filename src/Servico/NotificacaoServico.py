@@ -35,7 +35,7 @@ def notificar_resposta_de_postagem(postagem_respondida, resposta_postagem):
         notificacao.postagem_id = postagem_respondida.id
         notificacao.tipo = 'RESPOSTA'
         notificacao.usuario_notificado_id = postagem_respondida.usuario_id
-        notificacao.mensagem_enviada = mensagem
+        notificacao.mensagem_enviada = "A postagem " + postagem_respondida.titulo + " foi respondida!"
 
         notificacao_repositorio = NotificacaoRepositorio()
         notificacao_repositorio.salvar_notificacao(notificacao)
