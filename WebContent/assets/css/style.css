@@ -22,6 +22,11 @@
     border: none
 }
 
+.post-header{
+  display: flex;
+  justify-content: space-between;
+}
+
 .login-box {
     width: 100%;
     padding: 40px;
