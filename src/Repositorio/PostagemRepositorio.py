@@ -1,17 +1,17 @@
-from src.BancoDeDados import CriadorConexao
 from src.Utils.Logger import Logger
 from src.Utils import TipoPostagemEnum
+from src.BancoDeDados.CriadorConexao import CriadorConexao
 
 
 class PostagemRepositorio:
     def __init__(self):  # Construtora:
-        self.conexao = None
+        self.criador_conexao = CriadorConexao()
         self.log = Logger('PostagemRepositorio')
 
     def criar(self, postagem):
         try:
             self.log.info('Inserindo nova postagem')
-            executor = CriadorConexao.criar_executor()
+            executor = self.criador_conexao.criar_executor()
             sql = "INSERT INTO postagem" \
                   "(data_insercao, data_alteracao," \
                   "titulo, conteudo, tipo, situacao," \
@@ -28,8 +28,8 @@ class PostagemRepositorio:
                 postagem.usuario_id
             )
             executor.execute(sql, parametros)
-            CriadorConexao.commit_mudancas()
-            CriadorConexao.fechar_executor()
+            self.criador_conexao.commit_mudancas()
+            self.criador_conexao.fechar_executor()
             id_criacao = str(executor.lastrowid)
             self.log.info('Criada a postagem ID: ' + id_criacao)
             return id_criacao
@@ -40,7 +40,7 @@ class PostagemRepositorio:
     def atualizar(self, postagem):
         try:
             self.log.info('Atualizando postagem ID: ' + str(postagem.id))
-            executor = CriadorConexao.criar_executor()
+            executor = self.criador_conexao.criar_executor()
             sql = "UPDATE postagem SET " \
                   "data_alteracao = %s, " \
                   "titulo = %s, conteudo = %s, tipo = %s, situacao = %s," \
@@ -60,8 +60,8 @@ class PostagemRepositorio:
                 postagem.id
             )
             executor.execute(sql, parametros)
-            CriadorConexao.commit_mudancas()
-            CriadorConexao.fechar_executor()
+            self.criador_conexao.commit_mudancas()
+            self.criador_conexao.fechar_executor()
             self.log.info('Atualizada a postagem ID: ' + str(postagem.id))
             return str(postagem.id)
         except Exception as erro:
@@ -70,22 +70,22 @@ class PostagemRepositorio:
 
     def buscar_por_id(self, postagem_id):
         try:
-            self.log.info('Conferindo existência de postagem ID: ' + str(postagem_id))
-            executor = CriadorConexao.criar_executor()
+            self.log.info('Buscando a postagem ID: ' + str(postagem_id))
+            executor = self.criador_conexao.criar_executor()
             sql = "SELECT * FROM postagem WHERE" \
                   "(id = %s) "
             executor.execute(sql, (postagem_id,))
             tupla = executor.fetchone()
-            CriadorConexao.fechar_executor()
+            self.criador_conexao.fechar_executor()
             return tupla
         except Exception as erro:
-            self.log.erro('Erro ao conferir existência da postagem ID: ' + str(postagem_id), erro)
+            self.log.erro('Erro ao buscar a postagem ID: ' + str(postagem_id), erro)
             return None
 
     def pesquisar_postagens_por_texto(self, texto_pesquisa):
         try:
             self.log.info('Buscando posts com a mensagem \'' + texto_pesquisa + '\'')
-            executor = CriadorConexao.criar_executor()
+            executor = self.criador_conexao.criar_executor()
             sql = "SELECT * FROM postagem WHERE (" \
                   "(titulo like '%" + texto_pesquisa + "%') OR " \
                   "(conteudo like '%" + texto_pesquisa + "%') OR " \
@@ -94,7 +94,7 @@ class PostagemRepositorio:
                   "ORDER BY relevancia DESC "
             executor.execute(sql)
             tuplas = executor.fetchall()
-            CriadorConexao.fechar_executor()
+            self.criador_conexao.fechar_executor()
             self.log.info('Encontrados ' + str(len(tuplas)) + ' resultados')
             return tuplas
         except Exception as erro:
@@ -104,7 +104,7 @@ class PostagemRepositorio:
     def buscar_respostas_a_postagem(self, postagem_id):
         try:
             self.log.info('Buscando respostas ao post ID: ' + str(postagem_id))
-            executor = CriadorConexao.criar_executor()
+            executor = self.criador_conexao.criar_executor()
             sql = "SELECT * FROM postagem WHERE (" \
                   "(postagem_respondida_id = %s ) AND " \
                   "(tipo = '" + TipoPostagemEnum.RESPOSTA + "')" \
@@ -112,7 +112,7 @@ class PostagemRepositorio:
                   "ORDER BY relevancia DESC "
             executor.execute(sql, (postagem_id,))
             tuplas = executor.fetchall()
-            CriadorConexao.fechar_executor()
+            self.criador_conexao.fechar_executor()
             self.log.info('Encontrados ' + str(len(tuplas)) + ' resultados')
             return tuplas
         except Exception as erro:
@@ -122,7 +122,7 @@ class PostagemRepositorio:
     def buscar_perguntas_de_usuario(self, usuario_id):
         try:
             self.log.info('Buscando perguntas do usuario ID: ' + str(usuario_id))
-            executor = CriadorConexao.criar_executor()
+            executor = self.criador_conexao.criar_executor()
             sql = "SELECT * FROM postagem WHERE (" \
                   "(usuario_id = %s ) AND " \
                   "(tipo = '" + TipoPostagemEnum.PERGUNTA + "')" \
@@ -130,7 +130,7 @@ class PostagemRepositorio:
                   "ORDER BY relevancia DESC "
             executor.execute(sql, (usuario_id,))
             tuplas_perguntas = executor.fetchall()
-            CriadorConexao.fechar_executor()
+            self.criador_conexao.fechar_executor()
             self.log.info('Encontrados ' + str(len(tuplas_perguntas)) + ' resultados')
             return tuplas_perguntas
         except Exception as erro:
@@ -140,7 +140,7 @@ class PostagemRepositorio:
     def buscar_respostas_de_usuario(self, usuario_id):
         try:
             self.log.info('Buscando respostas do usuario ID: ' + str(usuario_id))
-            executor = CriadorConexao.criar_executor()
+            executor = self.criador_conexao.criar_executor()
             sql = "SELECT * FROM postagem WHERE (" \
                   "(usuario_id = %s ) AND " \
                   "(tipo = '" + TipoPostagemEnum.RESPOSTA + "')" \
@@ -148,7 +148,7 @@ class PostagemRepositorio:
                   "ORDER BY relevancia DESC "
             executor.execute(sql, (usuario_id,))
             tuplas_respostas = executor.fetchall()
-            CriadorConexao.fechar_executor()
+            self.criador_conexao.fechar_executor()
             self.log.info('Encontrados ' + str(len(tuplas_respostas)) + ' resultados')
             return tuplas_respostas
         except Exception as erro:
