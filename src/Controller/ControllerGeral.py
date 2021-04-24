@@ -33,6 +33,16 @@ def criar_postagem():
     return PostagemServico.criar_postagem(postagem_json)
 
 
+@app.route('/api/postagem/<id>', methods=['GET'])
+def buscar_postagem(id):
+    return jsonify(PostagemServico.buscar_postagem(id))
+
+
+@app.route('/api/postagem/respostas/<id>', methods=['GET'])
+def buscar_perguntas_de_postagens(id):
+    return jsonify(PostagemServico.buscar_respostas_de_postagem(id))
+
+
 @app.route('/api/pesquisar/<pesquisa>', methods=['GET'])
 def pesquisar_postagens(pesquisa):
     return jsonify(PostagemServico.pesquisar_postagens(pesquisa))

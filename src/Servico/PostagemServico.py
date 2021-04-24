@@ -11,6 +11,20 @@ from src.Servico import NotificacaoServico
 log = Logger('PostagemServico')
 
 
+def buscar_postagem(id):
+    postagem_repositorio = PostagemRepositorio()
+    tupla = postagem_repositorio.buscar_por_id(id)
+    postagem = Postagem()
+    postagem.definir_por_tupla(tupla)
+    return postagem.json()
+
+
+def buscar_respostas_de_postagem(id):
+    postagem_repositorio = PostagemRepositorio()
+    tuplas = postagem_repositorio.buscar_respostas_a_postagem(id)
+    return __lista_tuplas_para_lista_json(tuplas)
+
+
 def criar_postagem(postagem_json):
     validar_postagem_json(postagem_json)
     postagem = Postagem()
