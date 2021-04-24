@@ -54,12 +54,12 @@ app.config(['$stateProvider', function($stateProvider) {
     });
 
     $stateProvider.state('post', {
-        url : '/posts/:id',
+        url : '/post/:id',
     	views : {
     		'uiViewHeader' : {
                 templateUrl : 'header/Header.html'
             }, 'uiViewContent' : {
-                templateUrl : 'posts/Posts.html'
+                templateUrl : 'posts/InToPost.html'
             }
         },
         ncyBreadcrumb: {

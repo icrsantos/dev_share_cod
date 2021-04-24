@@ -1,6 +1,6 @@
 <div ng-controller="PostsController as postCtrl">
 
-    <div ng-if="postCtrl.pesquisa &&postCtrl.retornoPesquisa && postCtrl.retornoPesquisa.length > 0">
+    <div ng-if="postCtrl.pesquisa && postCtrl.retornoPesquisa && postCtrl.retornoPesquisa.length > 0">
         <h3>Resultados para "{{postCtrl.pesquisa}}"</h3>
     </div>
 
@@ -12,7 +12,7 @@
         <div class="row" ng-repeat="post in postCtrl.retornoPesquisa">
             <div class="panel panel-info ">
                 <div class="panel-heading post-header">
-                    <h5>{{post.titulo}}</h5>
+                    <h5><a ui-sref="post({id: post.id})">{{post.titulo}}</a></h5>
                     <div>
                         <h5>{{post.relevancia}}</h5>
                     </div>

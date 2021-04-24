@@ -1,0 +1,24 @@
+<div ng-controller="PostController as postCtrl">
+
+    <div>
+        <h2>{{postCtrl.post.titulo}}</h2>
+    </div>
+    <div>
+        <h5>{{postCtrl.post.conteudo}}</h5>
+    </div>
+    <br>
+    <br>
+    <div>
+        <div class="row" ng-repeat="post in postCtrl.retornoRespostas">
+            <div class="panel panel-info">
+                <div class="panel-heading post-header">
+                    <h5>{{post.titulo}}</h5>
+                    <div>
+                        <h5>{{post.relevancia}}</h5>
+                    </div>
+                </div>
+                <div class="panel-body">{{post.conteudo}}</div>
+            </div>
+        </div>
+    </div>
+</div>
