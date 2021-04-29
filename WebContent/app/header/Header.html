@@ -1,61 +1,61 @@
-<nav class="navbar navbar-inverse navbar-static-top" ng-controller="HeaderController as headerCtrl">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation" ng-controller="HeaderController as headerCtrl">
 	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand title" ui-sref="home.perm">
-				Devshare
-				<!-- LOGO -->
-				<!-- img class="img-responsive center-block" src="#"-->
+		<div class="col-sm-2">
+			<a class="navbar-brand" ui-sref="home">
+				<img width="100%" src="../assets/img/op_azul_claro.png">
 			</a>
-			
-			<button type="button"
-				class="navbar-toggle collapsed"
-				data-toggle="collapse"
-				data-target="#navbar"
-				aria-expanded="false"
-				aria-controls="navbar">
-				
-				<span class="sr-only"></span>
-				<span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-			</button>
 		</div>
-		
-		<div id="navbar" class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-left">
-				<li ui-sref-active="active" class="nav-item">
-					<a class="nav-link" id="item_home" ui-sref="home">Home</a>
+
+		<button type="button"
+			class="navbar-toggler"
+			data-toggle="collapse"
+			aria-controls="header_principal"
+			data-target="#header_principal"
+			aria-expanded="false"
+			aria-label="Menu principal">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div id="header_principal" class="collapse navbar-collapse justify-content-between">
+			<ul class="navbar-nav">
+				<li ui-sref-active="active" class="nav-item active">
+					<a class="nav-link" ui-sref="home">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" id="item_forum" ui-sref="posts({search: null})">Fórum</a>
+					<a class="nav-link" ui-sref="posts">Fórum</a>
 				</li>
 			</ul>
 
-			<div class="navbar-right">
-				<form class="navbar-form col-sm-12" style="padding-top: 8px;">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Pesquisar"
-							name="search" id="search" ng-model="headerCtrl.pesquisa">
+			<div class="col-sm-10">
+				<div class="d-flex justify-content-end">
+					<div class="col-sm-3">
+						<div class="d-flex justify-content-end">
+							<div class="searchbar h-75">
+								<input class="search_input col-sm-8" ng-class="{'search_input_filled': headerCtrl.pesquisa}"
+									ng-keyup="$event.keyCode == 13 ? headerCtrl.goSearch() : null" type="text" name="search" placeholder="Pesquisar..." ng-model="headerCtrl.pesquisa">
 
-						<div class="input-group-btn">
-							<button ui-sref="posts({search: headerCtrl.pesquisa})" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+								<a ui-sref="posts({search: headerCtrl.pesquisa})" class="search_icon col-sm-8"
+									ng-class="{'search_icon_input_filled': headerCtrl.pesquisa}">
+									<i class="fa fa-search"></i>
+								</a>
+							</div>
 						</div>
 					</div>
-				</form>
 
-				<ul class="nav navbar-nav" ng-if="!headerCtrl.user">
-					<li><a ui-sref="signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-					<li><a ui-sref="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-				</ul>
+					<ul class="navbar-nav" ng-if="!headerCtrl.user">
+						<li class="nav-item"><a class="nav-link" ui-sref="signup"><i class="fa fa-user-plus"></i> Sign Up</a></li>
+						<li class="nav-item"><a class="nav-link" ui-sref="login"><i class="fa fa-sign-in"></i> Login</a></li>
+					</ul>
 
-				<ul class="nav navbar-nav" ng-if="headerCtrl.user">
-					<li><a ng-click="headerCtrl.openModalNotifications()">
-						<span class="glyphicon glyphicon-globe"></span> Notificações
-						<small ng-if="headerCtrl.newNotifications"><span class="btn btn-danger">{{headerCtrl.newNotifications}}</span></small>
-					</a></li>
-					<li><a ui-sref="profile"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
-					<li><a ui-sref="logout"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
-				</ul>
+					<ul class="navbar-nav" ng-if="headerCtrl.user">
+						<li class="nav-item"><a class="nav-link" ng-click="headerCtrl.openModalNotifications()">
+							<span class="glyphicon glyphicon-globe"></span> Notificações
+							<small ng-if="headerCtrl.newNotifications"><span class="btn btn-danger">{{headerCtrl.newNotifications}}</span></small>
+						</a></li>
+						<li class="nav-item"><a class="nav-link" ui-sref="profile"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
+						<li class="nav-item"><a class="nav-link" ui-sref="logout"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-app.controller("HeaderController", function(Auth, $rootScope, Restangular) {
+app.controller("HeaderController", function(Auth, $rootScope, Restangular, $state) {
     this.user = Auth.getUser();
 
     this.$onInit = () => {
@@ -26,5 +26,9 @@ app.controller("HeaderController", function(Auth, $rootScope, Restangular) {
         $rootScope.newNotifications = null;
 
         $('#notificationsModal').modal('show');
+    }
+
+    this.goSearch = function() {
+        $state.go("posts", {search: this.pesquisa});
     }
 })
