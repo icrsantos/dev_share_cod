@@ -4,7 +4,10 @@ app.controller("HeaderController", function(Auth, $rootScope, Restangular, $stat
     this.$onInit = () => {
         if(this.user) {
             setInterval(angular.bind(this, function() {
-                this.newNotifications = $rootScope.newNotifications;
+                if($rootScope.newNotifications && $rootScope.newNotifications > 0) {
+                    this.newNotifications = $rootScope.newNotifications > 99
+                        ? '99+' : $rootScope.newNotifications;
+                }
             }), 100 * 61);
 
             if($rootScope.newNotifications) {

@@ -50,11 +50,13 @@
 
 						<ul class="navbar-nav" ng-if="headerCtrl.user">
 							<li class="nav-item"><a class="nav-link" ng-click="headerCtrl.openModalNotifications()">
-								<span class="glyphicon glyphicon-globe"></span> Notificações
-								<small ng-if="headerCtrl.newNotifications"><span class="btn btn-danger">{{headerCtrl.newNotifications}}</span></small>
+								<i class="fa fa-bell"></i> Notificações
+								<span ng-if="headerCtrl.newNotifications" class="badge badge-pill badge-danger">
+									{{headerCtrl.newNotifications}}
+								</span>
 							</a></li>
-							<li class="nav-item"><a class="nav-link" ui-sref="profile"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
-							<li class="nav-item"><a class="nav-link" ui-sref="logout"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+							<li class="nav-item"><a class="nav-link" ui-sref="profile"><i class="fa fa-user"></i> Perfil</a></li>
+							<li class="nav-item"><a class="nav-link" ui-sref="logout"><i class="fa fa-sign-out"></i> Sair</a></li>
 						</ul>
 					</div>
 				</div>
