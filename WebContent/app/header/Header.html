@@ -30,7 +30,7 @@
 				<div class="d-flex justify-content-end">
 					<div class="col-sm-3">
 						<div class="d-flex justify-content-end">
-							<div class="searchbar h-75">
+							<div class="searchbar h-50">
 								<input class="search_input col-sm-8" ng-class="{'search_input_filled': headerCtrl.pesquisa}"
 									ng-keyup="$event.keyCode == 13 ? headerCtrl.goSearch() : null" type="text" name="search" placeholder="Pesquisar..." ng-model="headerCtrl.pesquisa">
 
@@ -42,19 +42,21 @@
 						</div>
 					</div>
 
-					<ul class="navbar-nav" ng-if="!headerCtrl.user">
-						<li class="nav-item"><a class="nav-link" ui-sref="signup"><i class="fa fa-user-plus"></i> Sign Up</a></li>
-						<li class="nav-item"><a class="nav-link" ui-sref="login"><i class="fa fa-sign-in"></i> Login</a></li>
-					</ul>
+					<div class="d-flex align-items-center">
+						<ul class="navbar-nav" ng-if="!headerCtrl.user">
+							<li class="nav-item"><a class="nav-link" ui-sref="signup"><i class="fa fa-user-plus"></i> Sign Up</a></li>
+							<li class="nav-item"><a class="nav-link" ui-sref="login"><i class="fa fa-sign-in"></i> Login</a></li>
+						</ul>
 
-					<ul class="navbar-nav" ng-if="headerCtrl.user">
-						<li class="nav-item"><a class="nav-link" ng-click="headerCtrl.openModalNotifications()">
-							<span class="glyphicon glyphicon-globe"></span> Notificações
-							<small ng-if="headerCtrl.newNotifications"><span class="btn btn-danger">{{headerCtrl.newNotifications}}</span></small>
-						</a></li>
-						<li class="nav-item"><a class="nav-link" ui-sref="profile"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
-						<li class="nav-item"><a class="nav-link" ui-sref="logout"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
-					</ul>
+						<ul class="navbar-nav" ng-if="headerCtrl.user">
+							<li class="nav-item"><a class="nav-link" ng-click="headerCtrl.openModalNotifications()">
+								<span class="glyphicon glyphicon-globe"></span> Notificações
+								<small ng-if="headerCtrl.newNotifications"><span class="btn btn-danger">{{headerCtrl.newNotifications}}</span></small>
+							</a></li>
+							<li class="nav-item"><a class="nav-link" ui-sref="profile"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
+							<li class="nav-item"><a class="nav-link" ui-sref="logout"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>

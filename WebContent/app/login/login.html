@@ -1,40 +1,38 @@
-<div id="login" ng-controller="LoginController as loginCtrl" class="background-gradient">
-	<div class="row">
-		<div class="col-md-5">
-			<div class="card">
-				<form class="form-horizontal login-box" name="loginForm" id="loginForm" role="form"
-					  ng-submit="loginForm.$valid && loginCtrl.save()" novalidate>
+<div id="login" ng-controller="LoginController as loginCtrl">
+	<div class="d-flex justify-content-center">
+		<div class="col-sm-4">
+			<form class="form-horizontal login-box" name="loginForm" id="loginForm" role="form"
+				  ng-submit="loginForm.$valid && loginCtrl.save()" novalidate>
 
-					<h1>Login</h1>
+				<a ui-sref="home"><img width="15%" src="../assets/img/icone2.png"></a>
+				<h3>Login</h3><br>
 
-					<div class="form-group required"
-						ng-class="{'has-error': $root.invalid(loginForm, loginForm.username)}">
-						<div class="col-sm-6 col-sm-offset-3">
-							<input type="text" name="username" id="username" required placeholder="Usuário"
-								class="form-control" ng-model="loginCtrl.data.nome"/>
-						</div>
+				<div class="form-group required">
+					<input type="text" name="username" id="username" required placeholder="Usuário"
+						class="form-control input_login" ng-model="loginCtrl.data.nome" aria-describedby="invalid_user"
+						ng-class="{'is-invalid': $root.invalid(loginForm, loginForm.username)}"/>
 
-						<div  class="col-sm-6 col-sm-offset-2" ng-messages="loginForm.username.$error" ng-if="$root.invalid(loginForm, loginForm.username)">
-							<div ng-message="required" class="help-block">Campo obrigatório</div>
-						</div>
+					<div id="invalid_user" class="invalid-feedback text-left">
+						<b>Campo obrigatório</b>
 					</div>
+				</div>
 
-					<div class="form-group required"
-						ng-class="{'has-error': $root.invalid(loginForm, loginForm.password)}">
+				<div class="form-group required">
+					<input type="password" name="password" id="password" required placeholder="Senha"
+						class="form-control input_login" ng-model="loginCtrl.data.senha" aria-describedby="invalid_password"
+						ng-class="{'is-invalid': $root.invalid(loginForm, loginForm.password)}"/>
 
-						<div class="col-sm-6 col-sm-offset-3">
-							<input type="password" name="password" id="password" required placeholder="Senha"
-								class="form-control" ng-model="loginCtrl.data.senha"/>
-						</div>
-
-						<div class="col-sm-6 col-sm-offset-2" ng-messages="loginForm.password.$error" ng-if="$root.invalid(loginForm, loginForm.password)">
-							<div ng-message="required" class="help-block">Campo obrigatório</div>
-						</div>
+					<div id="invalid_password" class="invalid-feedback text-left">
+						<b>Campo obrigatório</b>
 					</div>
+				</div>
 
-					<div class="form-group">
-						<div class="col-md-offset-3 col-md-6 text-center">
-							<button type="submit" class="btn btn-success btn-lg btn-block" ng-disabled="loginCtrl.processando">
+				<br>
+
+				<div class="form-group">
+					<div class="d-flex justify-content-center">
+						<div class="col-sm-6">
+							<button type="submit" class="btn btn-success btn-block" ng-disabled="loginCtrl.processando">
 								<div class="spinner-button" ng-if="loginCtrl.processando">
 									<div class="bounce1"></div>
 									<div class="bounce2"></div>
@@ -42,15 +40,13 @@
 								</div>
 								<span ng-if="!loginCtrl.processando">Entrar</span>
 							</button>
-							<div class="row form-Or">
-								<hr class="hr-Or">
-								<span class="span-Or">ou</span>
-							</div>
-							<a class="btn btn-lg btn-default btn-block" ui-sref="signup"> Cadastre-se </a>
 						</div>
+					</div><br>
+					<div class="col-sm-12">
+						<p>Não possui conta?<a class="text-white" ui-sref="signup"><b> Cadastre-se</b></a></p>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
