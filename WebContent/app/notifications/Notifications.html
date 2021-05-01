@@ -1,5 +1,5 @@
 <div class="modal" id="notificationsModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog scroll_modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Notificações</h3>
@@ -14,11 +14,13 @@
                             <div class="col-sm-1 text-right">
                                 <i class="fa fa-comment fa-lg"></i>
                             </div>
+
                             <div class="col-sm-8">
                                 <a ng-if="notification.nova_notificacao == 'N'" class="text-dark"
                                    ng-click="notificationsCtrl.goToPost(notification.postagem_id)">
                                     {{notification.mensagem_enviada}}
                                 </a>
+
                                 <a ng-if="notification.nova_notificacao == 'S'" class="text-dark"
                                    ng-click="notificationsCtrl.goToPost(notification.postagem_id)">
                                     <span class="badge badge-pill badge-info">new</span>

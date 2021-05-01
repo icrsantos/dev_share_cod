@@ -1,11 +1,9 @@
 body {
 	background: #ECF0F1;
 	margin-bottom: 100px;
-	overflow-y: scroll;
 }
 
 .loginSignup {
-    background: #ECF0F1;
     width: 100%;
 }
 
@@ -208,5 +206,6 @@ input[name=email]:-webkit-autofill {
 }
 
 #modal_body_notification {
+    height: 80vh;
     overflow-y: scroll;
 }
