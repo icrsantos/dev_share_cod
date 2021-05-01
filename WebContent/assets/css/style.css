@@ -200,3 +200,13 @@ input[name=email]:-webkit-autofill {
     background-color: #4dc2cb;
     color: #000000;
 }
+
+#notification_item {
+    padding: 10px 0;
+    border-bottom: 1px solid #D3D3D3;
+
+}
+
+#modal_body_notification {
+    overflow-y: scroll;
+}

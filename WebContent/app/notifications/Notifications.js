@@ -27,6 +27,10 @@ app.component('notifications', {
             this.closeModal();
             $state.go("post", {id: postagem_id });
         }
+
+        this.getDataFormatadaNotificacao = (data) => {
+            return moment(data, "YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY HH:mm");
+        }
     }
 
 })

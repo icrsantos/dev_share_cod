@@ -1,16 +1,33 @@
-<div class="modal fade" id="notificationsModal">
-    <div class="modal-dialog" style="height:90%;overflow-y:auto;">
+<div class="modal" id="notificationsModal">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <a class="close" ng-click="notificationsCtrl.closeModal()">×</a>
                 <h3>Notificações</h3>
+                <button type="button" class="close" ng-click="notificationsCtrl.closeModal()" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-body">
-                <div class="row" style="margin: 5px" ng-repeat="notification in notificationsCtrl.notifications">
-                    <div class="panel" ng-class="notification.nova_notificacao == 'S' ? 'panel-success' : 'panel-info'">
-                        <div ng-class="notification.nova_notificacao == 'S' ? 'panel-heading post-header' : 'panel-body'">
-                            <h5><a ng-click="notificationsCtrl.goToPost(notification.postagem_id)">{{notification.mensagem_enviada}}</a></h5>
-                            <p>{{notification.data_insercao}}</p>
+            <div class="modal-body" id="modal_body_notification">
+                <div ng-repeat="notification in notificationsCtrl.notifications">
+                    <div id="notification_item">
+                        <div class="d-flex align-items-center">
+                            <div class="col-sm-1 text-right">
+                                <i class="fa fa-comment fa-lg"></i>
+                            </div>
+                            <div class="col-sm-8">
+                                <a ng-if="notification.nova_notificacao == 'N'" class="text-dark"
+                                   ng-click="notificationsCtrl.goToPost(notification.postagem_id)">
+                                    {{notification.mensagem_enviada}}
+                                </a>
+                                <a ng-if="notification.nova_notificacao == 'S'" class="text-dark"
+                                   ng-click="notificationsCtrl.goToPost(notification.postagem_id)">
+                                    <span class="badge badge-pill badge-info">new</span>
+                                    <b>{{notification.mensagem_enviada}}</b>
+                                </a>
+                            </div>
+                            <div class="col-sm-3 text-right">
+                                <p class="text-primary"><small>{{ notificationsCtrl.getDataFormatadaNotificacao(notification.data_alteracao) }}</small></p>
+                            </div>
                         </div>
                     </div>
                 </div>
