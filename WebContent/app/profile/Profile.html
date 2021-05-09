@@ -1,86 +1,107 @@
-<div ng-controller="ProfileController as profileCtrl">
-    <div style="padding-top: 5px;">
-        <div class="row" style="padding-top: 30px;">
-        <div class="col-sm-4">
-            <div class="text-center">
-                <img src="../assets/img/user_default.png" class="img-circle" width="200" height="200">
+<div ng-controller="ProfileController as profileCtrl" class="w-100">
+    <div class="d-flex justify-content-between">
+        <div class="p-2 bd-highlight">
+            <div class="d-inline-flex align-items-center mb-3">
+                <div class="text-center">
+                    <div class="d-flex justify-content-center">
+                        <img src="../assets/img/user_default.png" width="60%" class="rounded-circle">
+                    </div>
+                    <h3><small class="text-muted">{{profileCtrl.user.nome}}</small></h3>
 
-                <h4 class="form-control-static">{{profileCtrl.user.nome}}</h4>
+                    <div class="d-flex justify-content-center">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-info btn-sm btn-block"
+                                data-toggle="modal" data-target="#editUserModal">Editar Perfil</button>
+                        </div>
+                    </div>
 
-                <div class="col-md-offset-3 col-sm-6" style="padding-top: 30px;">
-                    <button type="button" class="btn btn-default btn-block"
-                        data-toggle="modal" data-target="#editUserModal">Editar Perfil</button>
+                    <hr>
+
+                    <div class="d-flex justify-content-center">
+                        <span class="badge badge-pill badge-success">
+                            <i class="fa fa-trophy"></i>
+                            {{profileCtrl.user.pontos ? profileCtrl.user.pontos : 0}} pontos
+                        </span>
+                    </div>
                 </div>
 
-                <div class="col-sm-12 row form-Or">
-                    <hr class="hr-Or">
-                </div>
-
-                <div class="col-sm-12 row">
-                    <h4>
-                        <i class="bi bi-trophy-fill"></i>
-                        {{profileCtrl.user.pontos ? profileCtrl.user.pontos : 0}} Pontos
-                    </h4>
-                </div>
+                <div class="col-sm-1 vl"></div>
             </div>
         </div>
-        <div class="col-sm-1 vl"></div>
-        <div class="col-sm-7">
-            <ul class="nav nav-justified project-menu">
-                <li role="presentation" class="content-center active"  ui-sref="profile" ui-sref-active-eq="active">
-                    <span class="glyphicon glyphicon-question-sign" style="padding-right: 10px;"></span>
-                    <span>Perguntas</span>
+        <div class="p-2 flex-grow-1 bd-highlight">
+            <ul class="nav nav-pills nav-justified posts-menu">
+                <li role="presentation" class="nav-item" ui-sref="profile" ui-sref-active-eq="active">
+                    <a class="nav-link"><i class="fa fa-question-circle"></i> Perguntas</a>
                 </li>
-                <li role="presentation" class="content-center"  ui-sref="profile.respostas" ui-sref-active-eq="active">
-                    <span class="glyphicon glyphicon-ok-sign" style="padding-right: 10px;"></span>
-                    <span>Respostas</span>
+                <li role="presentation" class="nav-item" ui-sref="profile.respostas" ui-sref-active-eq="active">
+                    <a class="nav-link"><i class="fa fa-reply"></i> Respostas</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div ui-view="uiViewPostsProfile"></div>
             </div>
         </div>
-    </div>
+
     </div>
 
     <!-- modal de edição do perfil -->
     <div class="modal fade" id="editUserModal">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <a class="close" data-dismiss="modal">×</a>
                     <h3>Editar Perfil</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group required col-sm-6">
-                            <label class="control-label">Nome de usuário</label>
-                            <input type="text" name="username" id="username" required placeholder="Nome de usuário"
-                                class="form-control" ng-model="profileCtrl.user.nome"/>
-                        </div>
-                        <div class="form-group required col-sm-6">
-                            <label class="control-label">E-mail</label>
-                            <input type="email" name="email" id="email" required placeholder="E-mail"
-								class="form-control" ng-model="profileCtrl.user.email"/>
-                        </div>
-                        <div class="form-group required col-sm-6">
-                            <label class="control-label">Senha</label>
-                            <input type="password" name="password" id="password" required placeholder="Senha"
-								class="form-control" ng-model="profileCtrl.user.senha" disabled/>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" ng-disabled="profileCtrl.processando" ng-click="profileCtrl.salvarEdicaoUsuario()">
-                        <div class="spinner-button" ng-if="profileCtrl.processando">
-                            <div class="bounce1"></div>
-                            <div class="bounce2"></div>
-                            <div></div>
-                        </div>
-                        <span ng-if="!profileCtrl.processando">Salvar Alterações</span>
+                    <button type="button" class="close" ng-click="notificationsCtrl.closeModal()" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
+                <form class="form-horizontal" name="formEdit" id="formEdit" ng-submit="loginForm.$valid &&profileCtrl.salvarEdicaoUsuario()">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group required col-sm-6">
+                                <label class="control-label">Nome de usuário</label>
+                                <input type="text" name="username_edit" id="username" required placeholder="Nome de usuário"
+                                    class="form-control" ng-model="profileCtrl.user.nome" aria-describedby="invalid_name"
+                                    ng-class="{'is-invalid': $root.invalid(formEdit, formEdit.username_edit)}"/>
+
+                                <div id="invalid_name" class="invalid-feedback text-left">
+                                    <b>Campo obrigatório</b>
+                                </div>
+                            </div>
+                            <div class="form-group required col-sm-6">
+                                <label class="control-label">E-mail</label>
+                                <input type="email" name="email_edit" id="email" required placeholder="E-mail"
+                                    class="form-control" ng-model="profileCtrl.user.email" aria-describedby="invalid_email"
+                                    ng-class="{'is-invalid': $root.invalid(formEdit, formEdit.email_edit)}"/>
+
+                                <div id="invalid_email" class="invalid-feedback text-left">
+                                    <b>Campo obrigatório</b>
+                                </div>
+                            </div>
+                            <div class="form-group required col-sm-6">
+                                <label class="control-label">Senha</label>
+                                <input type="password" name="password" id="password" required placeholder="Senha"
+                                    class="form-control" ng-model="profileCtrl.user.senha" disabled aria-describedby="invalid_senha"
+                                    ng-class="{'is-invalid': $root.invalid(formEdit, formEdit.password)}"/>
+
+                                <div id="invalid_senha" class="invalid-feedback text-left">
+                                    <b>Campo obrigatório</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-info" ng-disabled="profileCtrl.processando">
+                            <div class="spinner-button" ng-if="profileCtrl.processando">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div></div>
+                            </div>
+                            <span ng-if="!profileCtrl.processando">Salvar Alterações</span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

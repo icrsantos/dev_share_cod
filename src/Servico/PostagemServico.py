@@ -63,6 +63,10 @@ def __lista_tuplas_para_lista_json(tuplas):
     for tupla in tuplas:
         postagem = Postagem()
         postagem.definir_por_tupla(tupla)
+
+        if postagem.situacao == SituacaoPostagemEnum.RESPONDIDA:
+            postagem.qtd_respostas = buscar_total_respostas(postagem.id)
+
         lista_postagem += postagem.json_string()
         if tuplas.index(tupla) != (len(tuplas) - 1):
             lista_postagem += '\t,\n'
@@ -94,3 +98,8 @@ def __criar_ou_atualizar(postagem):
         return postagem_repositorio.criar(postagem)
     else:
         return postagem_repositorio.atualizar(postagem)
+
+
+def buscar_total_respostas(id_postagem):
+    postagem_repositorio = PostagemRepositorio()
+    return postagem_repositorio.buscar_total_respostas(id_postagem)

@@ -155,3 +155,19 @@ class PostagemRepositorio:
             self.log.erro('Erro ao buscar respostas do usuario ID: ' + str(usuario_id), erro)
             return str('ERRO: ' + str(erro))
 
+    def buscar_total_respostas(self, id_postagem):
+        try:
+            self.log.info('Buscando total de respostas da postagem ' + str(id_postagem))
+            executor_total_postagem = CriadorConexao.criar_executor()
+            sql = "SELECT count(*) " \
+                  "FROM postagem " \
+                  "WHERE postagem_respondida_id = %s "
+
+            executor_total_postagem.execute(sql, (id_postagem,))
+            tupla_total_postagem = executor_total_postagem.fetchone()
+            CriadorConexao.fechar_executor()
+            self.log.info(str(tupla_total_postagem[0]) + ' respostas para a postagem ' + str(id_postagem))
+            return str(tupla_total_postagem[0])
+        except Exception as erro:
+            self.log.erro('Erro ao buscar o total de respostas da postagem ' + str(id_postagem), erro)
+            return str(0)
