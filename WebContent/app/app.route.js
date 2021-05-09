@@ -4,8 +4,6 @@ app.config(['$stateProvider', function($stateProvider) {
     	views : {
     		'uiViewHeader' : {
                 templateUrl : 'header/Header.html'
-            },'uiViewCarousel' : {
-                templateUrl : 'home/Carousel.html'
             }, 'uiViewContent' : {
                 templateUrl : 'home/Home.html'
             }

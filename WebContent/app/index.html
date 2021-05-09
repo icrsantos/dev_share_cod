@@ -29,6 +29,7 @@
 
 		<div class="container" style="padding-top:20px">
 	  		<div class="row anim-in-out anim-fade"
+				ng-class="{'d-flex justify-content-center' : !$root.assertStateName('')}"
 		   		id="container-principal"
 		   		data-anim-speed="240"
 		   		ui-view="uiViewContent">
