@@ -17,19 +17,18 @@
     	<!-- CSS -->
     	<link href="../assets/css/style.css" rel="stylesheet" />
 	</head>
-	
+
 	<body ng-cloak ng-class="{loginSignup: $root.assertStateName('login') || $root.assertStateName('signup')}">
 
-		<!-- View para o conteúdos de login e cadastro -->
-		<div id="viewLoginSignup">
-    		<div ui-view="uiViewLoginSignup"></div>
-		</div>
-
 		<div ui-view="uiViewHeader"></div>
+		<!-- View para o conteúdos de login e cadastro -->
+
+		<div id="uiViewHomeLoginSignup">
+			<div ui-view="uiViewHomeLoginSignup"></div>
+		</div>
 
 		<div class="container" style="padding-top:20px">
 	  		<div class="row anim-in-out anim-fade"
-				ng-class="{'d-flex justify-content-center' : !$root.assertStateName('')}"
 		   		id="container-principal"
 		   		data-anim-speed="240"
 		   		ui-view="uiViewContent">
