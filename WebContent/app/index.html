@@ -12,19 +12,22 @@
 	    <link href="../node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet" />
 	    <link href="../node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet" />
 		<link href="../node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+		<link href="../node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 
     	<!-- CSS -->
     	<link href="../assets/css/style.css" rel="stylesheet" />
 	</head>
-	
-	<body ng-cloak>
 
-		<!-- View para o conteúdos de login e cadastro -->
-    	<div ui-view="uiViewLoginSignup"></div>
+	<body ng-cloak ng-class="{loginSignup: $root.assertStateName('login') || $root.assertStateName('signup')}">
 
 		<div ui-view="uiViewHeader"></div>
+		<!-- View para o conteúdos de login e cadastro -->
 
-		<div class="container">
+		<div id="uiViewHomeLoginSignup">
+			<div ui-view="uiViewHomeLoginSignup"></div>
+		</div>
+
+		<div class="container" style="padding-top:20px">
 	  		<div class="row anim-in-out anim-fade"
 		   		id="container-principal"
 		   		data-anim-speed="240"
@@ -32,9 +35,14 @@
 	  		</div>
 	    </div>
 
-		<footer class="navbar-wrapper navbar-inverse navbar-fixed-bottom">
-			<div class="container">
-				<p class="navbar-text">&copy; 2021 DevShare - Todos os direitos reservados.</p>
+		<footer class="navbar fixed-bottom" ng-class="{'navbar-dark bg-dark': !$root.assertStateName('login') && !$root.assertStateName('signup')}">
+			<div class="container justify-content-center">
+				<div class="col-sm-6 text-center">
+					<img ng-if="!$root.assertStateName('login') && !$root.assertStateName('signup')" width="5%" src="../assets/img/icone2.png">
+					<img ng-if="$root.assertStateName('login') || $root.assertStateName('signup')"width="5%" src="../assets/img/icone3.png">
+					<p class="navbar-text">&copy; 2021 DevShare - Todos os direitos reservados.</p>
+				</div>
+
 			</div>
 		</footer>
 	

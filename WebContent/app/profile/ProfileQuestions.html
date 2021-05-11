@@ -1,21 +1,20 @@
 <div class="panel-group" ng-controller="ProfileController as profileCtrl">
     <div class="row" ng-repeat="post in profileCtrl.profileQuestions">
-        <div class="panel panel-info" style="margin:10px">
-            <div class="panel-heading post-header">
-                <div class="row">
-                    <h4 class="col-sm-10"><a ui-sref="post({id: post.id})">{{post.titulo}}</a></h4>
-                    <div class="col-sm-2 content-right">
-                        <h5>{{post.relevancia}}</h5>
-                    </div>
-                    <p class="col-sm-10">@{{profileCtrl.user.nome}}</p>
+        <div class="w-100" style="margin:10px">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h5><a class="text-dark" ui-sref="post({id: post.id})">{{post.titulo}}</a></h5>
                 </div>
+                <div class="col-sm-2 border-secondary">
+                    <p class="h5">{{post.relevancia}} <small>Relevância</small></p>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <p class="h5">{{post.qtd_respostas ? post.qtd_respostas : 0}} <small>Respostas</small></p>
+                </div>
+                <p class="col-sm-10">@{{profileCtrl.user.nome}}</p>
             </div>
-            <div class="panel-body">
-                <p style="padding:10px">{{post.conteudo}}</p>
-                <ul class="nav nav-justified">
-					<li><span class="text-success glyphicon glyphicon-ok-sign"></span> {{post.totalRespostas ? post.totalRespostas : 0}} respostas</li>
-				</ul>
-            </div>
+            <p>{{post.conteudo}}</p>
+            <hr>
         </div>
     </div>
 </div>

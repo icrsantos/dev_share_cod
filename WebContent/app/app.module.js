@@ -10,9 +10,13 @@ var app = angular.module('dev_share', ['restangular', 'LocalStorageModule', 'ui.
         $qProvider.errorOnUnhandledRejections(false);
     }]);
 
-app.run(function($rootScope, Restangular, Auth) {
+app.run(function($rootScope, Restangular, Auth, $state) {
     $rootScope.invalid = function(form, field) {
         return field && field.$invalid && (field.$dirty || form.$submitted);
+    };
+
+    $rootScope.assertStateName = function(name) {
+        return  $state.$current.name == name;
     };
 
     setInterval(function() {

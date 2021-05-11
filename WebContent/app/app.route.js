@@ -4,9 +4,7 @@ app.config(['$stateProvider', function($stateProvider) {
     	views : {
     		'uiViewHeader' : {
                 templateUrl : 'header/Header.html'
-            },'uiViewCarousel' : {
-                templateUrl : 'home/Carousel.html'
-            }, 'uiViewContent' : {
+            }, 'uiViewHomeLoginSignup' : {
                 templateUrl : 'home/Home.html'
             }
         },
@@ -18,7 +16,7 @@ app.config(['$stateProvider', function($stateProvider) {
     $stateProvider.state('signup', {
         url : '/signup',
     	views : {
-    		'uiViewLoginSignup' : {
+    		'uiViewHomeLoginSignup' : {
                 templateUrl : 'signup/SignUp.html'
             }
         },
@@ -30,7 +28,7 @@ app.config(['$stateProvider', function($stateProvider) {
     $stateProvider.state('login', {
         url : '/login',
     	views : {
-    		'uiViewLoginSignup' : {
+    		'uiViewHomeLoginSignup' : {
                 templateUrl : 'login/login.html'
             }
         },
