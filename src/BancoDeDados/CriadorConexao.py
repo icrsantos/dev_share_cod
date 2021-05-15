@@ -8,8 +8,8 @@ class CriadorConexao():
 
     def __criar_conexao(self):
         try:
-            self.conexao = mysql.connector.connect(host="localhost",
-                                                   user="springuser",
+            self.conexao = mysql.connector.connect(host="devshare.mysql.database.azure.com",
+                                                   user="devshareuser@devshare.mysql.database.azure.com",
                                                    password="sinistro",
                                                    port=3306,
                                                    database="dev_share"

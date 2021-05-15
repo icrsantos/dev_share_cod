@@ -2,7 +2,7 @@ var app = angular.module('dev_share', ['restangular', 'LocalStorageModule', 'ui.
     .config(['RestangularProvider', 'localStorageServiceProvider', '$qProvider',
         function (RestangularProvider, localStorageServiceProvider, $qProvider) {
 
-        var apiUrl = 'http://127.0.0.1:5000/api';
+        var apiUrl = 'https://dev-share.azurewebsites.net/api';
         RestangularProvider.setBaseUrl(apiUrl);
         RestangularProvider.setDefaultHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
         RestangularProvider.setDefaultHttpFields({ withCredentials: true })

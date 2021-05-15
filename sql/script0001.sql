@@ -2,7 +2,7 @@ create database dev_share;
 
 use dev_share;
 
-create user 'springuser'@'%' identified by 'sinistro';
+create user 'devshareuser'@'%' identified by 'sinistro';
 
 grant all on dev_share.* to 'springuser'@’%’ ;
 

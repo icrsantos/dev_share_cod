@@ -9,7 +9,7 @@ CORS(app)
 @app.after_request
 def after_request(response):
     header = response.headers
-    header['Access-Control-Allow-Origin'] = 'http://localhost:63342'
+    header['Access-Control-Allow-Origin'] = 'https://devsharecode.z13.web.core.windows.net/'
     header['Access-Control-Allow-Credentials'] = 'true'
     header['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, X-CSRF-TOKEN'
     return response
