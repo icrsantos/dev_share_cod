@@ -9,6 +9,7 @@ CORS(app)
 @app.after_request
 def after_request(response):
     header = response.headers
+    # header['Access-Control-Allow-Origin'] = 'http://localhost:63342'
     header['Access-Control-Allow-Origin'] = 'https://devsharecode.z13.web.core.windows.net'
     header['Access-Control-Allow-Credentials'] = 'true'
     header['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, X-CSRF-TOKEN'
@@ -33,19 +34,29 @@ def criar_postagem():
     return PostagemServico.criar_postagem(postagem_json)
 
 
-@app.route('/api/postagem/<id>', methods=['GET'])
-def buscar_postagem(id):
-    return jsonify(PostagemServico.buscar_postagem(id))
+@app.route('/api/postagem/<postagem_id>', methods=['GET'])
+def buscar_postagem(postagem_id):
+    return jsonify(PostagemServico.buscar_postagem_json(postagem_id))
 
 
-@app.route('/api/postagem/respostas/<id>', methods=['GET'])
-def buscar_perguntas_de_postagens(id):
-    return jsonify(PostagemServico.buscar_respostas_de_postagem(id))
+@app.route('/api/postagem/respostas/<postagem_id>', methods=['GET'])
+def buscar_perguntas_de_postagens(postagem_id):
+    return jsonify(PostagemServico.buscar_respostas_de_postagem(postagem_id))
 
 
 @app.route('/api/pesquisar/<pesquisa>', methods=['GET'])
 def pesquisar_postagens(pesquisa):
     return jsonify(PostagemServico.pesquisar_postagens(pesquisa))
+
+
+@app.route('/api/postagem/like/<usuario_id>/<postagem_id>', methods=['POST'])
+def dar_like(usuario_id, postagem_id):
+    return PostagemServico.curtir_postagem(usuario_id, postagem_id, True)
+
+
+@app.route('/api/postagem/dislike/<usuario_id>/<postagem_id>', methods=['POST'])
+def dar_dislike(usuario_id, postagem_id):
+    return PostagemServico.curtir_postagem(usuario_id, postagem_id, False)
 
 
 @app.route('/api/postagem/usuario/<usuario_id>/perguntas', methods=['GET'])

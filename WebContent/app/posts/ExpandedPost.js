@@ -1,5 +1,6 @@
-app.controller("PostController", function($stateParams, DevShareService) {
+app.controller("PostController", function($stateParams, DevShareService, Auth) {
 
+    this.user = Auth.getUser();
 	this.post = null;
 	this.retornoRespostas = null;
 
@@ -15,4 +16,16 @@ app.controller("PostController", function($stateParams, DevShareService) {
             })
         })
 	}
+
+	this.giveLike = function (postId){
+	    if(this.user){
+	        DevShareService.objRest.one('/postagem/like/' + this.user.id + '/' + postId).post()
+        }
+    }
+
+    this.giveDislike = function (postId){
+	    if(this.user){
+	        DevShareService.objRest.one('/postagem/dislike/' + this.user.id + '/' + postId).post()
+        }
+    }
 })

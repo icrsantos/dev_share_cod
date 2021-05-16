@@ -1,6 +1,7 @@
 import json
 
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
+from src.Repositorio.CurtidasRepositorio import CurtidasRepositorio
 from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
 from src.Entidades.Postagem import Postagem
 from src.Utils.Logger import Logger
@@ -9,14 +10,19 @@ from src.Servico import NotificacaoServico, UsuarioServico
 log = Logger('PostagemServico')
 
 
-def buscar_postagem(postagem_id):
+def buscar_postagem_json(postagem_id):
+    postagem = __buscar_postagem_por_id(postagem_id)
+    postagem_json = postagem.json()
+    postagem_json['nomeAutor'] = UsuarioServico.buscar_nome_usuario_por_id(postagem.usuario_id)
+    return postagem_json
+
+
+def __buscar_postagem_por_id(postagem_id):
     postagem_repositorio = PostagemRepositorio()
     tupla = postagem_repositorio.buscar_por_id(postagem_id)
     postagem = Postagem()
     postagem.definir_por_tupla(tupla)
-    postagem_json = postagem.json()
-    postagem_json['nomeAutor'] = UsuarioServico.buscar_nome_usuario_por_id(postagem.usuario_id)
-    return postagem_json
+    return postagem
 
 
 def buscar_respostas_de_postagem(postagem_id):
@@ -69,6 +75,26 @@ def buscar_respostas_de_usuario(ususario_id):
     return __lista_tuplas_para_lista_json(tuplas)
 
 
+def curtir_postagem(usuario_id, postagem_id, like):
+    postagem = __buscar_postagem_por_id(postagem_id)
+    if like:
+        __incrementar_curtidas_postagem(postagem)
+    else:
+        __decrementar_curtidas_postagem(postagem)
+    curtidas_repositorio = CurtidasRepositorio()
+    return curtidas_repositorio.criar(usuario_id, postagem_id)
+
+
+def __incrementar_curtidas_postagem(postagem):
+    postagem.curtidas = postagem.curtidas + 1
+    __criar_ou_atualizar(postagem)
+
+
+def __decrementar_curtidas_postagem(postagem):
+    postagem.curtidas = postagem.curtidas - 1
+    __criar_ou_atualizar(postagem)
+
+
 def __lista_tuplas_para_lista_json(tuplas):
     lista_postagem = ''
     if len(tuplas) == 0:
@@ -114,8 +140,6 @@ def __adicionar_nome_autor_e_respostas_a_lista_postagem(postagens):
         comentarios_lista = __lista_tuplas_para_lista_json(comentarios_de_resposta)
         postagem['comentarios'] = __adicionar_nome_autor_e_respostas_a_lista_postagem(comentarios_lista)
     return postagens
-
-
 
 
 def __criar_ou_atualizar(postagem):

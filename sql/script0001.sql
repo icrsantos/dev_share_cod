@@ -79,3 +79,20 @@ create table historico_notificacoes
        foreign key (usuario_notificado_id) references usuario (id)
 );
 
+create table curtidas
+(
+    id             int auto_increment primary key,
+    data_insercao  datetime(6) not null,
+    data_alteracao datetime(6) not null,
+    usuario_id     int         not null,
+    postagem_id    int         not null,
+    constraint curtidas_id_uindex
+        unique (id),
+    constraint curtidas_pk
+        unique (usuario_id, postagem_id),
+    constraint curtidas_postagem_id_fk
+        foreign key (postagem_id) references postagem (id),
+    constraint curtidas_usuario_id_fk
+        foreign key (usuario_id) references usuario (id)
+);
+
