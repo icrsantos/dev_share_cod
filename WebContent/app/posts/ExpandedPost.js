@@ -4,12 +4,12 @@ app.controller("PostController", function ($stateParams, DevShareService, Auth, 
     this.post = null;
     this.retornoRespostas = null;
 
-    this.$onInit = async function (){
-        let response = DevShareService.objRest.one('/postagem/' + $stateParams.id).get()
+    this.$onInit = async function () {
+        DevShareService.objRest.one('/postagem/' + $stateParams.id).get()
             .then((response) => {
                 this.post = response.data;
             })
-            .finally(async () =>{
+            .finally(async () => {
                 await DevShareService.objRest.one('/postagem/respostas/' + $stateParams.id).get()
                     .then((response) => {
                         this.retornoRespostas = response.data;
@@ -21,20 +21,43 @@ app.controller("PostController", function ($stateParams, DevShareService, Auth, 
 
     this.giveLike = function (postId) {
         if (this.user) {
-            DevShareService.objRest.one('/postagem/like/' + this.user.id + '/' + postId).post()
-                .finally(() => {
-                    window.location.reload();
+            DevShareService.objRest.one('/postagem/jaAvaliada/' + this.user.id + '/' + postId).get()
+                .then((response) => {
+                    let operation = response.data;
+                    if (operation === "LIKE") {
+                        this.removeUserScoring(postId);
+                    } else {
+                        DevShareService.objRest.one('/postagem/like/' + this.user.id + '/' + postId).post()
+                            .finally(() => {
+                                window.location.reload();
+                            });
+                    }
                 });
         }
     }
 
     this.giveDislike = function (postId) {
         if (this.user) {
-            DevShareService.objRest.one('/postagem/dislike/' + this.user.id + '/' + postId).post()
-                .finally(() => {
-                    window.location.reload();
+            DevShareService.objRest.one('/postagem/jaAvaliada/' + this.user.id + '/' + postId).get()
+                .then((response) => {
+                    let operation = response.data;
+                    if (operation === "DISLIKE") {
+                        this.removeUserScoring(postId);
+                    } else {
+                        DevShareService.objRest.one('/postagem/dislike/' + this.user.id + '/' + postId).post()
+                            .finally(() => {
+                                window.location.reload();
+                            });
+                    }
                 });
         }
+    }
+
+    this.removeUserScoring = function (postId){
+        DevShareService.objRest.one('/postagem/removerCurtida/' + this.user.id + '/' + postId).post()
+                            .finally(() => {
+                                window.location.reload();
+                            });
     }
 
     this.defineScoringButtonStatus = function () {
@@ -45,9 +68,14 @@ app.controller("PostController", function ($stateParams, DevShareService, Auth, 
                     .replace("button-like-", "")
                     .replace("button-dislike-", "");
                 DevShareService.objRest.one('/postagem/jaAvaliada/' + this.user.id + '/' + id).get()
-                .then((response) => {
-                    scoreButtons[i].disabled =  response.data === "True";
-                });
+                    .then((response) => {
+                        let operation = response.data;
+                        if (operation === "LIKE") {
+                            document.getElementById('button-dislike-' + id).disabled = true;
+                        } else if (operation === 'DISLIKE') {
+                            document.getElementById('button-like-' + id).disabled = true;
+                        }
+                    });
             }
         }
     }

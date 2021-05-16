@@ -31,12 +31,36 @@ class CurtidasRepositorio:
             self.log.info('Usuario ' + str(curtida.usuario_id) + " curtiu a postagem " + str(curtida.postagem_id))
             return id_criacao
         except Exception as erro:
-            self.log.erro('Falha de Usuario ' + str(curtida.usuario_id) + " ao curtir a postagem " + str(curtida.postagem_id), erro)
+            self.log.erro('Falha de Usuario ' + str(curtida.usuario_id)
+                          + " ao curtir a postagem " + str(curtida.postagem_id), erro)
             return str(0)
+
+    def remover(self, curtida):
+        try:
+            self.log.info('Removendo curtida de Usuario ' + str(curtida.usuario_id)
+                          + " na postagem " + str(curtida.postagem_id))
+            executor = self.criador_conexao.criar_executor()
+            sql = "DELETE FROM curtidas " \
+                  "WHERE (usuario_id = %s) " \
+                  " AND (postagem_id = %s)  "
+            parametros = (
+                curtida.usuario_id,
+                curtida.postagem_id
+            )
+            executor.execute(sql, parametros)
+            self.criador_conexao.commit_mudancas()
+            self.criador_conexao.fechar_executor()
+            self.log.info('Curtida de Usuario ' + str(curtida.usuario_id)
+                          + " na postagem " + str(curtida.postagem_id) + " Removida com sucesso")
+            return True
+        except Exception as erro:
+            self.log.erro('Falha de Usuario ' + str(curtida.usuario_id) + " ao curtir a postagem "
+                          + str(curtida.postagem_id), erro)
+            return False
 
     def buscar(self, usuario_id, postagem_id):
         try:
-            self.log.info('Buscand curtida de usuario ' + str(usuario_id) + "em postagem " + str(postagem_id))
+            self.log.info('Buscand0 curtida de usuario ' + str(usuario_id) + " em postagem " + str(postagem_id))
             executor = self.criador_conexao.criar_executor()
             sql = "SELECT * FROM curtidas WHERE" \
                   "(usuario_id = %s) AND (postagem_id = %s)"

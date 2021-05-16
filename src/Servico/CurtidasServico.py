@@ -21,24 +21,38 @@ def curtir_postagem(usuario_id, postagem_id, like):
     curtida = Curtida()
     curtida.postagem_id = postagem_id
     curtida.usuario_id = usuario_id
-    postagem = PostagemServico.buscar_postagem_por_id(postagem_id)
     if like:
         curtida.operacao = 'LIKE'
-        __incrementar_curtidas_postagem(postagem)
+        __incrementar_curtidas_postagem(postagem_id)
     else:
-        curtida.operacao = 'DESLIKE'
-        __decrementar_curtidas_postagem(postagem)
+        curtida.operacao = 'DISLIKE'
+        __decrementar_curtidas_postagem(postagem_id)
 
     return curtidas_repositorio.criar(curtida)
 
 
-def __incrementar_curtidas_postagem(postagem):
+def __incrementar_curtidas_postagem(postagem_id):
+    postagem = PostagemServico.buscar_postagem_por_id(postagem_id)
     postagem.relevancia = postagem.relevancia + 1
     postagem.curtidas = postagem.curtidas + 1
     PostagemServico.criar_ou_atualizar(postagem)
 
 
-def __decrementar_curtidas_postagem(postagem):
+def __decrementar_curtidas_postagem(postagem_id):
+    postagem = PostagemServico.buscar_postagem_por_id(postagem_id)
     postagem.relevancia = postagem.relevancia - 1
     postagem.curtidas = postagem.curtidas - 1
     PostagemServico.criar_ou_atualizar(postagem)
+
+
+def remover_curtida_usuario(usuario_id, postagem_id):
+    curtidas_repositorio = CurtidasRepositorio()
+    tupla = curtidas_repositorio.buscar(usuario_id, postagem_id)
+    curtida = Curtida()
+    curtida.definir_por_tupla(tupla)
+    if curtida.operacao == 'LIKE':
+        __decrementar_curtidas_postagem(postagem_id)
+    else:
+        __incrementar_curtidas_postagem(postagem_id)
+    return curtidas_repositorio.remover(curtida)
+

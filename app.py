@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from src.Servico import LoginServico, PostagemServico, NotificacaoServico
+from src.Servico import LoginServico, PostagemServico, NotificacaoServico, CurtidasServico
 
 app = Flask(__name__)
 CORS(app)
@@ -51,17 +51,22 @@ def pesquisar_postagens(pesquisa):
 
 @app.route('/api/postagem/like/<usuario_id>/<postagem_id>', methods=['POST'])
 def dar_like(usuario_id, postagem_id):
-    return PostagemServico.curtir_postagem(usuario_id, postagem_id, True)
+    return CurtidasServico.curtir_postagem(usuario_id, postagem_id, True)
 
 
 @app.route('/api/postagem/dislike/<usuario_id>/<postagem_id>', methods=['POST'])
 def dar_dislike(usuario_id, postagem_id):
-    return PostagemServico.curtir_postagem(usuario_id, postagem_id, False)
+    return CurtidasServico.curtir_postagem(usuario_id, postagem_id, False)
 
 
 @app.route('/api/postagem/jaAvaliada/<usuario_id>/<postagem_id>', methods=['GET'])
 def postagem_ja_curtida_por_usuario(usuario_id, postagem_id):
-    return str(PostagemServico.postagem_ja_curtida_por_usuario(usuario_id, postagem_id))
+    return str(CurtidasServico.postagem_ja_curtida_por_usuario(usuario_id, postagem_id))
+
+
+@app.route('/api/postagem/removerCurtida/<usuario_id>/<postagem_id>', methods=['POST'])
+def remover_curtida_de_usuario(usuario_id, postagem_id):
+    return str(CurtidasServico.remover_curtida_usuario(usuario_id, postagem_id))
 
 
 @app.route('/api/postagem/usuario/<usuario_id>/perguntas', methods=['GET'])
