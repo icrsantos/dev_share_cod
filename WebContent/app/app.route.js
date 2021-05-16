@@ -57,7 +57,7 @@ app.config(['$stateProvider', function($stateProvider) {
     		'uiViewHeader' : {
                 templateUrl : 'header/Header.html'
             }, 'uiViewContent' : {
-                templateUrl : 'posts/InToPost.html'
+                templateUrl : 'posts/ExpandedPost.html'
             }
         },
         ncyBreadcrumb: {

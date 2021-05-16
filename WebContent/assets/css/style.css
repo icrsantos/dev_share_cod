@@ -1,15 +1,25 @@
 body {
-	background: #ECF0F1;
-	margin-bottom: 100px;
+    background: #ECF0F1;
+    margin-bottom: 100px;
 }
 
 .loginSignup {
     width: 100%;
 }
 
-.post-header{
-  display: flex;
-  justify-content: space-between;
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    color: #555;
+    background-color: #4dc2cb;
+    align-items: center;
+}
+
+.answer-header {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    background-color: #555;
 }
 
 .login-box {
@@ -23,59 +33,59 @@ body {
 }
 
 .spinner-button {
-	margin: 0;
-	text-align: center;
+    margin: 0;
+    text-align: center;
 }
 
 .spinner-button > div {
-	width: 18px;
-	height: 18px;
-	background-color: rgba(255, 255, 255, .5);
-	border-radius: 100%;
-	display: inline-block;
-	-webkit-animation: sk-bouncedelay 0.4s infinite ease-in-out both;
-	animation: sk-bouncedelay 0.4s infinite ease-in-out both;
+    width: 18px;
+    height: 18px;
+    background-color: rgba(255, 255, 255, .5);
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 0.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 0.4s infinite ease-in-out both;
 }
 
 .spinner-button .bounce1 {
-	-webkit-animation-delay: -0.32s;
-	animation-delay: -0.32s;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
 }
 
 .spinner-button .bounce2 {
-	-webkit-animation-delay: -0.16s;
-	animation-delay: -0.16s;
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
 }
 
 .spinner-content .spinner-button {
-	margin-left: auto;
-	margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .spinner-content .spinner-button > div {
-	background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .vl {
-  border-left: 1px solid rgba(0,0,0,.1);
-  height: 70vh;
+    border-left: 1px solid rgba(0, 0, 0, .1);
+    height: 70vh;
 }
 
 .posts-menu {
-	margin-bottom: 20px;
-	font-size: 14px;
+    margin-bottom: 20px;
+    font-size: 14px;
 }
 
 .posts-menu .active {
-	border-bottom: 2px solid #4dc2cb;
+    border-bottom: 2px solid #4dc2cb;
 }
 
 .posts-menu li {
     text-transform: uppercase;
-	cursor: pointer;
+    cursor: pointer;
     text-align: center;
     padding: 5px;
-    border-bottom: 2px solid rgba(0,0,0,.1);
+    border-bottom: 2px solid rgba(0, 0, 0, .1);
 }
 
 .posts-menu a {
@@ -85,17 +95,17 @@ body {
 }
 
 .posts-menu a:hover {
-	color: #4dc2cb;
+    color: #4dc2cb;
 }
 
 .posts-menu .active a {
-	color: #4dc2cb;
-	font-weight: bold;
+    color: #4dc2cb;
+    font-weight: bold;
 }
 
 .posts-menu .active li:hover {
-	cursor: default;
-	border-bottom: 2px solid transparent;
+    cursor: default;
+    border-bottom: 2px solid transparent;
 }
 
 ::-webkit-scrollbar {
@@ -128,14 +138,14 @@ body {
     outline-color: #353b48;
     background: none;
     width: 0;
-    caret-color:transparent;
+    caret-color: transparent;
     line-height: 30px;
     transition: width 0.4s linear;
 }
 
 .searchbar:hover > .search_input {
     width: 300px;
-    caret-color:#4dc2cb;
+    caret-color: #4dc2cb;
     transition: width 0.4s linear;
 }
 
@@ -152,14 +162,14 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    color:white;
-    text-decoration:none;
+    color: white;
+    text-decoration: none;
 }
 
 .search_input_filled {
     padding: 0 10px;
     width: 300px;
-    caret-color:#4dc2cb;
+    caret-color: #4dc2cb;
 }
 
 .search_icon_input_filled {
@@ -213,4 +223,66 @@ input[name=email]:-webkit-autofill {
 #modal_body_notification {
     height: 80vh;
     overflow-y: scroll;
+}
+
+.post-replies {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+.post-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.expanded-post {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.echo-question-button {
+    color: white;
+    background-color: #4dc2cb;
+    margin-left: 3px;
+}
+
+.color-red {
+    color: #dc3545;
+}
+
+.color-green {
+    color: #28a745;
+}
+
+.score-number {
+    font-size: 2rem;
+    color: white;
+}
+
+.score-number-small {
+    font-size: 1.2rem;
+    color: white;
+}
+
+.score-box {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.answer-card{
+    box-shadow: 0 10px 6px -6px #777;
+    margin-bottom: 6px;
+    width: 85%;
+}
+
+.question-card{
+    box-shadow: 0 10px 6px -6px #777;
 }
