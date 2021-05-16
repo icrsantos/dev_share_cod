@@ -2,13 +2,13 @@
 
     <div class="card question-card">
         <div class="card-header post-header">
-            <h4>{{postCtrl.post.titulo}}</h4>
+            <h4><span class="score-number">{{postCtrl.post.nomeAutor}}:</span> {{postCtrl.post.titulo}}</h4>
             <div class="score-box">
-                <button class="btn btn-link color-green">
+                <button class="btn btn-link color-green" title="Like">
                     <i class="fa fa-chevron-circle-up fa-lg"></i>
                 </button>
-                <span class="score-number">{{postCtrl.post.curtidas}}</span>
-                <button class="btn btn-link color-red">
+                <span class="score-number" title="Likes">{{postCtrl.post.curtidas}}</span>
+                <button class="btn btn-link color-red" title="Dislike">
                     <i class="fa fa-chevron-circle-down fa-lg"></i>
                 </button>
             </div>
@@ -28,15 +28,16 @@
     <br>
     <br>
     <div class="post-replies">
-        <div class="card answer-card" ng-repeat="post in postCtrl.retornoRespostas">
-            <div class="card-header answer-header">
-                    <h6 class="card-title">{{post.titulo}}</h6>
+        <div class="answers-box" ng-repeat="post in postCtrl.retornoRespostas">
+            <div class="card answer-card">
+                <div class="card-header answer-header">
+                    <h6 class="card-title">{{post.nomeAutor}}:</h6>
                     <div class="score-box">
-                        <button class="btn btn-link color-green">
+                        <button class="btn btn-link color-green" title="Like">
                             <i class="fa fa-chevron-circle-up "></i>
                         </button>
-                        <span class="score-number-small">{{post.curtidas}}</span>
-                        <button class="btn btn-link color-red">
+                        <span class="score-number-small" title="Likes">{{post.curtidas}}</span>
+                        <button class="btn btn-link color-red" title="Dislike">
                             <i class="fa fa-chevron-circle-down"></i>
                         </button>
                     </div>
@@ -49,6 +50,24 @@
                         </a>
                     </div>
                 </div>
+            </div>
+            <div class="card comment-card" ng-repeat="comment in post.comentarios">
+                <div class="card-body comment-body">
+                    <span class="card-text">
+                        <span class="comment-autor">{{comment.nomeAutor}}:</span>
+                        {{comment.conteudo}}
+                    </span>
+                    <div class="score-box">
+                        <button class="btn btn-link color-green" title="Like">
+                            <i class="fa fa-chevron-circle-up "></i>
+                        </button>
+                        <span class="score-number-extra-small" title="Likes">{{comment.curtidas}}</span>
+                        <button class="btn btn-link color-red" title="Dislike">
+                            <i class="fa fa-chevron-circle-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

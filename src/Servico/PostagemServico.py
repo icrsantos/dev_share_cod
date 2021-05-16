@@ -1,28 +1,29 @@
 import json
 
-from src.Repositorio.UsuarioRepositorio import UsuarioRepositorio
-from src.Entidades.Usuario import Usuario
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
 from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
 from src.Entidades.Postagem import Postagem
 from src.Utils.Logger import Logger
-from src.Servico import NotificacaoServico
+from src.Servico import NotificacaoServico, UsuarioServico
 
 log = Logger('PostagemServico')
 
 
-def buscar_postagem(id):
+def buscar_postagem(postagem_id):
     postagem_repositorio = PostagemRepositorio()
-    tupla = postagem_repositorio.buscar_por_id(id)
+    tupla = postagem_repositorio.buscar_por_id(postagem_id)
     postagem = Postagem()
     postagem.definir_por_tupla(tupla)
-    return postagem.json()
+    postagem_json = postagem.json()
+    postagem_json['nomeAutor'] = UsuarioServico.buscar_nome_usuario_por_id(postagem.usuario_id)
+    return postagem_json
 
 
-def buscar_respostas_de_postagem(id):
+def buscar_respostas_de_postagem(postagem_id):
     postagem_repositorio = PostagemRepositorio()
-    tuplas = postagem_repositorio.buscar_respostas_a_postagem(id)
-    return __lista_tuplas_para_lista_json(tuplas)
+    tuplas = postagem_repositorio.buscar_respostas_a_postagem(postagem_id)
+    lista_respostas = __lista_tuplas_para_lista_json(tuplas)
+    return __adicionar_nome_autor_e_respostas_a_lista_postagem(lista_respostas)
 
 
 def criar_postagem(postagem_json):
@@ -103,6 +104,18 @@ def __responder_postagem(postagem_respondida_id):
         return postagem_respondida
     except Exception as erro:
         log.erro('Erro ao responder a postagem ID: ' + str(postagem_respondida_id), erro)
+
+
+def __adicionar_nome_autor_e_respostas_a_lista_postagem(postagens):
+    postagem_repositorio = PostagemRepositorio()
+    for postagem in postagens:
+        postagem['nomeAutor'] = UsuarioServico.buscar_nome_usuario_por_id(postagem['usuarioId'])
+        comentarios_de_resposta = postagem_repositorio.buscar_respostas_a_postagem(postagem['id'])
+        comentarios_lista = __lista_tuplas_para_lista_json(comentarios_de_resposta)
+        postagem['comentarios'] = __adicionar_nome_autor_e_respostas_a_lista_postagem(comentarios_lista)
+    return postagens
+
+
 
 
 def __criar_ou_atualizar(postagem):
