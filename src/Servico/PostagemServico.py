@@ -75,6 +75,11 @@ def buscar_respostas_de_usuario(ususario_id):
     return __lista_tuplas_para_lista_json(tuplas)
 
 
+def postagem_ja_curtida_por_usuario(usuario_id, postagem_id):
+    curtidas_repositorio = CurtidasRepositorio()
+    return curtidas_repositorio.buscar(usuario_id, postagem_id) is not None
+
+
 def curtir_postagem(usuario_id, postagem_id, like):
     postagem = __buscar_postagem_por_id(postagem_id)
     if like:
@@ -86,11 +91,13 @@ def curtir_postagem(usuario_id, postagem_id, like):
 
 
 def __incrementar_curtidas_postagem(postagem):
+    postagem.relevancia = postagem.relevancia + 1
     postagem.curtidas = postagem.curtidas + 1
     __criar_ou_atualizar(postagem)
 
 
 def __decrementar_curtidas_postagem(postagem):
+    postagem.relevancia = postagem.relevancia - 1
     postagem.curtidas = postagem.curtidas - 1
     __criar_ou_atualizar(postagem)
 

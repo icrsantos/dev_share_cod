@@ -59,6 +59,11 @@ def dar_dislike(usuario_id, postagem_id):
     return PostagemServico.curtir_postagem(usuario_id, postagem_id, False)
 
 
+@app.route('/api/postagem/jaAvaliada/<usuario_id>/<postagem_id>', methods=['GET'])
+def postagem_ja_curtida_por_usuario(usuario_id, postagem_id):
+    return str(PostagemServico.postagem_ja_curtida_por_usuario(usuario_id, postagem_id))
+
+
 @app.route('/api/postagem/usuario/<usuario_id>/perguntas', methods=['GET'])
 def buscar_perguntas_usuario(usuario_id):
     return jsonify(PostagemServico.buscar_perguntas_de_usuario(usuario_id))
