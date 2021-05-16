@@ -1,7 +1,6 @@
 import json
 
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
-from src.Repositorio.CurtidasRepositorio import CurtidasRepositorio
 from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
 from src.Entidades.Postagem import Postagem
 from src.Utils.Logger import Logger
@@ -11,13 +10,13 @@ log = Logger('PostagemServico')
 
 
 def buscar_postagem_json(postagem_id):
-    postagem = __buscar_postagem_por_id(postagem_id)
+    postagem = buscar_postagem_por_id(postagem_id)
     postagem_json = postagem.json()
     postagem_json['nomeAutor'] = UsuarioServico.buscar_nome_usuario_por_id(postagem.usuario_id)
     return postagem_json
 
 
-def __buscar_postagem_por_id(postagem_id):
+def buscar_postagem_por_id(postagem_id):
     postagem_repositorio = PostagemRepositorio()
     tupla = postagem_repositorio.buscar_por_id(postagem_id)
     postagem = Postagem()
@@ -41,7 +40,7 @@ def criar_postagem(postagem_json):
         if postagem_respondida is not None and postagem_respondida.id != 0:
             NotificacaoServico.notificar_resposta_de_postagem(postagem_respondida, postagem)
     # TODO: Implementar Tema (categoria da postagem)
-    return __criar_ou_atualizar(postagem)
+    return criar_ou_atualizar(postagem)
 
 
 def validar_postagem_json(postagem_json):
@@ -75,33 +74,6 @@ def buscar_respostas_de_usuario(ususario_id):
     return __lista_tuplas_para_lista_json(tuplas)
 
 
-def postagem_ja_curtida_por_usuario(usuario_id, postagem_id):
-    curtidas_repositorio = CurtidasRepositorio()
-    return curtidas_repositorio.buscar(usuario_id, postagem_id) is not None
-
-
-def curtir_postagem(usuario_id, postagem_id, like):
-    postagem = __buscar_postagem_por_id(postagem_id)
-    if like:
-        __incrementar_curtidas_postagem(postagem)
-    else:
-        __decrementar_curtidas_postagem(postagem)
-    curtidas_repositorio = CurtidasRepositorio()
-    return curtidas_repositorio.criar(usuario_id, postagem_id)
-
-
-def __incrementar_curtidas_postagem(postagem):
-    postagem.relevancia = postagem.relevancia + 1
-    postagem.curtidas = postagem.curtidas + 1
-    __criar_ou_atualizar(postagem)
-
-
-def __decrementar_curtidas_postagem(postagem):
-    postagem.relevancia = postagem.relevancia - 1
-    postagem.curtidas = postagem.curtidas - 1
-    __criar_ou_atualizar(postagem)
-
-
 def __lista_tuplas_para_lista_json(tuplas):
     lista_postagem = ''
     if len(tuplas) == 0:
@@ -132,7 +104,7 @@ def __responder_postagem(postagem_respondida_id):
         postagem_respondida = Postagem()
         postagem_respondida.definir_por_tupla(tupla)
         postagem_respondida.situacao = SituacaoPostagemEnum.RESPONDIDA
-        id_postagem_criada = __criar_ou_atualizar(postagem_respondida)
+        id_postagem_criada = criar_ou_atualizar(postagem_respondida)
         postagem_respondida.id = id_postagem_criada
         return postagem_respondida
     except Exception as erro:
@@ -149,7 +121,7 @@ def __adicionar_nome_autor_e_respostas_a_lista_postagem(postagens):
     return postagens
 
 
-def __criar_ou_atualizar(postagem):
+def criar_ou_atualizar(postagem):
     postagem_repositorio = PostagemRepositorio()
     ja_existe = postagem_repositorio.buscar_por_id(postagem.id) is not None
     if postagem.id is None or not ja_existe:
