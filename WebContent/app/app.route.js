@@ -37,8 +37,22 @@ app.config(['$stateProvider', function($stateProvider) {
         }
     });
 
-    $stateProvider.state('posts', {
+    $stateProvider.state('search_posts', {
         url : '/posts/:search',
+    	views : {
+    		'uiViewHeader' : {
+                templateUrl : 'header/Header.html'
+            }, 'uiViewContent' : {
+                templateUrl : 'posts/Posts.html'
+            }
+        },
+        ncyBreadcrumb: {
+            skip: true
+        }
+    });
+
+    $stateProvider.state('posts', {
+        url : '/posts',
     	views : {
     		'uiViewHeader' : {
                 templateUrl : 'header/Header.html'

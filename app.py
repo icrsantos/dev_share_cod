@@ -9,7 +9,7 @@ CORS(app)
 @app.after_request
 def after_request(response):
     header = response.headers
-    header['Access-Control-Allow-Origin'] = 'https://devsharecode.z13.web.core.windows.net'
+    header['Access-Control-Allow-Origin'] = 'http://localhost:63342'
     header['Access-Control-Allow-Credentials'] = 'true'
     header['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, X-CSRF-TOKEN'
     return response
@@ -33,8 +33,13 @@ def criar_postagem():
     return PostagemServico.criar_postagem(postagem_json)
 
 
+@app.route('/api/postagem', methods=['GET'])
+def buscar_postagem():
+    return jsonify(PostagemServico.buscar())
+
+
 @app.route('/api/postagem/<id>', methods=['GET'])
-def buscar_postagem(id):
+def pesquisar_postagem(id):
     return jsonify(PostagemServico.buscar_postagem(id))
 
 

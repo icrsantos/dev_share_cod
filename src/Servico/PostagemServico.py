@@ -11,6 +11,12 @@ from src.Servico import NotificacaoServico
 log = Logger('PostagemServico')
 
 
+def buscar():
+    postagem_repositorio = PostagemRepositorio()
+    tuplas = postagem_repositorio.buscar()
+    return __lista_tuplas_para_lista_json(tuplas)
+
+
 def buscar_postagem(id):
     postagem_repositorio = PostagemRepositorio()
     tupla = postagem_repositorio.buscar_por_id(id)
@@ -81,6 +87,7 @@ def __lista_tuplas_para_lista_json(tuplas):
         if postagem.situacao == SituacaoPostagemEnum.RESPONDIDA:
             postagem.qtd_respostas = buscar_total_respostas(postagem.id)
 
+        postagem.nome_autor = UsuarioRepositorio().buscar_por_id(postagem.usuario_id)[3]
         lista_postagem += postagem.json_string()
         if tuplas.index(tupla) != (len(tuplas) - 1):
             lista_postagem += '\t,\n'

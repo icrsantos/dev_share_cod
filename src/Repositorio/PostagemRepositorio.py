@@ -82,6 +82,21 @@ class PostagemRepositorio:
             self.log.erro('Erro ao buscar a postagem ID: ' + str(postagem_id), erro)
             return None
 
+    def buscar(self):
+        try:
+            self.log.info('Buscando todas as postagem')
+            executor = self.criador_conexao.criar_executor()
+            sql = "SELECT * FROM postagem " \
+                  "WHERE (tipo = '" + TipoPostagemEnum.PERGUNTA + "') " \
+                  "ORDER BY relevancia DESC, data_insercao DESC"
+            executor.execute(sql)
+            tupla = executor.fetchall()
+            self.criador_conexao.fechar_executor()
+            return tupla
+        except Exception as erro:
+            self.log.erro('Erro ao buscar as postagem', erro)
+            return None
+
     def pesquisar_postagens_por_texto(self, texto_pesquisa):
         try:
             self.log.info('Buscando posts com a mensagem \'' + texto_pesquisa + '\'')
