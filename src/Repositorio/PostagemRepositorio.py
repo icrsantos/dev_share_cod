@@ -15,8 +15,8 @@ class PostagemRepositorio:
             sql = "INSERT INTO postagem" \
                   "(data_insercao, data_alteracao," \
                   "titulo, conteudo, tipo, situacao," \
-                  "postagem_respondida_id, usuario_id) " \
-                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+                  "postagem_respondida_id, usuario_id, curtidas) " \
+                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
             parametros = (
                 postagem.data_insercao,
                 postagem.data_alteracao,
@@ -25,7 +25,8 @@ class PostagemRepositorio:
                 postagem.tipo,
                 postagem.situacao,
                 postagem.postagem_respondida_id,
-                postagem.usuario_id
+                postagem.usuario_id,
+                postagem.curtidas
             )
             executor.execute(sql, parametros)
             self.criador_conexao.commit_mudancas()

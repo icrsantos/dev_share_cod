@@ -1,5 +1,4 @@
 <div ng-controller="PostsController as postCtrl" class="w-100">
-
     <div class="d-flex bd-highlight ml-5">
         <div class="flex-grow-1 bd-highlight">
             <div ng-if="postCtrl.pesquisa && postCtrl.retornoPesquisa && postCtrl.retornoPesquisa.length > 0">
@@ -7,7 +6,7 @@
             </div>
 
             <div ng-if="!postCtrl.retornoPesquisa || postCtrl.retornoPesquisa.length == 0">
-                <h3 class="ml-5">Nenhum resultado encontrado para "{{postCtrl.pesquisa}}"</h3>
+                <h3 class="ml-5">Nenhum resultado encontrado</h3>
             </div>
 
             <div ng-if="!postCtrl.pesquisa && postCtrl.retornoPesquisa && postCtrl.retornoPesquisa.length > 0">
@@ -15,7 +14,7 @@
             </div>
         </div>
         <div class="bd-highlight">
-            <button type="button" class="btn btn-info" ng-click="postCtrl.criarPost()"><i class="fa fa-plus"></i>  Criar Postagem</button>
+            <button ng-if="postCtrl.user" type="button" class="btn btn-info" ng-click="postCtrl.criarPost()"><i class="fa fa-plus"></i>  Criar Postagem</button>
         </div>
     </div>
 
@@ -40,5 +39,4 @@
         </div>
     </div>
 </div>
-
-<criar_postagem></criar_postagem>
+<createpost></createpost>

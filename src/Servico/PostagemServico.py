@@ -1,7 +1,6 @@
 import json
 
 from src.Repositorio.UsuarioRepositorio import UsuarioRepositorio
-from src.Entidades.Usuario import Usuario
 from src.Repositorio.PostagemRepositorio import PostagemRepositorio
 from src.Utils import TipoPostagemEnum, SituacaoPostagemEnum
 from src.Entidades.Postagem import Postagem
@@ -22,6 +21,8 @@ def buscar_postagem(id):
     tupla = postagem_repositorio.buscar_por_id(id)
     postagem = Postagem()
     postagem.definir_por_tupla(tupla)
+
+    postagem.nome_autor = UsuarioRepositorio().buscar_por_id(postagem.usuario_id)[3]
     return postagem.json()
 
 
