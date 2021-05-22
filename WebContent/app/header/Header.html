@@ -34,7 +34,7 @@
 								<input class="search_input col-sm-8" ng-class="{'search_input_filled': headerCtrl.pesquisa}"
 									ng-keyup="$event.keyCode == 13 ? headerCtrl.goSearch() : null" type="text" name="search" placeholder="Pesquisar..." ng-model="headerCtrl.pesquisa">
 
-								<a ui-sref="posts({search: headerCtrl.pesquisa})" class="search_icon col-sm-8"
+								<a ui-sref="search_posts({search: headerCtrl.pesquisa})" class="search_icon col-sm-8"
 									ng-class="{'search_icon_input_filled': headerCtrl.pesquisa}">
 									<i class="fa fa-search"></i>
 								</a>

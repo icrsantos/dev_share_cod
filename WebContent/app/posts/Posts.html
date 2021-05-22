@@ -1,24 +1,42 @@
-<div ng-controller="PostsController as postCtrl">
+<div ng-controller="PostsController as postCtrl" class="w-100">
+    <div class="d-flex bd-highlight ml-5">
+        <div class="flex-grow-1 bd-highlight">
+            <div ng-if="postCtrl.pesquisa && postCtrl.retornoPesquisa && postCtrl.retornoPesquisa.length > 0">
+                <h3 class="ml-5">Resultados para "{{postCtrl.pesquisa}}"</h3>
+            </div>
 
-    <div ng-if="postCtrl.pesquisa && postCtrl.retornoPesquisa && postCtrl.retornoPesquisa.length > 0">
-        <h3>Resultados para "{{postCtrl.pesquisa}}"</h3>
+            <div ng-if="!postCtrl.retornoPesquisa || postCtrl.retornoPesquisa.length == 0">
+                <h3 class="ml-5">Nenhum resultado encontrado</h3>
+            </div>
+
+            <div ng-if="!postCtrl.pesquisa && postCtrl.retornoPesquisa && postCtrl.retornoPesquisa.length > 0">
+                <h3 class="ml-5">Todos as postagens</h3>
+            </div>
+        </div>
+        <div class="bd-highlight">
+            <button ng-if="postCtrl.user" type="button" class="btn btn-info" ng-click="postCtrl.criarPost()"><i class="fa fa-plus"></i>  Criar Postagem</button>
+        </div>
     </div>
 
-    <div ng-if="!postCtrl.retornoPesquisa || postCtrl.retornoPesquisa.length == 0">
-        <h3>Nenhum resultado encontrado para "{{postCtrl.pesquisa}}"</h3>
-    </div>
-
-    <div class="panel-group" style="padding-top: 30px;">
-        <div class="row" ng-repeat="post in postCtrl.retornoPesquisa">
-            <div class="panel panel-info ">
-                <div class="panel-heading post-header">
-                    <h5><a ui-sref="post({id: post.id})">{{post.titulo}}</a></h5>
-                    <div>
-                        <h5>{{post.relevancia}}</h5>
-                    </div>
+    <div class="pt-5 w-100 d-flex justify-content-center ">
+        <div class="col-sm-10">
+            <div class="row" ng-repeat="post in postCtrl.retornoPesquisa">
+                <div class="col-sm-6">
+                    <h5><a class="text-dark" ui-sref="post({id: post.id})">{{post.titulo}}</a></h5>
+                    <p>@{{post.nome_autor}}</p>
                 </div>
-                <div class="panel-body">{{post.conteudo}}</div>
-            </div><br>
+                <div class="col-sm-2 text-center pt-4">
+                    <p class="h6 text-info rounded border border-info p-1">{{post.relevancia}} Relevância</p>
+                </div>
+                <div class="col-sm-2 text-center pt-4">
+                    <p class="h6 text-primary rounded border border-primary p-1">{{post.curtidas}} Likes</p>
+                </div>
+                <div class="col-sm-2 text-center pt-4">
+                    <p class="h6 text-success rounded border border-success p-1">{{post.qtd_respostas ? post.qtd_respostas : 0}} Respostas</p>
+                </div>
+                <hr class="w-100">
+            </div>
         </div>
     </div>
 </div>
+<createpost></createpost>

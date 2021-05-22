@@ -1,0 +1,53 @@
+<div class="modal" id="createPostModal">
+    <div class="modal-dialog scroll_modal modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Criar Postagem</h3>
+                <button type="button" class="close" ng-click="createCtrl.closeModal()" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="form-horizontal" id="createPostForm" name="createPostForm" role="form"
+                ng-submit="createPostForm.$valid && createCtrl.savePost()" novalidate>
+
+                <div class="modal-body" id="modal_body_create_post">
+
+                    <div class="form-group required">
+                        <label class="control-label">Título</label>
+                        <input type="text" name="titulo" id="titulo" required class="form-control"
+                            ng-model="createCtrl.post.titulo" aria-describedby="invalid_titulo"
+                            ng-class="{'is-invalid': $root.invalid(createPostForm, createPostForm.titulo)}"/>
+
+                        <div id="invalid_titulo" class="invalid-feedback text-left">
+                            <b>Campo obrigatório</b>
+                        </div>
+                    </div>
+
+                    <div class="form-group required">
+                        <label for="conteudo">Pergunta</label>
+                        <textarea class="form-control" id="conteudo" name="conteudo" rows="3" required
+                            ng-model="createCtrl.post.conteudo" aria-describedby="invalid_conteudo"
+                            ng-class="{'is-invalid': $root.invalid(createPostForm, createPostForm.conteudo)}"></textarea>
+
+                        <div id="invalid_conteudo" class="invalid-feedback text-left">
+                            <b>Campo obrigatório</b>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" ng-click="createCtrl.closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-info" ng-disabled="createCtrl.processando">
+                        <div class="spinner-button" ng-if="createCtrl.processando">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div></div>
+                        </div>
+                        <span ng-if="!createCtrl.processando">Salvar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

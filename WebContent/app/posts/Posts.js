@@ -1,13 +1,19 @@
-app.controller("PostsController", function($stateParams, DevShareService) {
+app.controller("PostsController", function($stateParams, DevShareService, Auth) {
 	this.pesquisa = $stateParams.search;
-	this.buscar = function() {
-        DevShareService.objRest.one('/pesquisar/' + this.pesquisa).get()
+	this.retornoPesquisa = false;
+	this.user = Auth.getUser();
+
+	this.$onInit = () => {
+	    let nomeRequisicao = (this.pesquisa != null)
+	        ? '/pesquisar/' + this.pesquisa : '/postagem';
+
+        DevShareService.objRest.one(nomeRequisicao).get()
         .then((response) => {
             this.retornoPesquisa = response.data;
-            return response;
         })
 	}
 
-	this.retornoPesquisa = ['Não foi encontrado nenhum resultado'];
-	this.buscar()
+	this.criarPost = function() {
+        $('#createPostModal').modal('show');
+    }
 })
