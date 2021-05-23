@@ -2,7 +2,7 @@
     <div class="modal-dialog scroll_modal modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Criar Postagem</h3>
+                <h3>{{createCtrl.isResponseForm() ? 'Responder Postagem' : 'Criar Postagem'}}</h3>
                 <button type="button" class="close" ng-click="createCtrl.closeModal()" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,8 +12,8 @@
 
                 <div class="modal-body" id="modal_body_create_post">
 
-                    <div class="form-group required">
-                        <label class="control-label">Título</label>
+                    <div class="form-group required" ng-if="!createCtrl.isResponseForm()">
+                        <label for="titulo" class="control-label">Título</label>
                         <input type="text" name="titulo" id="titulo" required class="form-control"
                             ng-model="createCtrl.post.titulo" aria-describedby="invalid_titulo"
                             ng-class="{'is-invalid': $root.invalid(createPostForm, createPostForm.titulo)}"/>
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="form-group required">
-                        <label for="conteudo">Pergunta</label>
+                        <label for="conteudo">{{createCtrl.isResponseForm() ? 'Resposta' : 'Pergunta'}}</label>
                         <textarea class="form-control" id="conteudo" name="conteudo" rows="3" required
                             ng-model="createCtrl.post.conteudo" aria-describedby="invalid_conteudo"
                             ng-class="{'is-invalid': $root.invalid(createPostForm, createPostForm.conteudo)}"></textarea>
@@ -44,7 +44,7 @@
                             <div class="bounce2"></div>
                             <div></div>
                         </div>
-                        <span ng-if="!createCtrl.processando">Salvar</span>
+                        <span ng-if="!createCtrl.processando">{{createCtrl.isResponseForm() ? 'Responder' : 'Salvar'}}</span>
                     </button>
                 </div>
             </form>

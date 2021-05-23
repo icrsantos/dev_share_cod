@@ -1,12 +1,13 @@
 <div ng-controller="PostController as postCtrl" class="expanded-post">
 
+    <input id="responded-post-id" value="" type="hidden">
     <div class="card question-card">
         <div class="card-header post-header">
             <h4><span class="score-number">{{postCtrl.post.nomeAutor}}:</span> {{postCtrl.post.titulo}}</h4>
             <div class="score-box">
                 <button class="btn btn-link color-green" title="Like"
-                   id="button-like-{{postCtrl.post.id}}"
-                   ng-click="postCtrl.giveLike(postCtrl.post.id)">
+                        id="button-like-{{postCtrl.post.id}}"
+                        ng-click="postCtrl.giveLike(postCtrl.post.id)">
                     <i class="fa fa-chevron-circle-up fa-lg"></i>
                 </button>
                 <span class="score-number" title="Likes">{{postCtrl.post.curtidas}}</span>
@@ -20,13 +21,16 @@
         <div class="card-body">
             <p class="card-text">{{postCtrl.post.conteudo}}</p>
             <div class="post-buttons">
-                <a href="#" class="btn btn-success" title="Responder">
+                <a class="btn btn-success" title="Responder"
+                   ng-click="postCtrl.respondPost(postCtrl.post.id)">
                     <i class="fa fa-comment"></i>
                 </a>
-                <a id="button-echo-question" href="#" class="btn echo-question-button" title="Ecoar Pergunta"
-                   ng-click="postCtrl.echoPost(postCtrl.post.id)">
-                    <i class="fa fa-star"></i>
-                </a>
+                <button id="button-echo-question" class="btn echo-question-button"
+                        title="Ecoar Pergunta"
+                        ng-click="postCtrl.echoPost(postCtrl.post.id)">
+                    <i ng-class="{'fa fa-star': !postCtrl.alreadyEchoed,
+                                  'fa fa-check': postCtrl.alreadyEchoed}"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -52,7 +56,8 @@
                 <div class="card-body">
                     <p class="card-text">{{post.conteudo}}</p>
                     <div class="post-buttons">
-                        <a href="#" class="btn btn-success" title="Responder">
+                        <a class="btn btn-success" title="Responder"
+                           ng-click="postCtrl.respondPost(post.id)">
                             <i class="fa fa-comment"></i>
                         </a>
                     </div>
@@ -79,6 +84,10 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
+
 </div>
+<createpost></createpost>
+

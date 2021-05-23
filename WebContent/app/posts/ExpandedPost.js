@@ -1,8 +1,10 @@
-app.controller("PostController", function ($stateParams, DevShareService, Auth, $rootScope) {
+app.controller("PostController", function ($stateParams, DevShareService, Auth, $state) {
 
     this.user = Auth.getUser();
     this.post = null;
     this.retornoRespostas = null;
+    this.alreadyEchoed = null;
+    this.respondedPostId = null;
 
     this.$onInit = async function () {
         DevShareService.objRest.one('/postagem/' + $stateParams.id).get()
@@ -14,13 +16,16 @@ app.controller("PostController", function ($stateParams, DevShareService, Auth, 
                     .then((response) => {
                         this.retornoRespostas = response.data;
                     });
+                await DevShareService.objRest.one('/postagem/ecoExiste/' + this.user.id + '/' + $stateParams.id).get()
+                    .then((response) => {
+                        this.alreadyEchoed = response.data === "True";
+                    });
                 this.defineScoringButtonStatus();
-                this.defineEchoButtonStatus($stateParams.id);
             });
-
     }
 
     this.giveLike = function (postId) {
+        this.likeButtonLoading(postId);
         if (this.user) {
             DevShareService.objRest.one('/postagem/jaAvaliada/' + this.user.id + '/' + postId).get()
                 .then((response) => {
@@ -34,10 +39,13 @@ app.controller("PostController", function ($stateParams, DevShareService, Auth, 
                             });
                     }
                 });
+        } else {
+            $state.go("login");
         }
     }
 
     this.giveDislike = function (postId) {
+        this.dislikeButtonLoading(postId);
         if (this.user) {
             DevShareService.objRest.one('/postagem/jaAvaliada/' + this.user.id + '/' + postId).get()
                 .then((response) => {
@@ -51,6 +59,8 @@ app.controller("PostController", function ($stateParams, DevShareService, Auth, 
                             });
                     }
                 });
+        } else {
+            $state.go("login");
         }
     }
 
@@ -63,7 +73,7 @@ app.controller("PostController", function ($stateParams, DevShareService, Auth, 
 
     this.defineScoringButtonStatus = function () {
         if (this.user) {
-            let scoreButtons = document.getElementsByClassName('btn-link')
+            let scoreButtons = document.getElementsByClassName('btn-link');
             for (let i = 0; i < scoreButtons.length; i++) {
                 let id = scoreButtons[i].id
                     .replace("button-like-", "")
@@ -72,51 +82,63 @@ app.controller("PostController", function ($stateParams, DevShareService, Auth, 
                     .then((response) => {
                         let operation = response.data;
                         if (operation === "LIKE") {
-                            document.getElementById('button-dislike-' + id).disabled = true;
+                            $('#button-dislike-' + id).prop('disabled', true);
                         } else if (operation === 'DISLIKE') {
-                            document.getElementById('button-like-' + id).disabled = true;
+                            $('#button-like-' + id).prop('disabled', true);
                         }
                     });
             }
-        }
-    }
-
-    this.defineEchoButtonStatus = function (postId) {
-        if (this.user) {
-            DevShareService.objRest.one('/postagem/ecoExiste/' + this.user.id + '/' + postId).get()
-                .then((response) => {
-                    let alreadyEchoed = response.data;
-                    if (alreadyEchoed === "True") {
-                        this.echoButtonAlreadyUsed();
-                    }
-                });
+        } else {
+            $state.go("login");
         }
     }
 
     this.echoPost = function (postId) {
+        this.echoButtonLoading();
         if (this.user) {
-            DevShareService.objRest.one('/postagem/ecoExiste/' + this.user.id + '/' + postId).get()
-                .then((response) => {
-                    let alreadyEchoed = response.data;
-                    if (alreadyEchoed === "True") {
-                        DevShareService.objRest.one('/postagem/removerEco/' + this.user.id + '/' + postId).post()
-                            .finally(() => {
-                                window.location.reload();
-                            });
-                    }
-                    else{
-                        DevShareService.objRest.one('/postagem/ecoar/' + this.user.id + '/' + postId).post()
-                            .finally(() => {
-                                window.location.reload();
-                            });
-                    }
-                });
-
+            if (this.alreadyEchoed) {
+                DevShareService.objRest.one('/postagem/removerEco/' + this.user.id + '/' + postId).post()
+                    .finally(() => {
+                        window.location.reload();
+                    });
+            } else {
+                DevShareService.objRest.one('/postagem/ecoar/' + this.user.id + '/' + postId).post()
+                    .finally(() => {
+                        window.location.reload();
+                    });
+            }
+        } else {
+            $state.go("login");
         }
     }
 
-    this.echoButtonAlreadyUsed = function () {
-        document.getElementById("button-echo-question").innerHTML = '<i class="fa fa-check"></i>';
-        document.getElementById("button-echo-question").title = 'Postagem Ecoada!';
+    this.respondPost = function (postId) {
+        $('#responded-post-id').val(postId);
+        $('#createPostModal').modal('show');
     }
+
+    this.likeButtonLoading = function (id) {
+        let botao = $('#button-like-' + id);
+        botao.html("<div class='spinner-border spinner-border-sm text-light' role='status'>\n" +
+            "  <span class='sr-only'>Loading...</span>\n" +
+            "</div>");
+        botao.prop('disabled', true);
+    }
+
+    this.dislikeButtonLoading = function (id) {
+        let botao = $('#button-dislike-' + id);
+        botao.html("<div class='spinner-border spinner-border-sm text-light' role='status'>\n" +
+            "  <span class='sr-only'>Loading...</span>\n" +
+            "</div>");
+        botao.prop('disabled', true);
+    }
+
+    this.echoButtonLoading = function () {
+        let botao = $('#button-echo-question');
+        botao.html("<div class='spinner-border spinner-border-sm text-light' role='status'>\n" +
+            "  <span class='sr-only'>Loading...</span>\n" +
+            "</div>");
+        botao.prop('disabled', true);
+    }
+
 })
