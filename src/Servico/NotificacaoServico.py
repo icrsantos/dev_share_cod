@@ -75,7 +75,7 @@ def notificar_eco_de_postagem(usuario_ecoador, postagem_ecoada):
         __criar_notificacao(
             postagem_ecoada,
             TipoNotificacaoEnum.ECO,
-            "A postagem " + postagem_ecoada.titulo + " foi ecoada por \"" + usuario_ecoador.nome + "\"!"
+            "A postagem " + postagem_ecoada.titulo + " foi ecoada por " + usuario_ecoador.nome + "!"
         )
         __enviar_notificacao_autor(postagem_ecoada, mensagem)
         __enviar_notificacao_usuarios_que_ecoam_postagem(postagem_ecoada, mensagem)
