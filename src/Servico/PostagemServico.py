@@ -56,22 +56,25 @@ def validar_postagem_json(postagem_json):
         raise Exception("A ID do usuário não foi inseida!")
 
 
-def pesquisar_postagens(pesquisa):
+def pesquisar_postagens(pesquisa): #lal
     postagem_repositorio = PostagemRepositorio()
     tuplas = postagem_repositorio.pesquisar_postagens_por_texto(pesquisa)
-    return __lista_tuplas_para_lista_json(tuplas)
+    postagens_json = __lista_tuplas_para_lista_json(tuplas)
+    return __adicionar_nome_autor_e_respostas_a_lista_postagem(postagens_json)
 
 
 def buscar_perguntas_de_usuario(ususario_id):
     postagem_repositorio = PostagemRepositorio()
     tuplas = postagem_repositorio.buscar_perguntas_de_usuario(ususario_id)
-    return __lista_tuplas_para_lista_json(tuplas)
+    postagens_json = __lista_tuplas_para_lista_json(tuplas)
+    return __adicionar_nome_autor_e_respostas_a_lista_postagem(postagens_json)
 
 
 def buscar_respostas_de_usuario(ususario_id):
     postagem_repositorio = PostagemRepositorio()
     tuplas = postagem_repositorio.buscar_respostas_de_usuario(ususario_id)
-    return __lista_tuplas_para_lista_json(tuplas)
+    postagens_json = __lista_tuplas_para_lista_json(tuplas)
+    return __adicionar_nome_autor_e_respostas_a_lista_postagem(postagens_json)
 
 
 def __lista_tuplas_para_lista_json(tuplas):
@@ -111,14 +114,14 @@ def __responder_postagem(postagem_respondida_id):
         log.erro('Erro ao responder a postagem ID: ' + str(postagem_respondida_id), erro)
 
 
-def __adicionar_nome_autor_e_respostas_a_lista_postagem(postagens):
+def __adicionar_nome_autor_e_respostas_a_lista_postagem(postagens_json):
     postagem_repositorio = PostagemRepositorio()
-    for postagem in postagens:
+    for postagem in postagens_json:
         postagem['nomeAutor'] = UsuarioServico.buscar_nome_usuario_por_id(postagem['usuarioId'])
         comentarios_de_resposta = postagem_repositorio.buscar_respostas_a_postagem(postagem['id'])
         comentarios_lista = __lista_tuplas_para_lista_json(comentarios_de_resposta)
         postagem['comentarios'] = __adicionar_nome_autor_e_respostas_a_lista_postagem(comentarios_lista)
-    return postagens
+    return postagens_json
 
 
 def criar_ou_atualizar(postagem):

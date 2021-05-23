@@ -218,6 +218,17 @@ input[name=email]:-webkit-autofill {
     overflow-y: scroll;
 }
 
+.clickable{
+    cursor: pointer;
+}
+
+.post-information {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: left;
+}
+
 /************** Expanded Post Styles: **************/
 
 .expanded-post {
@@ -230,6 +241,7 @@ input[name=email]:-webkit-autofill {
 
 .question-card{
     box-shadow: 0 10px 6px -6px #777;
+    margin-bottom: 20px;
 }
 
 .post-header {

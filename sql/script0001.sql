@@ -81,11 +81,12 @@ create table historico_notificacoes
 
 create table curtidas
 (
-    id             int auto_increment primary key,
-    data_insercao  datetime(6) not null,
-    data_alteracao datetime(6) not null,
-    usuario_id     int         not null,
-    postagem_id    int         not null,
+    id             int auto_increment  primary key,
+    data_insercao  datetime(6)                not null,
+    data_alteracao datetime(6)                not null,
+    usuario_id     int                        not null,
+    postagem_id    int                        not null,
+    operacao       varchar(10) default 'LIKE' not null,
     constraint curtidas_id_uindex
         unique (id),
     constraint curtidas_pk
@@ -95,4 +96,3 @@ create table curtidas
     constraint curtidas_usuario_id_fk
         foreign key (usuario_id) references usuario (id)
 );
-

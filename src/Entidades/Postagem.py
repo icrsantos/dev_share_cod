@@ -17,7 +17,6 @@ class Postagem:
         self.relevancia = 0
         self.curtidas = 0
         self.qtd_respostas = 0
-        self.nome_autor = None
 
     def definir_por_json(self, postagem_json):
         if "id" in postagem_json:
@@ -64,8 +63,7 @@ class Postagem:
         texto_json += '\t\t\"dataInsercao\": \"' + str(self.data_insercao) + '\",\n'
         texto_json += '\t\t\"relevancia\": ' + str(self.relevancia) + ',\n'
         texto_json += '\t\t\"curtidas\": ' + str(self.curtidas) + ',\n'
-        texto_json += '\t\t\"situacao\": \"' + self.situacao + '\",\n'
-        texto_json += '\t\t\"nome_autor\": \"' + self.nome_autor + '\",\n'
+        texto_json += '\t\t\"situacao\": \"' + str(self.situacao) + '\",\n'
         texto_json += '\t\t\"qtd_respostas\": ' + str(self.qtd_respostas) + '\n'
         texto_json += '}'
         return texto_json
