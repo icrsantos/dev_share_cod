@@ -64,6 +64,21 @@ def postagem_ja_curtida_por_usuario(usuario_id, postagem_id):
     return str(CurtidasServico.postagem_ja_curtida_por_usuario(usuario_id, postagem_id))
 
 
+@app.route('/api/postagem/ecoar/<usuario_id>/<postagem_id>', methods=['POST'])
+def ecoar(usuario_id, postagem_id):
+    return str(EcoPostagemServico.criar_eco(usuario_id, postagem_id))
+
+
+@app.route('/api/postagem/ecoExiste/<usuario_id>/<postagem_id>', methods=['GET'])
+def eco_existe(usuario_id, postagem_id):
+    return str(EcoPostagemServico.eco_existe(usuario_id, postagem_id))
+
+
+@app.route('/api/postagem/removerEco/<usuario_id>/<postagem_id>', methods=['POST'])
+def remover_eco(usuario_id, postagem_id):
+    return str(EcoPostagemServico.remover_eco_postagem(usuario_id, postagem_id))
+
+
 @app.route('/api/postagem/removerCurtida/<usuario_id>/<postagem_id>', methods=['POST'])
 def remover_curtida_de_usuario(usuario_id, postagem_id):
     return str(CurtidasServico.remover_curtida_usuario(usuario_id, postagem_id))

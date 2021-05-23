@@ -1,0 +1,2 @@
+ECO = 'ECO'
+RESPOSTA = 'RESPOSTA'
