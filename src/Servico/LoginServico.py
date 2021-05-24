@@ -8,8 +8,7 @@ def criar_usuario(usuario_json):
     usuario = Usuario()
     usuario_json["senha"] = encriptar_senha(usuario_json["senha"])
     usuario.definir_por_json(usuario_json)
-
-    if usuario.id:
+    if usuario.id is not None:
         return usuario_repositorio.editar(usuario)
     else:
         return usuario_repositorio.salvar(usuario)
