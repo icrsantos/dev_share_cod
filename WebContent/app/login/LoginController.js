@@ -6,7 +6,7 @@ app.controller("LoginController", function (DevShareService, $state, Auth) {
         this.processando = true;
         DevShareService.objRest.one('/login').customPOST(this.data)
             .then((response) => {
-                if (response.data !== 'False') {
+                if (response.data && response.data !== 'False') {
                     Auth.setUser(response.data);
                     $state.go("home");
                 }
