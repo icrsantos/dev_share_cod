@@ -25,7 +25,7 @@ def validar_usuario():
 @app.route('/api/usuario', methods=['POST'])
 def criar_usuario():
     usuario_json = request.json
-    return LoginServico.criar_usuario(usuario_json)
+    return str(LoginServico.criar_usuario(usuario_json))
 
 
 @app.route('/api/postagem', methods=['POST'])
