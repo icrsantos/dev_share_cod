@@ -29,7 +29,7 @@ class UsuarioRepositorio:
             return id_criacao
         except Exception as erro:
             self.log.erro('Erro ao inserir usuario', erro)
-            return str(0)
+            return str(erro)
 
     def validar(self, nome, senha):
         try:
