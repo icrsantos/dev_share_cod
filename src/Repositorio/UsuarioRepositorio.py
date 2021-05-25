@@ -47,7 +47,7 @@ class UsuarioRepositorio:
             return resultado[0] == 1
         except Exception as erro:
             self.log.erro('Erro ao validar usuario', erro)
-            return False
+            return str(erro)
 
     def buscar_por_id(self, usuario_id):
         try:
