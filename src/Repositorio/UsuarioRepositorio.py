@@ -101,3 +101,20 @@ class UsuarioRepositorio:
         except Exception as erro:
             self.log.erro('Erro ao editar o usuario', erro)
             return str(0)
+
+    def validar_email(self, email):
+        try:
+            self.log.info('Validando email ' + email)
+            executor = self.criador_conexao.criar_executor()
+            sql = "SELECT count(*) " \
+                  "FROM usuario " \
+                  "WHERE email = %s "
+            parametros = (email,)
+            executor.execute(sql, parametros)
+            resultado = executor.fetchone()
+            self.criador_conexao.fechar_executor()
+            self.log.info('Email ' + email + ' validado: ' + str(resultado[0] == 1))
+            return resultado[0] == 1
+        except Exception as erro:
+            self.log.erro('Erro ao validar email', erro)
+            return str(erro)

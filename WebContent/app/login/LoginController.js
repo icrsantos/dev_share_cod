@@ -1,4 +1,4 @@
-app.controller("LoginController", function (DevShareService, $state, Auth) {
+app.controller("LoginController", function (DevShareService, $state, Auth, $rootScope) {
     this.data = {};
     this.processando = false;
 

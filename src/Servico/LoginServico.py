@@ -28,6 +28,20 @@ def validar_usuario(usuario_json):
         return usuario_repositorio.validar(nome, senha)
 
 
+def validar_usuario_google(usuario_json):
+    usuario_repositorio = UsuarioRepositorio()
+    usuario = Usuario()
+
+    usuario.senha = usuario_json["MT"]
+    usuario.email = usuario_json["ou"]
+    usuario.nome = usuario_json["wV"]
+
+    if not usuario_repositorio.validar_email(usuario_json["ou"]):
+        usuario_repositorio.salvar(usuario)
+
+    return usuario
+
+
 def encriptar_senha(senha):
     senha_em_bytes = senha.encode('utf-8')
     hash_object = hashlib.sha1(senha_em_bytes)

@@ -333,3 +333,9 @@ input[name=email]:-webkit-autofill {
     padding: 5px;
     align-items: center;
 }
+
+.g-signin2,
+.g-signin2 .abcRioButton {
+display: block;
+margin: 20px auto 0 auto;
+text-align: center;

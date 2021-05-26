@@ -19,6 +19,19 @@ app.run(function($rootScope, Restangular, Auth, $state) {
         return  $state.$current.name == name;
     };
 
+    onSignIn = function(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        if(!Auth.getUser() && profile.getId()) {
+            Restangular.one('/autenticar_usuario').customPOST(profile)
+            .then((response) => {
+                if (response && response !== 'False') {
+                    Auth.setUser(response);
+                    $state.go("home");
+                }
+            })
+        }
+    };
+
     setInterval(function() {
         if(Auth.getUser()) {
             Restangular.one('/new-notifications/' + Auth.getUser().id).get()
@@ -28,5 +41,6 @@ app.run(function($rootScope, Restangular, Auth, $state) {
             }));
         }
     }, 1000 * 60);
+
 })
 window.app = app;
