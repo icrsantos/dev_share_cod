@@ -35,6 +35,8 @@ def validar_usuario_google(usuario_json):
     usuario.senha = usuario_json["MT"]
     usuario.email = usuario_json["ou"]
     usuario.nome = usuario_json["wV"]
+    usuario.provedor = usuario_json["uK"]
+    usuario.pontos = 0
 
     if not usuario_repositorio.validar_email(usuario_json["ou"]):
         usuario_repositorio.salvar(usuario)

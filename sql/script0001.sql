@@ -96,3 +96,5 @@ create table curtidas
     constraint curtidas_usuario_id_fk
         foreign key (usuario_id) references usuario (id)
 );
+
+ALTER TABLE USUARIO ADD provedor varchar(80);

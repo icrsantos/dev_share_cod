@@ -12,14 +12,16 @@ class UsuarioRepositorio:
             self.log.info('Criando o usuario: ' + usuario.nome)
             executor = self.criador_conexao.criar_executor()
             sql = "INSERT INTO usuario " \
-                  "(data_insercao, data_alteracao, nome, email, senha) " \
-                  "VALUES (%s, %s, %s, %s, %s)"
+                  "(data_insercao, data_alteracao, nome, email, senha, provedor, pontos) " \
+                  "VALUES (%s, %s, %s, %s, %s, %s, %s)"
             parametros = (
                 usuario.data_insercao,
                 usuario.data_alteracao,
                 usuario.nome,
                 usuario.email,
-                usuario.senha
+                usuario.senha,
+                usuario.provedor,
+                usuario.pontos
             )
             executor.execute(sql, parametros)
             self.criador_conexao.commit_mudancas()
