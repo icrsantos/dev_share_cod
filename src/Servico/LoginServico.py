@@ -39,7 +39,7 @@ def validar_usuario_google(usuario_json):
     usuario.pontos = 0
 
     if not usuario_repositorio.validar_email(usuario_json["ou"]):
-        usuario_repositorio.salvar(usuario)
+        usuario.id = usuario_repositorio.salvar(usuario)
 
     return usuario
 
